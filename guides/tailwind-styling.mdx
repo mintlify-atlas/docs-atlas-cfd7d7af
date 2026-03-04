@@ -1,0 +1,398 @@
+---
+title: Tailwind styling
+description: Complete guide to using Tailwind CSS in email templates, including configuration, limitations, and best practices
+---
+
+ReactUI Email provides full Tailwind CSS support for styling email templates. The `Tailwind` component from React Email converts Tailwind classes into inline styles that work across all email clients.
+
+## Basic usage
+
+Wrap your email content with the `Tailwind` component to enable Tailwind CSS:
+
+```tsx
+import { Body, Container, Html, Tailwind, Text } from "@react-email/components";
+
+export default function Email() {
+  return (
+    <Html>
+      <Tailwind>
+        <Body className="bg-gray-50 font-sans">
+          <Container className="mx-auto px-4 py-5">
+            <Text className="text-lg font-semibold text-gray-900">
+              Hello World
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+<Info>
+The `Tailwind` component automatically converts Tailwind classes to inline styles during rendering, ensuring compatibility with all email clients.
+</Info>
+
+## Custom Tailwind configuration
+
+You can extend Tailwind's default configuration to match your brand. ReactUI Email templates include custom configurations for colors, fonts, and border radius.
+
+### Basic configuration
+
+```tsx
+import { Html, Tailwind } from "@react-email/components";
+
+export default function Email() {
+  return (
+    <Html>
+      <Tailwind
+        config={{
+          theme: {
+            extend: {
+              colors: {
+                brand: "#0099ff",
+                primary: "#1a1a1a",
+              },
+            },
+          },
+        }}
+      >
+        {/* Email content */}
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+### Complete configuration example
+
+Here's a real example from the ReactUI Email templates:
+
+```tsx src/email/myna-ui/1-welcome-email.tsx
+import { Html, Tailwind, Body, Container } from "@react-email/components";
+
+export default function MynaUIWelcomeEmail() {
+  return (
+    <Html>
+      <Tailwind
+        config={{
+          darkMode: "class",
+          theme: {
+            extend: {
+              fontFamily: {
+                sans: ["var(--font-sans)"],
+              },
+              colors: {
+                brand: "#155dfc",
+                background: "hsl(var(--background))",
+                foreground: "hsl(var(--foreground))",
+                primary: {
+                  DEFAULT: "#314158",
+                  foreground: "hsl(var(--primary-foreground))",
+                },
+                text: {
+                  light: "#314158",
+                  dark: "#f1f5f9",
+                },
+              },
+              borderRadius: {
+                lg: "var(--radius)",
+                md: "calc(var(--radius) - 3.5px)",
+                sm: "calc(var(--radius) - 4px)",
+              },
+            },
+          },
+        }}
+      >
+        <Body className="font-sans">
+          <Container className="mx-auto mb-5 px-4 py-5">
+            {/* Email content */}
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+## Supported Tailwind features
+
+### Spacing and sizing
+
+All spacing utilities work as expected:
+
+```tsx
+<Section className="mt-4 mb-6 px-4 py-5">
+  <Text className="p-4 m-0">Content</Text>
+</Section>
+```
+
+### Typography
+
+```tsx
+<Text className="text-base font-semibold leading-6 tracking-tight">
+  Styled text
+</Text>
+```
+
+<CodeGroup>
+```tsx Font sizes
+<Text className="text-sm">Small text</Text>
+<Text className="text-base">Base text</Text>
+<Text className="text-lg">Large text</Text>
+<Text className="text-xl">Extra large</Text>
+<Text className="text-2xl">2X large</Text>
+```
+
+```tsx Font weights
+<Text className="font-normal">Normal weight</Text>
+<Text className="font-medium">Medium weight</Text>
+<Text className="font-semibold">Semibold</Text>
+<Text className="font-bold">Bold</Text>
+```
+
+```tsx Text alignment
+<Text className="text-left">Left aligned</Text>
+<Text className="text-center">Center aligned</Text>
+<Text className="text-right">Right aligned</Text>
+```
+</CodeGroup>
+
+### Colors
+
+```tsx
+<Text className="text-gray-900 bg-gray-50">
+  Colored text with background
+</Text>
+
+<Button className="bg-blue-600 text-white">
+  Colored button
+</Button>
+```
+
+### Layout
+
+```tsx
+<Container className="mx-auto max-w-2xl">
+  <Section className="flex items-center justify-center">
+    <Text>Centered content</Text>
+  </Section>
+</Container>
+```
+
+### Borders and shadows
+
+```tsx
+<Section className="border border-gray-200 rounded-lg">
+  <Text>Content with border</Text>
+</Section>
+```
+
+<Warning>
+Box shadows have limited support in email clients. Use borders instead when possible.
+</Warning>
+
+## Email-specific limitations
+
+Not all Tailwind features work reliably in email clients. Here's what to avoid:
+
+### Not recommended
+
+<AccordionGroup>
+  <Accordion title="Flexbox and Grid">
+    While modern email clients support flexbox, many older clients don't. Use table-based layouts (via `Row` and `Column` components) for better compatibility.
+    
+    ```tsx
+    // ❌ Limited support
+    <div className="flex gap-4">
+      <div className="flex-1">Content</div>
+    </div>
+    
+    // ✅ Better compatibility
+    <Row>
+      <Column>Content</Column>
+    </Row>
+    ```
+  </Accordion>
+
+  <Accordion title="Position utilities">
+    Absolute and fixed positioning don't work in most email clients.
+    
+    ```tsx
+    // ❌ Avoid
+    <div className="absolute top-0 right-0">Badge</div>
+    
+    // ✅ Use alignment instead
+    <Section className="text-right">
+      <Text>Badge</Text>
+    </Section>
+    ```
+  </Accordion>
+
+  <Accordion title="Transform and transitions">
+    CSS transforms and animations are not supported in email.
+    
+    ```tsx
+    // ❌ Avoid
+    <div className="transform rotate-45 transition-all">
+    
+    // ✅ Use static styles
+    <div className="bg-blue-600">
+    ```
+  </Accordion>
+
+  <Accordion title="Pseudo-classes">
+    Hover states work in some clients but not all. Don't rely on them for critical functionality.
+    
+    ```tsx
+    // ⚠️ Limited support
+    <Button className="hover:bg-blue-700">
+      Button
+    </Button>
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Using custom colors
+
+Define your brand colors in the Tailwind config:
+
+<Steps>
+  <Step title="Add colors to config">
+    ```tsx
+    <Tailwind
+      config={{
+        theme: {
+          extend: {
+            colors: {
+              brand: "#0099ff",
+              accent: "#ff6719",
+              muted: "#738A94",
+            },
+          },
+        },
+      }}
+    >
+    ```
+  </Step>
+
+  <Step title="Use custom colors in classes">
+    ```tsx
+    <Button className="bg-brand text-white px-6 py-3 rounded-lg">
+      Get Started
+    </Button>
+    
+    <Text className="text-muted">
+      Secondary text
+    </Text>
+    ```
+  </Step>
+</Steps>
+
+## Responsive design
+
+Use responsive classes for mobile-friendly emails:
+
+```tsx
+<Section className="px-4 sm:px-6">
+  <Text className="text-base sm:text-lg">
+    Responsive text
+  </Text>
+</Section>
+```
+
+<Info>
+Most email clients support media queries, but test your templates on actual devices to ensure they work as expected.
+</Info>
+
+## Inline styles with Tailwind
+
+Sometimes you need inline styles for maximum compatibility. You can combine Tailwind classes with inline styles:
+
+```tsx
+<table
+  style={{
+    border: "1px solid rgb(39 39 42 / 0.1)",
+    borderRadius: "8px",
+    borderCollapse: "collapse",
+  }}
+  className="w-full"
+>
+  <tr>
+    <td className="p-6">
+      Content
+    </td>
+  </tr>
+</table>
+```
+
+## Best practices
+
+<CardGroup cols={2}>
+  <Card title="Keep it simple" icon="minimize">
+    Use basic Tailwind utilities. Complex layouts may not work in all clients.
+  </Card>
+  
+  <Card title="Test thoroughly" icon="vial">
+    Test your emails in multiple clients, especially Outlook and Gmail.
+  </Card>
+  
+  <Card title="Use semantic colors" icon="palette">
+    Define brand colors in the config instead of using arbitrary values.
+  </Card>
+  
+  <Card title="Mobile first" icon="mobile">
+    Most emails are opened on mobile. Design for small screens first.
+  </Card>
+</CardGroup>
+
+<Tip>
+The `Tailwind` component from React Email automatically handles converting classes to inline styles, so you don't need to worry about email client CSS support.
+</Tip>
+
+## Common patterns
+
+### Button with brand color
+
+```tsx src/email/components/button/single.tsx
+<Button
+  className="bg-brand rounded-[8px] px-[24px] py-[12px] text-center text-[14px] font-semibold text-zinc-50"
+  href="https://example.com"
+>
+  Get Started
+</Button>
+```
+
+### Card layout
+
+```tsx
+<Section className="rounded-lg bg-gray-50 p-6 border border-gray-200">
+  <Text className="text-lg font-semibold text-gray-900 m-0">
+    Card title
+  </Text>
+  <Text className="text-base text-gray-600 mt-2">
+    Card description
+  </Text>
+</Section>
+```
+
+### Image with rounded corners
+
+```tsx
+<Img
+  src="https://example.com/image.png"
+  alt="Description"
+  className="w-full rounded-lg"
+/>
+```
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Customization" icon="palette" href="/guides/customization">
+    Learn how to customize templates with your branding
+  </Card>
+  <Card title="React Email basics" icon="react" href="/guides/react-email-basics">
+    Understand React Email components and patterns
+  </Card>
+</CardGroup>

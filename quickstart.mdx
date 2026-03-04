@@ -1,80 +1,183 @@
 ---
-title: "Quickstart"
-description: "Start building awesome documentation in minutes"
+title: Quickstart
+description: Get started with ReactUI Email in minutes by installing the package and sending your first email
 ---
 
-## Get started in three steps
+This guide will help you send your first email using ReactUI Email in under 5 minutes.
 
-Get your documentation site running locally and make your first customization.
+## Prerequisites
 
-### Step 1: Set up your local environment
+Before you begin, make sure you have:
 
-<AccordionGroup>
-  <Accordion icon="copy" title="Clone your docs locally">
-    During the onboarding process, you created a GitHub repository with your docs content if you didn't already have one. You can find a link to this repository in your [dashboard](https://dashboard.mintlify.com).
-    
-    To clone the repository locally so that you can make and preview changes to your docs, follow the [Cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) guide in the GitHub docs.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Start the preview server">
-    1. Install the Mintlify CLI: `npm i -g mint`
-    2. Navigate to your docs directory and run: `mint dev`
-    3. Open `http://localhost:3000` to see your docs live!
-    
-    <Tip>Your preview updates automatically as you edit files.</Tip>
-  </Accordion>
-</AccordionGroup>
+- Node.js 20 or later installed
+- A React or Next.js project (or create a new one)
+- An email service provider (like Resend, SendGrid, or Nodemailer)
 
-### Step 2: Deploy your changes
+<Steps>
+  <Step title="Install dependencies">
+    Install ReactUI Email and React Email components using your preferred package manager:
 
-<AccordionGroup>
-  <Accordion icon="github" title="Install our GitHub app">
-    Install the Mintlify GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
-    
-    Our GitHub app automatically deploys your changes to your docs site, so you don't need to manage deployments yourself.
-</Accordion>
-<Accordion icon="palette" title="Update your site name and colors">
-    For a first change, let's update the name and colors of your docs site.
+    <CodeGroup>
+      ```bash npm
+      npm install @react-email/components @react-email/render
+      ```
 
-    1. Open `docs.json` in your editor.
-    2. Change the `"name"` field to your project name.
-    3. Update the `"colors"` to match your brand.
-    4. Save and see your changes instantly at `http://localhost:3000`.
+      ```bash pnpm
+      pnpm add @react-email/components @react-email/render
+      ```
 
-    <Tip>Try changing the primary color to see an immediate difference!</Tip>
-  </Accordion>
-</AccordionGroup>
+      ```bash yarn
+      yarn add @react-email/components @react-email/render
+      ```
 
-### Step 3: Go live
+      ```bash bun
+      bun add @react-email/components @react-email/render
+      ```
+    </CodeGroup>
 
-<Accordion icon="rocket" title="Publish your docs">
-  1. Commit and push your changes.
-  2. Your docs will update and be live in moments!
-</Accordion>
+    <Info>
+      The `@react-email/render` package is used to convert React components into HTML that can be sent via email.
+    </Info>
+  </Step>
+
+  <Step title="Copy an email template">
+    Browse the available templates in the [source repository](https://github.com/sutharjay1/reactui-email) and copy one to your project. For example, create a welcome email:
+
+    ```tsx src/emails/welcome.tsx
+    import {
+      Body,
+      Container,
+      Head,
+      Heading,
+      Html,
+      Link,
+      Preview,
+      Section,
+      Tailwind,
+      Text,
+    } from "@react-email/components";
+
+    export default function WelcomeEmail() {
+      return (
+        <Html>
+          <Head />
+          <Preview>Welcome to our platform!</Preview>
+          <Tailwind>
+            <Body className="font-sans">
+              <Container className="mx-auto my-[20px] px-4 py-5">
+                <Section className="mt-8">
+                  <Heading className="text-2xl font-bold">Welcome!</Heading>
+                  <Text className="text-base">
+                    Thanks for joining us. We're excited to have you on board.
+                  </Text>
+                  <Text className="text-base">
+                    Get started by exploring our platform and setting up your profile.
+                  </Text>
+                </Section>
+                <Section className="mt-8">
+                  <Link 
+                    href="https://yourapp.com/get-started"
+                    className="bg-blue-600 text-white px-6 py-3 rounded-lg"
+                  >
+                    Get Started
+                  </Link>
+                </Section>
+              </Container>
+            </Body>
+          </Tailwind>
+        </Html>
+      );
+    }
+    ```
+
+    <Tip>
+      You can find complete, production-ready templates in the [Templates](/templates/overview) section.
+    </Tip>
+  </Step>
+
+  <Step title="Render the template to HTML">
+    Use the `render` function from `@react-email/render` to convert your React component to HTML:
+
+    ```tsx src/lib/email.ts
+    import { render } from "@react-email/render";
+    import WelcomeEmail from "@/emails/welcome";
+
+    export async function getWelcomeEmailHtml() {
+      const html = await render(<WelcomeEmail />, {
+        pretty: true,
+      });
+      return html;
+    }
+    ```
+
+    The `pretty` option formats the HTML output for better readability during development.
+  </Step>
+
+  <Step title="Send the email">
+    Use your email service provider to send the rendered HTML. Here's an example using Nodemailer:
+
+    ```tsx src/lib/send-email.ts
+    import nodemailer from "nodemailer";
+    import { getWelcomeEmailHtml } from "./email";
+
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: parseInt(process.env.SMTP_PORT || "587"),
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASSWORD,
+      },
+    });
+
+    export async function sendWelcomeEmail(to: string) {
+      const html = await getWelcomeEmailHtml();
+      
+      await transporter.sendMail({
+        from: "noreply@yourapp.com",
+        to,
+        subject: "Welcome to our platform!",
+        html,
+      });
+    }
+    ```
+
+    <Note>
+      You can also use modern email services like [Resend](https://resend.com) or [Plunk](https://useplunk.com) for easier integration.
+    </Note>
+  </Step>
+</Steps>
+
+## Using with popular email services
+
+ReactUI Email works seamlessly with any email service that accepts HTML content:
+
+<CardGroup cols={2}>
+  <Card title="Resend" icon="paper-plane" href="https://resend.com/docs">
+    Modern email API with React Email support built-in
+  </Card>
+  
+  <Card title="SendGrid" icon="envelope" href="https://docs.sendgrid.com">
+    Reliable transactional email service
+  </Card>
+  
+  <Card title="Plunk" icon="bolt" href="https://useplunk.com/docs">
+    Simple email API for developers
+  </Card>
+  
+  <Card title="Nodemailer" icon="server" href="https://nodemailer.com">
+    Traditional SMTP for self-hosted solutions
+  </Card>
+</CardGroup>
 
 ## Next steps
 
-Now that you have your docs running, explore these key features:
+Now that you've sent your first email, you can:
 
-<CardGroup cols={2}>
+- Explore the complete [Installation](/installation) guide for advanced setup options
+- Browse [available templates](/templates/overview) to find one that fits your needs
+- Learn about [customizing with Tailwind CSS](/guides/tailwind-styling)
+- Understand [React Email basics](/guides/react-email-basics)
 
-<Card title="Write Content" icon="pen-to-square" href="/essentials/markdown">
-  Learn MDX syntax and start writing your documentation.
-</Card>
-
-<Card title="Customize style" icon="palette" href="/essentials/settings">
-  Make your docs match your brand perfectly.
-</Card>
-
-<Card title="Add code examples" icon="square-code" href="/essentials/code">
-  Include syntax-highlighted code blocks.
-</Card>
-
-<Card title="API documentation" icon="code" href="/api-reference/introduction">
-  Auto-generate API docs from OpenAPI specs.
-</Card>
-
-</CardGroup>
-
-<Note>
-  **Need help?** See our [full documentation](https://mintlify.com/docs) or join our [community](https://mintlify.com/community).
-</Note>
+<Warning>
+  Always test your emails across different email clients before sending to production. Email rendering can vary significantly between clients.
+</Warning>

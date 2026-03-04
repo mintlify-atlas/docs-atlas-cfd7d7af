@@ -1,0 +1,427 @@
+---
+title: Dub templates
+description: Link management platform email templates for onboarding and product updates
+---
+
+Dub templates feature a modern, minimalist design perfect for SaaS platforms and developer tools. These emails balance personal communication with professional product updates.
+
+## Template overview
+
+The Dub template collection includes:
+
+- **Welcome email**: Personal introduction from the founder
+- **Product updates**: Monthly feature changelog with multiple sections
+
+## Welcome email
+
+A warm, personal welcome email from the founder that establishes a direct relationship with new users.
+
+### Key features
+
+- Centered Dub logo with rounded corners
+- Large, bold welcome heading
+- Hero image showcasing the product
+- Personal introduction from founder
+- Bulleted action items for getting started
+- Invitation to reply directly
+- Black and white color scheme
+
+### Use cases
+
+- Welcome new SaaS users
+- Create personal connection with founder
+- Guide users through initial setup
+- Encourage open source engagement
+- Build community through social media
+
+### Code
+
+```tsx dub/welcome-email.tsx
+import {
+  Body,
+  Container,
+  Head,
+  Heading,
+  Hr,
+  Html,
+  Img,
+  Link,
+  Preview,
+  Section,
+  Tailwind,
+  Text,
+} from "@react-email/components";
+
+export default function DubWelcomeEmail() {
+  return (
+    <Html>
+      <Head />
+      <Preview>Get started with our Fundamentals course and discover the power of Framer.</Preview>
+      <Tailwind
+        config={{
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                brand: "#0a0a0a",
+                muted: "#fafafa",
+              },
+            },
+          },
+        }}
+      >
+        <Body className="font-brand font-sans">
+          <Container className="mx-auto my-[20px] px-4 py-5">
+            <Section className="mt-2 flex w-full flex-col items-center justify-center">
+              <Img
+                src="https://res.cloudinary.com/sutharjay/image/upload/v1739369064/me/projects/reactui-email/dub-co.png"
+                width="50"
+                height="50"
+                alt="Dub"
+                className="mx-0 my-0 rounded-[8px]"
+              />
+            </Section>
+            
+            <Section className="mt-4">
+              <Text className="text-center text-[32px] font-bold leading-[4rem] text-primary">
+                Welcome to Dub
+              </Text>
+            </Section>
+            
+            <Section className="mt-8">
+              <Img
+                src="https://res.cloudinary.com/sutharjay/image/upload/v1739369363/me/projects/reactui-email/j21e5x4vpafavcqy0mtw.png"
+                alt="Dub Dashboard"
+                className="w-full cursor-pointer rounded-[8px]"
+              />
+            </Section>
+            
+            <Section className="mt-4">
+              <Text className="text-[16px] leading-6 text-primary/80">Thanks for signing up!</Text>
+
+              <Text className="text-[16px] leading-6 text-primary/80">
+                My name is Steven, and I'm the creator of Dub - the open-source Bitly alternative.
+                I'm excited to have you on board!
+              </Text>
+
+              <Text className="mb-4 text-[16px] font-semibold text-primary/80">
+                Here are a few things you can do:
+              </Text>
+              
+              <ul className="list-disc pl-6">
+                <li className="text-[14px] leading-6 text-primary/80">
+                  Create a custom{" "}
+                  <Link href="https://dub.sh" className="text-blue-500">
+                    Dub.sh short link
+                  </Link>
+                </li>
+                <li className="text-[14px] leading-6 text-primary/80">
+                  Create a new{" "}
+                  <Link href="https://dub.sh/project" className="text-blue-500">
+                    project
+                  </Link>{" "}
+                  and add your custom domain
+                </li>
+                <li className="text-[14px] leading-6 text-primary/80">
+                  Star the repo on{" "}
+                  <Link href="https://github.com/steven-tey/dub" className="text-blue-500">
+                    GitHub
+                  </Link>
+                </li>
+                <li className="text-[14px] leading-6 text-primary/80">
+                  Follow us on{" "}
+                  <Link href="https://twitter.com/dubdotsh" className="text-blue-500">
+                    Twitter
+                  </Link>
+                </li>
+              </ul>
+
+              <Text className="text-[14px] leading-6 text-primary/80">
+                Let me know if you have any questions or feedback. I'm always happy to help!
+              </Text>
+              <Text className="mt-4 text-[14px] leading-6 text-primary/80">Steven from Dub</Text>
+            </Section>
+            
+            <Hr className="mx-0 my-[14px] h-[1px] w-full border border-solid border-muted-foreground" />
+            
+            <Section>
+              <Text className="text-[14px] leading-6 text-primary/80">
+                © 2023 Dub.sh{" "}
+                <Link href="https://dub.sh/unsubscribe" className="text-primary/60 underline">
+                  Unsubscribe
+                </Link>
+              </Text>
+              <Text className="text-[14px] leading-6 text-primary/80">
+                If you have any feedback or questions about this email, simply reply to it. I'd
+                love to hear from you!
+              </Text>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+### Personal touch elements
+
+This template excels at creating personal connection:
+
+<Tabs>
+  <Tab title="Founder intro">
+    ```tsx
+    <Text className="text-[16px] leading-6 text-primary/80">
+      My name is Steven, and I'm the creator of Dub - the open-source Bitly alternative.
+      I'm excited to have you on board!
+    </Text>
+    ```
+    
+    First-person introduction builds immediate rapport.
+  </Tab>
+  
+  <Tab title="Open invitation">
+    ```tsx
+    <Text className="text-[14px] leading-6 text-primary/80">
+      Let me know if you have any questions or feedback. I'm always happy to help!
+    </Text>
+    ```
+    
+    Encourages direct communication with the founder.
+  </Tab>
+  
+  <Tab title="Reply CTA">
+    ```tsx
+    <Text className="text-[14px] leading-6 text-primary/80">
+      If you have any feedback or questions about this email, simply reply to it.
+      I'd love to hear from you!
+    </Text>
+    ```
+    
+    Makes it clear users can reply directly.
+  </Tab>
+</Tabs>
+
+### Customization options
+
+<Accordion title="Action items list">
+  Customize the getting started actions for your product:
+  
+  ```tsx
+  <ul className="list-disc pl-6">
+    <li className="text-[14px] leading-6 text-primary/80">
+      Action with <Link href="#" className="text-blue-500">link</Link>
+    </li>
+  </ul>
+  ```
+  
+  Mix product actions with community engagement (GitHub, Twitter).
+</Accordion>
+
+<Accordion title="Hero image">
+  Replace with your product screenshot or illustration:
+  
+  ```tsx
+  <Img
+    src="your-hero-image.png"
+    alt="Your product"
+    className="w-full cursor-pointer rounded-[8px]"
+  />
+  ```
+</Accordion>
+
+## Product updates email
+
+A comprehensive monthly changelog email showcasing multiple new features with screenshots and detailed explanations.
+
+### Key features
+
+- Month-specific title ("November Product Update")
+- Multiple feature sections with hero images
+- Bordered button design for CTAs
+- Bulleted benefit lists with bold headings
+- Horizontal rules separating features
+- Request for G2 review at the end
+- Consistent branding throughout
+
+### Use cases
+
+- Send monthly product updates
+- Announce multiple features at once
+- Share product roadmap progress
+- Re-engage existing users
+- Drive feature adoption
+- Collect product reviews
+
+### Code snippet
+
+```tsx dub/product-update-email.tsx
+export default function DubUpdatesEmail() {
+  return (
+    <Html>
+      <Head />
+      <Preview>New landing page, Analytics dashboard sharing, Regions analytics support</Preview>
+      <Tailwind config={{...}}>
+        <Body className="font-brand font-sans">
+          <Container className="mx-auto my-[20px] px-4 py-5">
+            <Section className="mt-4">
+              <Text className="text-center text-[32px] font-bold leading-[2rem] text-primary">
+                Dub November Product Update
+              </Text>
+            </Section>
+            
+            <Section className="mt-8">
+              <Link href="https://ship.dub.co/home">
+                <Img
+                  src="https://resend-attachments.s3.amazonaws.com/r2ITq7acRxiEkBn"
+                  alt="New Landing Page"
+                  className="w-full cursor-pointer rounded-[8px]"
+                />
+              </Link>
+            </Section>
+            
+            <Section className="mt-4">
+              <Heading className="text-[24px] font-semibold">New landing page</Heading>
+
+              <Text className="text-[16px] leading-6 text-primary/80">
+                After almost a year, we just shipped a fresh coat of paint to dub.co.
+              </Text>
+
+              <Text className="text-[16px] leading-6 text-primary/80">We did it to:</Text>
+
+              <ul className="list-disc pl-6">
+                <li className="text-[14px] leading-6 text-primary/80">
+                  <strong>Highlight the scale of our link infrastructure</strong> – we've gone
+                  from serving 2M clicks/mo → 20M clicks/mo this year
+                </li>
+                <li className="text-[14px] leading-6 text-primary/80">
+                  <strong>Feature some of our new customers</strong> – we've been fortunate to
+                  power short links for amazing companies
+                </li>
+              </ul>
+
+              <Section className="mt-4 text-center">
+                <table style={{...}}>
+                  <tr>
+                    <td>
+                      <Button
+                        className="mx-auto flex w-fit items-center justify-center rounded-[8px] bg-white px-[24px] py-[12px] text-center text-[14px] font-semibold text-zinc-900"
+                        href="https://ship.dub.co/home"
+                      >
+                        Check out our new homepage
+                      </Button>
+                    </td>
+                  </tr>
+                </table>
+              </Section>
+            </Section>
+
+            <Hr className="my-[32px] h-[1px] w-full border-muted-foreground" />
+
+            {/* Additional feature sections... */}
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+### Feature section structure
+
+Each feature follows a consistent pattern:
+
+1. **Linked image**: Clickable screenshot/illustration
+2. **Heading**: Feature name (24px, semibold)
+3. **Description**: 1-2 paragraphs explaining the feature
+4. **Benefits list**: Bulleted points with bold emphasis
+5. **CTA button**: Bordered white button for changelog
+6. **HR separator**: Divides features visually
+
+<Info>
+  This repeatable structure makes it easy to add or remove features from the update email.
+</Info>
+
+### Content writing pattern
+
+```tsx
+<Section className="mt-4">
+  <Heading>Feature name</Heading>
+  <Text>Brief description of what we shipped.</Text>
+  <Text>Why we did it:</Text>
+  
+  <ul className="list-disc pl-6">
+    <li><strong>Benefit category</strong> – Specific benefit description</li>
+    <li><strong>Benefit category</strong> – Specific benefit description</li>
+  </ul>
+  
+  <Button href="https://dub.sh/changelog">Read the changelog</Button>
+</Section>
+```
+
+## Design system
+
+<Tabs>
+  <Tab title="Colors">
+    ```tsx
+    {
+      brand: "#0a0a0a",    // Near black
+      muted: "#fafafa",    // Light gray
+    }
+    ```
+    
+    Monochrome palette with blue accent links.
+  </Tab>
+  
+  <Tab title="Typography">
+    - **Main heading**: 32px, bold, centered
+    - **Feature headings**: 24px, semibold
+    - **Body text**: 16px with 80% opacity
+    - **List items**: 14px with bold emphasis
+  </Tab>
+  
+  <Tab title="Buttons">
+    ```tsx
+    <Button className="rounded-[8px] bg-white px-[24px] py-[12px] text-zinc-900">
+      Button text
+    </Button>
+    ```
+    
+    White buttons with border, wrapped in table for email compatibility.
+  </Tab>
+  
+  <Tab title="Images">
+    - Full width (`w-full`)
+    - Rounded corners (8px)
+    - Cursor pointer for clickability
+    - Linked to relevant pages
+  </Tab>
+</Tabs>
+
+## Email cadence strategy
+
+Dub's email approach demonstrates a balanced strategy:
+
+1. **Welcome**: Immediate, after signup
+2. **Product updates**: Monthly (e.g., "November Product Update")
+3. **Feature-specific**: As needed for major launches
+
+### Update email best practices
+
+- **Timing**: Send monthly on a consistent day
+- **Volume**: 3-5 features per update
+- **Balance**: Mix big features with smaller improvements
+- **CTA**: Each feature has its own changelog link
+- **Close**: Request for reviews/feedback
+
+## Related templates
+
+<CardGroup cols={2}>
+  <Card title="Notion templates" icon="book" href="/templates/notion">
+    Detailed feature announcements with educational content
+  </Card>
+  
+  <Card title="Framer templates" icon="palette" href="/templates/framer">
+    Founder-led onboarding with personal touch
+  </Card>
+</CardGroup>

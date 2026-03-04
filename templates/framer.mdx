@@ -1,0 +1,374 @@
+---
+title: Framer templates
+description: Design tool onboarding email templates with beautiful layouts and smooth user experience
+---
+
+Framer templates feature clean, modern designs that showcase how to onboard users to a design tool. These emails emphasize visual appeal and educational content to help users get started quickly.
+
+## Template overview
+
+The Framer template collection includes:
+
+- **Welcome email (Day 1)**: Introduction with Fundamentals course
+- **Desktop app email (Day 3-4)**: Encouraging desktop app download
+- **Team invitation**: Invite colleagues to collaborate
+
+## Welcome to Framer (Day 1)
+
+An educational welcome email that directs new users to the Fundamentals course to get started quickly.
+
+### Key features
+
+- Framer logo branding at the top
+- Personalized greeting with username prop
+- Featured image of the Fundamentals course
+- Bulleted list of course benefits
+- Clear CTA to watch the course
+- Preview of tomorrow's email content
+
+### Use cases
+
+- Welcome new users to design tools or creative software
+- Introduce users to educational resources
+- Set expectations for onboarding email sequence
+- Guide users from Figma or Sketch to your platform
+
+### Code
+
+```tsx framer/welcome-to-framer.tsx
+import {
+  Body,
+  Button,
+  Container,
+  Head,
+  Heading,
+  Hr,
+  Html,
+  Img,
+  Link,
+  Preview,
+  Section,
+  Tailwind,
+  Text,
+} from "@react-email/components";
+
+interface WelcomeToFramerOneProps {
+  username?: string;
+}
+
+export default function WelcomeToFramerOne({ username = "Jay" }: WelcomeToFramerOneProps) {
+  return (
+    <Html>
+      <Head />
+      <Preview>Get started with our Fundamentals course and discover the power of Framer.</Preview>
+      <Tailwind
+        config={{
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                brand: "#0099ff",
+                muted: "#738A94",
+              },
+            },
+          },
+        }}
+      >
+        <Body className="font-sans">
+          <Container className="mx-auto px-4 py-5">
+            <Section className="mt-4">
+              <Img
+                src="https://d3b9kr64nievew.cloudfront.net/cm1rki22e0174akkvdbsg2yzi/cm1rkyfp8000l1sulf3ko6p6v.png"
+                width="50"
+                height="50"
+                alt="Framer"
+                className="mx-0 my-0"
+              />
+            </Section>
+
+            <Section className="mt-4">
+              <Heading className="mx-0 mb-8 mt-2 p-0 text-lg font-normal">
+                Hey {username}, welcome to Framer!
+              </Heading>
+              <Text className="text-[14px] leading-6 text-primary/75">
+                We're thrilled you chose us to build your website. To get started, we recommend
+                watching our Framer Academy{" "}
+                <Link
+                  href="https://www.framer.com/academy/courses/fundamentals"
+                  className="text-primary/75 underline"
+                >
+                  Fundamentals course
+                </Link>
+                . This will help you get up and running quickly, especially if you're
+                transitioning from Figma or Sketch.
+              </Text>
+            </Section>
+
+            <Section className="mt-8">
+              <Img
+                src="https://d3b9kr64nievew.cloudfront.net/cm1rki22e0174akkvdbsg2yzi/cm1rucu6q0142tbx2o3qu05nh.jpg"
+                alt="Framer Academy"
+                className="w-full cursor-pointer rounded-2xl"
+              />
+            </Section>
+
+            <Section className="mt-8">
+              <Heading className="mx-0 mb-2 p-0 text-[16px] font-normal">
+                Why watch the Fundamentals course?
+              </Heading>
+              <ul className="list-disc pl-6">
+                <li className="text-[14px] leading-6 text-primary/75">
+                  Quick start: Get your first site live in minutes.
+                </li>
+                <li className="text-[14px] leading-6 text-primary/75">
+                  Easy transition: Perfect for designers moving from Figma or Sketch.
+                </li>
+                <li className="text-[14px] leading-6 text-primary/75">
+                  Expert tips: Learn best practices from the pros.
+                </li>
+              </ul>
+            </Section>
+
+            <Section className="mt-8">
+              <Button
+                className="bg-brand rounded-[8px] px-[24px] py-[12px] text-center text-[14px] font-medium text-white no-underline"
+                href="https://www.framer.com/academy/courses/fundamentals"
+              >
+                Watch Fundamentals Course
+              </Button>
+            </Section>
+
+            <Section className="mt-4">
+              <Text className="text-[14px] leading-6 text-primary/75">
+                We hope these tutorials help you settle in during your first day with Framer.
+                Tomorrow, we'll showcase fantastic{" "}
+                <Link
+                  href="https://www.framer.com/marketplace/"
+                  className="text-primary/75 underline"
+                >
+                  Framer Templates
+                </Link>{" "}
+                to create sites with ease!
+              </Text>
+              <Text className="text-[14px] leading-6">✌️ Framer</Text>
+            </Section>
+
+            <Hr className="mx-0 my-[26px] w-full border border-solid border-[#eaeaea]" />
+
+            <Section>
+              <Text className="text-[12px] leading-6 text-primary/75">
+                You are receiving this email because you opted-in to receive updates from Framer
+                <br />
+                Framer, Rozengracht 207B 1016 LZ Amsterdam Netherlands
+                <br />
+                <Link
+                  href="https://example.com/unsubscribe"
+                  className="font-semibold text-primary/60"
+                >
+                  Unsubscribe
+                </Link>
+              </Text>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+### Customization options
+
+<Accordion title="Props and personalization">
+  The template accepts a `username` prop for personalization:
+  
+  ```tsx
+  interface WelcomeToFramerOneProps {
+    username?: string;
+  }
+  
+  // Usage
+  <WelcomeToFramerOne username="Sarah" />
+  ```
+</Accordion>
+
+<Accordion title="Educational content">
+  Customize the benefits list to highlight your product's key features:
+  
+  ```tsx
+  <ul className="list-disc pl-6">
+    <li className="text-[14px] leading-6 text-primary/75">
+      Your first benefit here
+    </li>
+    <li className="text-[14px] leading-6 text-primary/75">
+      Your second benefit here
+    </li>
+  </ul>
+  ```
+</Accordion>
+
+## Enhance your experience (Day 3-4)
+
+A follow-up email encouraging users to download the desktop app for better performance.
+
+### Key features
+
+- Questions user about current usage (browser-based)
+- Hero image showing desktop apps
+- Benefits list for desktop app features
+- Preview of next email in sequence
+- Consistent branding and footer
+
+### Use cases
+
+- Encourage desktop app downloads
+- Highlight performance benefits of native apps
+- Continue onboarding sequence with value-added features
+- Educate users about platform capabilities
+
+### Code snippet
+
+```tsx framer/enhance-experience.tsx
+export default function WelcomeToFramerTwo({ username = "Jay" }) {
+  return (
+    <Html>
+      <Head />
+      <Preview>
+        Download Framer for Mac or Windows and enjoy a smoother, more seamless experience.
+      </Preview>
+      <Tailwind config={{...}}>
+        <Body className="font-sans">
+          <Container className="mx-auto px-4 py-5">
+            <Section className="mt-4">
+              <Heading className="mx-0 mb-8 mt-2 p-0 text-lg font-normal">
+                Hey {username}, are you building Framer sites from your browser?
+              </Heading>
+              <Text className="text-[14px] leading-[24px] text-primary/75">
+                For a smoother, more seamless experience, grab the Framer app for Mac or Windows.
+                Enjoy faster performance and additional features.
+              </Text>
+            </Section>
+            
+            <Section className="mt-8">
+              <Button
+                className="bg-brand rounded-[8px] px-[24px] py-[12px] text-center text-[14px] font-medium text-white"
+                href="https://www.framer.com/downloads/"
+              >
+                Download Framer app
+              </Button>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+## Team invitation
+
+A simple invitation email for team collaboration.
+
+### Key features
+
+- Minimal design focusing on the invitation
+- Clear sender identification
+- Workspace name highlighted
+- Single CTA to accept invitation
+- Expiration reminder for urgency
+
+### Use cases
+
+- Invite team members to workspaces
+- Send collaboration invitations
+- Notify users about team additions
+
+<Info>
+  This template creates urgency by mentioning invitation expiration, encouraging quick action.
+</Info>
+
+### Code snippet
+
+```tsx framer/invitation-email.tsx
+export default function FramerInvitationEmail() {
+  return (
+    <Html>
+      <Head />
+      <Preview>
+        Reminder: Jay has invited you to collaborate on the My Workspace team in Framer
+      </Preview>
+      <Tailwind config={{...}}>
+        <Body className="font-sans">
+          <Container className="mx-auto px-4 py-5">
+            <Section className="mt-4">
+              <Heading className="mx-0 mb-8 mt-2 p-0 text-[18px] font-normal">Hey there,</Heading>
+              <Text className="text-[18px] leading-6 text-primary">
+                Jay has invited you to join the My Workspace workspace in Framer. Please accept
+                the invite before it expires.
+              </Text>
+            </Section>
+
+            <Section className="mt-4">
+              <Button
+                className="bg-brand rounded-[8px] px-[24px] py-[12px] text-center text-[14px] font-medium text-white"
+                href="https://www.framer.com/accept-invite"
+              >
+                Accept Invite
+              </Button>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+## Design system
+
+<Tabs>
+  <Tab title="Colors">
+    ```tsx
+    {
+      brand: "#0099ff",     // Framer's signature blue
+      muted: "#738A94",     // Muted gray for secondary text
+    }
+    ```
+  </Tab>
+  
+  <Tab title="Typography">
+    - **Headings**: Normal weight (not bold) for softer appearance
+    - **Body text**: 14px with comfortable leading (24px line height)
+    - **CTAs**: Medium weight, 14px for button text
+  </Tab>
+  
+  <Tab title="Spacing">
+    - Consistent 32px (mt-8) between major sections
+    - Rounded corners: 8px for buttons, 12px-16px for images
+    - Container padding: 20px horizontal and vertical
+  </Tab>
+</Tabs>
+
+## Email sequence strategy
+
+Framer templates demonstrate a well-structured onboarding sequence:
+
+1. **Day 1**: Welcome + educational resource (Fundamentals course)
+2. **Day 3-4**: Feature highlight (desktop app)
+3. **Ongoing**: Collaboration invitations as needed
+
+<Info>
+  This spacing gives users time to explore without overwhelming them, while maintaining engagement.
+</Info>
+
+## Related templates
+
+<CardGroup cols={2}>
+  <Card title="Peerlist templates" icon="briefcase" href="/templates/peerlist">
+    Professional platform emails with feature showcases
+  </Card>
+  
+  <Card title="Notion templates" icon="book" href="/templates/notion">
+    Feature announcement emails with detailed explanations
+  </Card>
+</CardGroup>

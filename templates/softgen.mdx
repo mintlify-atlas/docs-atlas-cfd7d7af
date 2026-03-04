@@ -1,0 +1,443 @@
+---
+title: Softgen templates
+description: AI web app developer platform email templates for onboarding and payments
+---
+
+Softgen templates feature a clean, modern design optimized for AI and SaaS platforms. These emails prioritize clarity and user activation with minimal friction.
+
+## Template overview
+
+The Softgen template collection includes:
+
+- **Welcome email**: Simple activation email for new users
+- **Payment confirmation**: Professional receipt with plan details
+
+## Welcome email
+
+A streamlined welcome email that quickly orients new users and provides a clear path to getting started.
+
+### Key features
+
+- Dual-mode logo (light and dark versions)
+- Concise value proposition
+- Single, prominent CTA button
+- Minimal distractions
+- Company attribution in footer
+- Bordered button design
+
+### Use cases
+
+- Welcome users to AI platforms
+- Onboard SaaS product users
+- Activate new trial accounts
+- Drive users to dashboard
+- Create simple, fast onboarding
+
+### Code
+
+```tsx softgen/1-welcome-email.tsx
+import {
+  Body,
+  Button,
+  Container,
+  Head,
+  Hr,
+  Html,
+  Img,
+  Link,
+  Preview,
+  Section,
+  Tailwind,
+  Text,
+} from "@react-email/components";
+
+export default function SoftgenWelcomeEmail() {
+  return (
+    <Html>
+      <Head />
+      <Preview>
+        Welcome to Softgen - Your AI Web App Developer. Build web apps without coding.
+      </Preview>
+      <Tailwind
+        config={{
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                brand: "#0a0a0a",
+                muted: "#fafafa",
+              },
+            },
+          },
+        }}
+      >
+        <Body className="font-sans">
+          <Container className="mx-auto px-4 py-5">
+            <Section className="mt-8">
+              <Link href="https://softgen.ai">
+                <Img
+                  src="https://res.cloudinary.com/sutharjay/image/upload/v1740686249/me/projects/reactui-email/logo/softgen-light.svg"
+                  width="50"
+                  height="50"
+                  alt="Softgen Logo Light"
+                  className="hidden dark:block"
+                />
+                <Img
+                  src="https://res.cloudinary.com/sutharjay/image/upload/v1740686249/me/projects/reactui-email/logo/softgen-dark.svg"
+                  width="50"
+                  height="50"
+                  alt="Softgen Logo Dark"
+                  className="block dark:hidden"
+                />
+              </Link>
+            </Section>
+
+            <Section className="mt-8">
+              <Text className="text-xl font-bold leading-tight">Welcome to Softgen!</Text>
+            </Section>
+
+            <Section className="mt-2">
+              <Text className="text-base">Hey there 👋,</Text>
+              <Text className="text-base">
+                Thanks for joining Softgen! We're excited to help you transform your ideas into
+                reality. Softgen is your{" "}
+                <span className="text-base font-bold">AI Web App Developer</span>. Simply describe
+                your vision, give instructions, and build full-stack web apps - no coding required.
+              </Text>
+            </Section>
+
+            <Section className="mt-4 text-center">
+              <table
+                style={{
+                  border: "1px solid rgb(39 39 42 / 0.2)",
+                  borderRadius: "8px",
+                  borderCollapse: "collapse",
+                  display: "flex",
+                  justifyContent: "center",
+                  width: "fit-content",
+                  alignItems: "center",
+                }}
+              >
+                <tr>
+                  <td>
+                    <Button
+                      className="mx-auto flex w-fit items-center justify-center rounded-[8px] bg-white px-[24px] py-[12px] text-center text-[14px] font-semibold text-zinc-900"
+                      href="https://softgen.ai/dashboard"
+                    >
+                      Start Building Your App →
+                    </Button>
+                  </td>
+                </tr>
+              </table>
+            </Section>
+
+            <Hr className="mb-6 mt-8 border-gray-200" />
+
+            <Section className="text-left text-sm text-primary/80">
+              <Text className="m-0 p-0 font-medium">From,</Text>
+              <Text className="m-0 p-0 font-bold">Team Softgen</Text>
+              <Text className="m-0 p-0">Softgen – a Kortix AI Corp Product</Text>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+### Dark mode logo handling
+
+The template includes both light and dark logo versions:
+
+```tsx
+<Img
+  src="logo-light.svg"
+  alt="Logo"
+  className="hidden dark:block"  // Show only in dark mode
+/>
+<Img
+  src="logo-dark.svg"
+  alt="Logo"
+  className="block dark:hidden"  // Show only in light mode
+/>
+```
+
+This ensures your logo is always visible regardless of the user's email client theme.
+
+<Info>
+  Many email clients now support dark mode. Providing both logo versions creates a professional appearance in all contexts.
+</Info>
+
+### Customization options
+
+<Accordion title="Value proposition">
+  Highlight your product's unique value:
+  
+  ```tsx
+  <Text className="text-base">
+    Softgen is your <span className="font-bold">AI Web App Developer</span>.
+    Simply describe your vision, give instructions, and build full-stack web apps.
+  </Text>
+  ```
+  
+  Use bold spans to emphasize key benefits.
+</Accordion>
+
+<Accordion title="CTA button">
+  The bordered button style for better visibility:
+  
+  ```tsx
+  <table style={{
+    border: "1px solid rgb(39 39 42 / 0.2)",
+    borderRadius: "8px",
+    display: "flex",
+    justifyContent: "center",
+  }}>
+    <tr>
+      <td>
+        <Button className="bg-white text-zinc-900">
+          Your CTA text →
+        </Button>
+      </td>
+    </tr>
+  </table>
+  ```
+</Accordion>
+
+## Payment confirmation email
+
+A professional payment receipt email that confirms successful subscription and guides users to next steps.
+
+### Key features
+
+- Celebration emoji in heading ("Payment Confirmed! 🎉")
+- Plan details table with bordered design
+- Status indicator with color coding
+- Clear next steps instruction
+- Dashboard CTA
+- Consistent branding
+
+### Use cases
+
+- Confirm subscription payments
+- Send payment receipts
+- Guide users after purchase
+- Activate paid features
+- Reduce post-purchase anxiety
+
+### Code
+
+```tsx softgen/2-payment-email.tsx
+export default function SoftgenPaymentSuccessEmail() {
+  return (
+    <Html>
+      <Head />
+      <Preview>Payment Confirmed - Welcome to Softgen. Your subscription is now active.</Preview>
+      <Tailwind config={{...}}>
+        <Body className="font-sans">
+          <Container className="mx-auto px-4 py-5">
+            <Section className="mt-8">
+              <Text className="text-xl font-bold leading-tight">Payment Confirmed! 🎉</Text>
+            </Section>
+
+            <Section className="mt-2">
+              <Text className="text-base">Hello,</Text>
+              <Text className="text-base">
+                Your payment for the <span className="font-bold">Pro Plan</span> has been
+                successfully processed. Welcome to Softgen, where you can create innovative
+                solutions without coding.
+              </Text>
+            </Section>
+
+            <Section className="mt-4">
+              <div style={{
+                border: "1px solid rgb(39 39 42 / 0.25)",
+                borderRadius: "12px",
+                overflow: "hidden",
+              }}>
+                <table style={{
+                  width: "100%",
+                  borderCollapse: "collapse",
+                }}>
+                  <tbody>
+                    <tr>
+                      <td style={{
+                        padding: "16px",
+                        borderBottom: "1px solid rgb(39 39 42 / 0.25)",
+                        backgroundColor: "rgb(39 39 42 / 0.2)",
+                      }}>
+                        <Text className="m-0 text-lg font-semibold text-primary">Plan Details</Text>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: "16px" }}>
+                        <table style={{ width: "100%" }}>
+                          <tbody>
+                            <tr>
+                              <td style={{ width: "30%", paddingBottom: "8px" }}>
+                                <Text className="m-0 text-sm font-medium text-zinc-500">
+                                  Plan Type
+                                </Text>
+                              </td>
+                              <td style={{ paddingBottom: "8px" }}>
+                                <Text className="m-0 text-sm font-bold">Pro Plan</Text>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style={{ width: "30%" }}>
+                                <Text className="m-0 text-sm font-medium text-zinc-500">
+                                  Status
+                                </Text>
+                              </td>
+                              <td>
+                                <Text className="m-0 text-sm font-bold text-emerald-400">
+                                  Active
+                                </Text>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </Section>
+
+            <Section className="mt-4">
+              <Text className="text-base">
+                To get started, please set up your account using the button below. This will allow
+                you to access all the features of your plan.
+              </Text>
+            </Section>
+
+            <Section className="mt-4 text-center">
+              <table style={{...}}>
+                <tr>
+                  <td>
+                    <Button
+                      className="mx-auto flex w-fit items-center justify-center rounded-[8px] bg-white px-[24px] py-[12px] text-center text-[14px] font-semibold text-zinc-900"
+                      href="https://softgen.ai/dashboard"
+                    >
+                      Go to Dashboard →
+                    </Button>
+                  </td>
+                </tr>
+              </table>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+### Plan details table design
+
+The template uses a nested table structure for the plan details:
+
+```tsx
+<div style={{
+  border: "1px solid rgb(39 39 42 / 0.25)",
+  borderRadius: "12px",
+  overflow: "hidden",
+}}>
+  <table>
+    {/* Header row with background */}
+    <tr>
+      <td style={{ backgroundColor: "rgb(39 39 42 / 0.2)" }}>
+        <Text>Plan Details</Text>
+      </td>
+    </tr>
+    
+    {/* Content rows */}
+    <tr>
+      <td>
+        <table>
+          <tr>
+            <td>Plan Type</td>
+            <td>Pro Plan</td>
+          </tr>
+          <tr>
+            <td>Status</td>
+            <td className="text-emerald-400">Active</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>
+```
+
+This creates a professional receipt-style layout that's compatible with email clients.
+
+### Post-purchase psychology
+
+The email addresses key post-purchase moments:
+
+1. **Immediate confirmation**: "Payment Confirmed! 🎉"
+2. **Reduce anxiety**: Clear status indicator showing "Active"
+3. **Next steps**: "To get started, please set up your account"
+4. **Enable action**: Prominent dashboard CTA
+
+<Info>
+  The celebration emoji in the subject line and heading creates positive emotional association with the purchase.
+</Info>
+
+## Design system
+
+<Tabs>
+  <Tab title="Colors">
+    ```tsx
+    {
+      brand: "#0a0a0a",       // Near black
+      muted: "#fafafa",       // Light gray
+      emerald: "#34d399",     // Success green for status
+    }
+    ```
+  </Tab>
+  
+  <Tab title="Tables">
+    - Rounded corners (12px for main container)
+    - Border: 1px solid with low opacity
+    - Header rows: Semi-transparent background
+    - Nested tables for complex layouts
+  </Tab>
+  
+  <Tab title="Status indicators">
+    ```tsx
+    <Text className="text-emerald-400">Active</Text>
+    <Text className="text-red-400">Inactive</Text>
+    <Text className="text-yellow-400">Pending</Text>
+    ```
+  </Tab>
+</Tabs>
+
+## Email sequence
+
+Softgen demonstrates a minimal, focused email strategy:
+
+1. **Welcome**: Immediate after signup
+2. **Payment confirmation**: After successful payment
+3. **Activation**: Drive to dashboard setup
+
+### Minimalist approach benefits
+
+- **Reduced overwhelm**: Fewer emails mean each one matters
+- **Clear purpose**: Each email has single, focused goal
+- **Higher engagement**: Users more likely to act on fewer emails
+- **Better deliverability**: Lower volume reduces spam risk
+
+## Related templates
+
+<CardGroup cols={2}>
+  <Card title="Supabase templates" icon="database" href="/templates/supabase">
+    Developer-focused emails with minimal design
+  </Card>
+  
+  <Card title="Dub templates" icon="link" href="/templates/dub">
+    SaaS platform emails with clean, modern aesthetic
+  </Card>
+</CardGroup>

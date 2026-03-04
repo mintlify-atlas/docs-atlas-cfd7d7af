@@ -1,0 +1,509 @@
+---
+title: Sending emails
+description: Learn how to render and send ReactUI Email templates using popular email services like Resend, Plunk, SendGrid, and Nodemailer
+---
+
+Once you've created your email template, you need to render it to HTML and send it through an email service. React Email's `render` function converts your React components to email-safe HTML.
+
+## Rendering templates
+
+The `@react-email/render` package converts React components to HTML strings:
+
+```tsx
+import { render } from "@react-email/render";
+import WelcomeEmail from "./emails/welcome";
+
+const html = await render(<WelcomeEmail userName="John" />);
+// Returns: HTML string ready to send
+```
+
+<Info>
+The `render` function automatically converts Tailwind classes to inline styles and ensures the HTML works across all email clients.
+</Info>
+
+## Sending with Plunk
+
+ReactUI Email uses [Plunk](https://useplunk.com) for sending emails. Plunk is a modern email API designed for developers.
+
+### Setup
+
+<Steps>
+  <Step title="Install Plunk SDK">
+    ```bash
+    npm install @plunk/node
+    ```
+  </Step>
+
+  <Step title="Get your API key">
+    Sign up at [useplunk.com](https://useplunk.com) and get your API key from the dashboard.
+  </Step>
+
+  <Step title="Set environment variable">
+    ```bash .env
+    PLUNK_SECRET_KEY=your_api_key_here
+    ```
+  </Step>
+</Steps>
+
+### Sending emails
+
+Here's the implementation from ReactUI Email:
+
+```tsx src/features/email/send/email-trigger.ts
+import Plunk from "@plunk/node";
+import { render } from "@react-email/render";
+import { JSXElementConstructor, ReactElement } from "react";
+
+const plunk = new Plunk(process.env.PLUNK_SECRET_KEY!);
+
+export const emailTrigger = async ({
+  template,
+  subject,
+  to,
+}: {
+  template: ReactElement<unknown, string | JSXElementConstructor<unknown>>;
+  subject: string;
+  to: string;
+}) => {
+  try {
+    const body = await render(template);
+    const response = await plunk.emails.send({
+      to: to,
+      subject,
+      body,
+    });
+
+    return response.success;
+  } catch (error) {
+    console.error(error);
+  }
+};
+```
+
+### Usage example
+
+```tsx
+import { emailTrigger } from "./email-trigger";
+import WelcomeEmail from "./emails/welcome";
+
+await emailTrigger({
+  template: <WelcomeEmail userName="John Doe" />,
+  subject: "Welcome to our platform!",
+  to: "john@example.com",
+});
+```
+
+## Sending with Resend
+
+[Resend](https://resend.com) is a popular email API built for developers.
+
+### Setup
+
+<Steps>
+  <Step title="Install Resend SDK">
+    ```bash
+    npm install resend
+    ```
+  </Step>
+
+  <Step title="Get your API key">
+    Sign up at [resend.com](https://resend.com) and create an API key.
+  </Step>
+
+  <Step title="Create the send function">
+    ```tsx
+    import { Resend } from "resend";
+    import { render } from "@react-email/render";
+    
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    
+    export async function sendEmail({
+      to,
+      subject,
+      template,
+    }: {
+      to: string;
+      subject: string;
+      template: React.ReactElement;
+    }) {
+      const html = await render(template);
+      
+      const { data, error } = await resend.emails.send({
+        from: "noreply@yourdomain.com",
+        to,
+        subject,
+        html,
+      });
+      
+      if (error) {
+        throw new Error(error.message);
+      }
+      
+      return data;
+    }
+    ```
+  </Step>
+</Steps>
+
+### Usage
+
+```tsx
+import { sendEmail } from "./lib/email";
+import WelcomeEmail from "./emails/welcome";
+
+await sendEmail({
+  to: "user@example.com",
+  subject: "Welcome aboard!",
+  template: <WelcomeEmail userName="Sarah" />,
+});
+```
+
+<Tip>
+Resend provides a generous free tier and excellent TypeScript support.
+</Tip>
+
+## Sending with SendGrid
+
+[SendGrid](https://sendgrid.com) is a widely-used email delivery platform.
+
+### Setup
+
+<Steps>
+  <Step title="Install SendGrid SDK">
+    ```bash
+    npm install @sendgrid/mail
+    ```
+  </Step>
+
+  <Step title="Configure SendGrid">
+    ```tsx
+    import sgMail from "@sendgrid/mail";
+    import { render } from "@react-email/render";
+    
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
+    
+    export async function sendEmail({
+      to,
+      subject,
+      template,
+    }: {
+      to: string;
+      subject: string;
+      template: React.ReactElement;
+    }) {
+      const html = await render(template);
+      
+      const msg = {
+        to,
+        from: "noreply@yourdomain.com",
+        subject,
+        html,
+      };
+      
+      try {
+        await sgMail.send(msg);
+        return { success: true };
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    }
+    ```
+  </Step>
+</Steps>
+
+## Sending with Nodemailer
+
+[Nodemailer](https://nodemailer.com) is a popular Node.js module for sending emails via SMTP.
+
+### Setup
+
+<Steps>
+  <Step title="Install Nodemailer">
+    ```bash
+    npm install nodemailer
+    npm install -D @types/nodemailer
+    ```
+  </Step>
+
+  <Step title="Configure transporter">
+    ```tsx
+    import nodemailer from "nodemailer";
+    import { render } from "@react-email/render";
+    
+    // Create reusable transporter
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: parseInt(process.env.SMTP_PORT || "587"),
+      secure: false,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASSWORD,
+      },
+    });
+    
+    export async function sendEmail({
+      to,
+      subject,
+      template,
+    }: {
+      to: string;
+      subject: string;
+      template: React.ReactElement;
+    }) {
+      const html = await render(template);
+      
+      const info = await transporter.sendMail({
+        from: '"Your Company" <noreply@yourcompany.com>',
+        to,
+        subject,
+        html,
+      });
+      
+      return info;
+    }
+    ```
+  </Step>
+</Steps>
+
+### Using with Gmail
+
+```tsx
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_APP_PASSWORD, // Use app-specific password
+  },
+});
+```
+
+<Warning>
+Don't use your regular Gmail password. Create an [App Password](https://support.google.com/accounts/answer/185833) instead.
+</Warning>
+
+## Sending in Next.js
+
+### API Route
+
+Create an API route to send emails:
+
+```tsx app/api/send-email/route.ts
+import { NextResponse } from "next/server";
+import { render } from "@react-email/render";
+import { Resend } from "resend";
+import WelcomeEmail from "@/emails/welcome";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+export async function POST(request: Request) {
+  try {
+    const { to, userName } = await request.json();
+    
+    const html = await render(<WelcomeEmail userName={userName} />);
+    
+    const { data, error } = await resend.emails.send({
+      from: "noreply@yourdomain.com",
+      to,
+      subject: "Welcome!",
+      html,
+    });
+    
+    if (error) {
+      return NextResponse.json({ error }, { status: 400 });
+    }
+    
+    return NextResponse.json({ success: true, data });
+  } catch (error) {
+    return NextResponse.json({ error: "Failed to send email" }, { status: 500 });
+  }
+}
+```
+
+### Server Actions
+
+```tsx app/actions/send-email.ts
+"use server";
+
+import { render } from "@react-email/render";
+import { Resend } from "resend";
+import WelcomeEmail from "@/emails/welcome";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+export async function sendWelcomeEmail(to: string, userName: string) {
+  const html = await render(<WelcomeEmail userName={userName} />);
+  
+  const { data, error } = await resend.emails.send({
+    from: "noreply@yourdomain.com",
+    to,
+    subject: "Welcome!",
+    html,
+  });
+  
+  if (error) {
+    throw new Error(error.message);
+  }
+  
+  return data;
+}
+```
+
+## Testing emails
+
+### Preview in development
+
+React Email includes a development server for previewing emails:
+
+```bash
+npx react-email dev
+```
+
+This opens a browser window where you can view and test your templates.
+
+### Send test emails
+
+Use a test email service during development:
+
+<AccordionGroup>
+  <Accordion title="Ethereal Email">
+    Free fake SMTP service for testing:
+    
+    ```tsx
+    import nodemailer from "nodemailer";
+    
+    // Create test account
+    const testAccount = await nodemailer.createTestAccount();
+    
+    const transporter = nodemailer.createTransport({
+      host: "smtp.ethereal.email",
+      port: 587,
+      secure: false,
+      auth: {
+        user: testAccount.user,
+        pass: testAccount.pass,
+      },
+    });
+    
+    const info = await transporter.sendMail({
+      from: '"Test" <test@example.com>',
+      to: "user@example.com",
+      subject: "Test Email",
+      html: await render(<WelcomeEmail />),
+    });
+    
+    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    ```
+  </Accordion>
+  
+  <Accordion title="Mailtrap">
+    [Mailtrap](https://mailtrap.io) provides a safe email testing environment:
+    
+    ```tsx
+    const transporter = nodemailer.createTransport({
+      host: "smtp.mailtrap.io",
+      port: 2525,
+      auth: {
+        user: process.env.MAILTRAP_USER,
+        pass: process.env.MAILTRAP_PASS,
+      },
+    });
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Error handling
+
+Always handle errors when sending emails:
+
+```tsx
+export async function sendEmail({
+  to,
+  subject,
+  template,
+}: {
+  to: string;
+  subject: string;
+  template: React.ReactElement;
+}) {
+  try {
+    const html = await render(template);
+    
+    const { data, error } = await resend.emails.send({
+      from: "noreply@yourdomain.com",
+      to,
+      subject,
+      html,
+    });
+    
+    if (error) {
+      console.error("Email sending failed:", error);
+      throw new Error(error.message);
+    }
+    
+    return { success: true, data };
+  } catch (error) {
+    console.error("Unexpected error:", error);
+    return { success: false, error: "Failed to send email" };
+  }
+}
+```
+
+## Best practices
+
+<CardGroup cols={2}>
+  <Card title="Use environment variables" icon="lock">
+    Never hardcode API keys. Always use environment variables for sensitive credentials.
+  </Card>
+  
+  <Card title="Validate email addresses" icon="check">
+    Validate email addresses before sending to avoid bounces and errors.
+  </Card>
+  
+  <Card title="Handle failures gracefully" icon="shield-check">
+    Implement retry logic and proper error handling for failed sends.
+  </Card>
+  
+  <Card title="Monitor delivery" icon="chart-line">
+    Use your email service's dashboard to monitor delivery rates and engagement.
+  </Card>
+</CardGroup>
+
+<Tip>
+Most email services provide webhooks for tracking delivery, opens, and clicks. Implement these to improve your email strategy.
+</Tip>
+
+## Rate limiting
+
+Implement rate limiting to avoid hitting API limits:
+
+```tsx
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
+
+const ratelimit = new Ratelimit({
+  redis: Redis.fromEnv(),
+  limiter: Ratelimit.slidingWindow(10, "1 m"), // 10 emails per minute
+});
+
+export async function sendEmail({ to, subject, template }: EmailParams) {
+  const { success } = await ratelimit.limit(to);
+  
+  if (!success) {
+    throw new Error("Rate limit exceeded");
+  }
+  
+  // Send email...
+}
+```
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="React Email basics" icon="react" href="/guides/react-email-basics">
+    Learn more about React Email components
+  </Card>
+  <Card title="Customization" icon="palette" href="/guides/customization">
+    Customize templates for your brand
+  </Card>
+</CardGroup>

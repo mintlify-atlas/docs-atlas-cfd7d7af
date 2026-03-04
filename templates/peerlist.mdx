@@ -1,0 +1,313 @@
+---
+title: Peerlist templates
+description: Professional networking platform email templates for community engagement and job applications
+---
+
+Peerlist templates provide clean, professional designs for a developer-focused networking platform. These templates emphasize community features, project showcasing, and job opportunities.
+
+## Template overview
+
+The Peerlist template collection includes:
+
+- **Welcome email**: Multi-section onboarding with feature highlights
+- **Inbox message**: Direct messaging notification
+- **Job application**: Application confirmation for candidates
+
+## Welcome email
+
+A comprehensive welcome email that introduces users to Peerlist's main features: Project Spotlight, Jobs platform, and Community feed.
+
+### Preview
+
+<img src="/images/templates/peerlist-welcome.png" alt="Peerlist welcome email" className="rounded-lg border" />
+
+### Key features
+
+- Multiple feature sections with images and CTAs
+- Clean typography with Peerlist's brand colors
+- Mobile app download links in footer
+- Professional layout with clear information hierarchy
+
+### Use cases
+
+- Welcome new users to your platform
+- Introduce multiple product features at once
+- Guide users through next steps after signup
+- Highlight community and networking features
+
+### Code
+
+```tsx peerlist/welcome.tsx
+import {
+  Body,
+  Button,
+  Container,
+  Head,
+  Heading,
+  Hr,
+  Html,
+  Img,
+  Link,
+  Preview,
+  Section,
+  Tailwind,
+  Text,
+} from "@react-email/components";
+
+export default function WelcomeEmail() {
+  return (
+    <Html>
+      <Head />
+      <Preview>Your Peerlist journey begins here!</Preview>
+
+      <Tailwind
+        config={{
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                brand: "#212121",
+                muted: "#738A94",
+              },
+            },
+          },
+        }}
+      >
+        <Body className="font-sans">
+          <Container className="mx-auto px-4 py-5">
+            <Section className="mt-8">
+              <Link href="https://peerlist.io">
+                <Img
+                  src="https://dqy38fnwh4fqs.cloudfront.net/website/peerlist-logo-full-dark.svg"
+                  width="124"
+                  height="32"
+                  alt="Peerlist Logo"
+                />
+              </Link>
+            </Section>
+
+            <Section className="mt-8">
+              <Text className="text-base">Hey there,</Text>
+              <Text className="text-base">
+                Your Peerlist profile is now complete, and you're all set to fully utilize the
+                platform. Here's what you can do next:
+              </Text>
+            </Section>
+
+            <Section className="mt-8">
+              <Heading className="mb-2 text-xl font-bold">
+                Discover and launch side-projects:
+              </Heading>
+              <Img
+                src="http://cdn.mcauto-images-production.sendgrid.net/d60e16665ddff5a7/c8b3423e-a746-4651-924e-91b603d6b7e7/1200x630.png"
+                width="600"
+                alt="Project Spotlight"
+                className="mb-4"
+              />
+              <Text>
+                Project Spotlight is a weekly launchpad for side-projects. Find and explore great
+                side projects every week.
+              </Text>
+
+              <Button
+                className="bg-brand mt-4 rounded-[6px] px-[16px] py-[16px] text-[14px] font-semibold text-white"
+                href="https://peerlist.io/projects"
+              >
+                Launch your side-project →
+              </Button>
+            </Section>
+
+            <Hr className="mb-6 mt-8 border-gray-200" />
+
+            <Section className="text-left text-sm text-primary/80">
+              <Text className="m-0 p-0 font-medium">From,</Text>
+              <Text className="m-0 p-0 font-bold">Team Peerlist</Text>
+              <Text className="m-0 p-0">
+                Peerlist Inc. 447 Broadway, 2nd Floor Suite #385, New York, NY 10013
+              </Text>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+### Customization options
+
+<Accordion title="Brand colors">
+  Update the `brand` and `muted` colors in the Tailwind config:
+  
+  ```tsx
+  colors: {
+    brand: "#212121", // Your primary brand color
+    muted: "#738A94", // Secondary text color
+  }
+  ```
+</Accordion>
+
+<Accordion title="Feature sections">
+  Add or remove feature sections by duplicating the `Section` component:
+  
+  ```tsx
+  <Section className="mt-8">
+    <Heading className="mb-2 text-xl font-bold">
+      Your Feature Title
+    </Heading>
+    <Img src="your-image.png" width="600" alt="Feature" />
+    <Text>Feature description...</Text>
+    <Button href="/your-link">Call to action →</Button>
+  </Section>
+  ```
+</Accordion>
+
+## Inbox message notification
+
+A minimal notification email for direct messages received on the platform.
+
+### Key features
+
+- User avatar display
+- Message preview in highlighted box
+- Single clear CTA to inbox
+- Minimal, distraction-free design
+
+### Use cases
+
+- Notify users of new direct messages
+- Alert users about important communications
+- Drive users back to the platform
+
+### Code
+
+```tsx peerlist/inbox-message.tsx
+import {
+  Body,
+  Button,
+  Container,
+  Head,
+  Hr,
+  Html,
+  Img,
+  Link,
+  Preview,
+  Section,
+  Tailwind,
+  Text,
+} from "@react-email/components";
+
+export default function PeerlistMessageEmail() {
+  return (
+    <Html>
+      <Head />
+      <Preview>Harshit sent you a message on Peerlist</Preview>
+      <Tailwind
+        config={{
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                brand: "#212121",
+                muted: "#738A94",
+              },
+            },
+          },
+        }}
+      >
+        <Body className="font-sans">
+          <Container className="mx-auto my-[20px] max-w-[600px] px-4 py-8">
+            <Section className="mb-8">
+              <Img
+                src="https://dqy38fnwh4fqs.cloudfront.net/UHDNK79BK6LA89DCMPRQGEGQOGGO/hdnk79bk6la89dcmprqgegqoggo-profile.webp"
+                alt="Sender Avatar"
+                width="48"
+                height="48"
+                className="rounded-full"
+              />
+            </Section>
+
+            <Section className="mb-6">
+              <Text className="m-0 text-2xl font-bold text-primary">Akash Bhadange</Text>
+              <Text className="m-0 text-base text-primary/80">sent you a message on Peerlist.</Text>
+            </Section>
+
+            <Section className="bg-brand mb-8 rounded-[4px]">
+              <Text className="px-[24px] italic text-white dark:text-primary/80">
+                Thanks for featuring Peerlist emails! 💚
+              </Text>
+            </Section>
+
+            <Button
+              className="bg-brand mt-4 flex w-fit items-center gap-2 rounded-[6px] px-[16px] py-[16px] font-semibold text-white"
+              href="https://peerlist.io/scroll"
+            >
+              Go to Inbox →
+            </Button>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+## Job application confirmation
+
+A simple confirmation email sent when a user applies for a job posting.
+
+### Key features
+
+- Clear confirmation of application submission
+- Job title and company name highlighted
+- Encouragement and next steps
+- Additional job browsing CTA
+
+### Use cases
+
+- Confirm job application submissions
+- Reassure candidates about next steps
+- Encourage continued job browsing
+
+<Info>
+  This template works well for job boards, hiring platforms, and company career pages.
+</Info>
+
+## Design system
+
+All Peerlist templates share these design characteristics:
+
+<Tabs>
+  <Tab title="Colors">
+    ```tsx
+    {
+      brand: "#212121",     // Dark charcoal for primary actions
+      muted: "#738A94",     // Muted blue-gray for secondary text
+    }
+    ```
+  </Tab>
+  
+  <Tab title="Typography">
+    - **Headings**: Bold, xl size for section titles
+    - **Body text**: Base size with comfortable line height
+    - **CTAs**: Semibold, 14px for button text
+  </Tab>
+  
+  <Tab title="Spacing">
+    - Section margins: 32px (mt-8)
+    - Container padding: 20px (px-4 py-5)
+    - Button padding: 16px horizontal, 16px vertical
+  </Tab>
+</Tabs>
+
+## Related templates
+
+<CardGroup cols={2}>
+  <Card title="Framer templates" icon="palette" href="/templates/framer">
+    Design-focused onboarding emails with feature highlights
+  </Card>
+  
+  <Card title="Myna UI templates" icon="sparkles" href="/templates/myna-ui">
+    Complete user lifecycle email suite with modern design
+  </Card>
+</CardGroup>

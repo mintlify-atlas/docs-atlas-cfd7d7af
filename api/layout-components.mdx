@@ -1,0 +1,468 @@
+---
+title: Layout components
+description: Essential layout components for structuring email templates with Container, Section, Row, and Column
+---
+
+React Email provides a set of layout components that help you structure your email templates using a table-based layout system. These components ensure your emails render consistently across all major email clients.
+
+## Container
+
+The `Container` component is the main wrapper for your email content, providing consistent width and centering.
+
+<CodeGroup>
+```tsx Example
+import { Body, Container } from "@react-email/components";
+
+export default function Email() {
+  return (
+    <Body className="font-sans">
+      <Container className="mx-auto mb-5 px-4 py-5">
+        {/* Your email content */}
+      </Container>
+    </Body>
+  );
+}
+```
+</CodeGroup>
+
+<ParamField path="className" type="string">
+  Common classes for Container:
+  - `mx-auto` - Centers the container horizontally
+  - `px-4` - Horizontal padding (16px)
+  - `py-5` - Vertical padding (20px)
+  - `w-full` - Full width container
+</ParamField>
+
+### Default behavior
+
+The Container component:
+- Centers content horizontally by default
+- Has a maximum width of 600px (email standard)
+- Provides a consistent wrapper for all email body content
+
+<Info>
+  Always wrap your main email content in a Container to ensure proper rendering across email clients.
+</Info>
+
+## Section
+
+The `Section` component groups related content and provides vertical spacing between different parts of your email.
+
+<CodeGroup>
+```tsx Example
+import { Container, Section, Text } from "@react-email/components";
+
+export default function Email() {
+  return (
+    <Container className="mx-auto px-4 py-5">
+      <Section className="my-8">
+        <Text>First section content</Text>
+      </Section>
+      
+      <Section className="my-8">
+        <Text>Second section content</Text>
+      </Section>
+    </Container>
+  );
+}
+```
+</CodeGroup>
+
+<ParamField path="className" type="string">
+  Common classes for Section:
+  - `my-4` - Vertical margin (16px top and bottom)
+  - `my-8` - Vertical margin (32px top and bottom)
+  - `mt-4` / `mb-4` - Individual top/bottom margins
+  - `text-center` - Center align section content
+</ParamField>
+
+### Use cases
+
+- Separating header, body, and footer content
+- Creating visual breaks between content blocks
+- Grouping related elements (logo + heading, image + caption, etc.)
+
+## Row and Column
+
+The `Row` and `Column` components create multi-column layouts using table-based structure.
+
+### Basic two-column layout
+
+<CodeGroup>
+```tsx Example
+import { Column, Container, Row, Section } from "@react-email/components";
+
+export default function Email() {
+  return (
+    <Container className="mx-auto w-full px-4 py-5">
+      <Section>
+        <Row>
+          <Column className="w-1/2 pr-2">
+            {/* Left column content */}
+          </Column>
+          <Column className="w-1/2 pl-2">
+            {/* Right column content */}
+          </Column>
+        </Row>
+      </Section>
+    </Container>
+  );
+}
+```
+</CodeGroup>
+
+<ParamField path="className" type="string">
+  Common width classes for columns:
+  - `w-1/2` - 50% width (2 columns)
+  - `w-1/3` - 33.33% width (3 columns)
+  - `w-2/3` - 66.67% width (asymmetric layout)
+  - `pr-2` / `pl-2` - Padding for gutters between columns
+</ParamField>
+
+### Three-column grid
+
+<CodeGroup>
+```tsx Example
+import { Column, Container, Img, Row, Section } from "@react-email/components";
+
+export default function Email() {
+  return (
+    <Container className="mx-auto w-full px-4 py-5">
+      <Section className="mx-auto my-4 max-w-2xl">
+        <Row className="mb-4">
+          <Column className="w-1/3 pr-2">
+            <Img
+              src="/image1.jpg"
+              alt="Item 1"
+              className="w-full rounded-lg object-cover"
+              height={150}
+            />
+          </Column>
+          <Column className="w-1/3 px-2">
+            <Img
+              src="/image2.jpg"
+              alt="Item 2"
+              className="w-full rounded-lg object-cover"
+              height={150}
+            />
+          </Column>
+          <Column className="w-1/3 pl-2">
+            <Img
+              src="/image3.jpg"
+              alt="Item 3"
+              className="w-full rounded-lg object-cover"
+              height={150}
+            />
+          </Column>
+        </Row>
+      </Section>
+    </Container>
+  );
+}
+```
+</CodeGroup>
+
+<Warning>
+  Column layouts may stack on mobile devices. Test your multi-column layouts on various screen sizes to ensure readability.
+</Warning>
+
+### Column alignment
+
+Control horizontal alignment within columns:
+
+<CodeGroup>
+```tsx Example
+import { Column, Container, Img, Row, Section, Text } from "@react-email/components";
+
+export default function Email() {
+  return (
+    <Container className="mx-auto w-full px-4 py-5">
+      <Section className="my-0">
+        <table className="w-full" cellPadding="0" cellSpacing="0" role="presentation">
+          <tr>
+            <td>
+              <Row>
+                <Column align="left">
+                  <Img src="/logo.png" width="40" height="40" alt="Logo" />
+                </Column>
+                <Column align="right">
+                  <Text className="m-0 text-sm font-semibold text-primary">
+                    {new Date().toLocaleDateString()}
+                  </Text>
+                </Column>
+              </Row>
+            </td>
+          </tr>
+        </table>
+      </Section>
+    </Container>
+  );
+}
+```
+</CodeGroup>
+
+<ParamField path="align" type="string">
+  Column alignment options:
+  - `left` - Align content to the left
+  - `center` - Center content horizontally
+  - `right` - Align content to the right
+</ParamField>
+
+## Advanced table layouts
+
+For more complex layouts with borders or specific styling, use HTML table elements directly with inline styles:
+
+<CodeGroup>
+```tsx Example
+import { Container, Section } from "@react-email/components";
+
+export default function Email() {
+  return (
+    <Container className="mx-auto px-4">
+      <Section className="mb-6 flex flex-col items-center justify-center rounded-[12px] bg-[hsl(240,4.8%,95.9%)]/50">
+        <table
+          style={{
+            border: "1px solid rgb(39 39 42 / 0.1)",
+            borderRadius: "8px",
+            borderCollapse: "collapse",
+            display: "flex",
+            justifyContent: "center",
+            width: "fit-content",
+            alignItems: "center",
+            padding: "24px",
+          }}
+        >
+          <tr>
+            <td>
+              {/* Table content */}
+            </td>
+          </tr>
+        </table>
+      </Section>
+    </Container>
+  );
+}
+```
+</CodeGroup>
+
+<Info>
+  Use inline styles for critical table properties like `border`, `borderCollapse`, and `padding` to ensure consistent rendering across email clients.
+</Info>
+
+## Text and Heading
+
+Typography components for displaying text content:
+
+### Text component
+
+<CodeGroup>
+```tsx Example
+import { Container, Section, Text } from "@react-email/components";
+
+export default function Email() {
+  return (
+    <Container className="mx-auto px-4">
+      <Section>
+        <Text className="text-[16px] leading-6 text-primary/80">
+          Welcome to our platform! We're excited to have you on board.
+        </Text>
+      </Section>
+    </Container>
+  );
+}
+```
+</CodeGroup>
+
+<ParamField path="className" type="string">
+  Common text styling classes:
+  - `text-[14px]` / `text-[16px]` - Font sizes
+  - `leading-6` - Line height
+  - `text-primary` - Text color
+  - `text-primary/80` - Text color with 80% opacity
+  - `m-0` - Remove default margins
+  - `p-0` - Remove default padding
+</ParamField>
+
+### Heading component
+
+<CodeGroup>
+```tsx Example
+import { Container, Heading, Section } from "@react-email/components";
+
+export default function Email() {
+  return (
+    <Container className="mx-auto px-4">
+      <Section className="mt-4">
+        <Heading className="mx-0 mb-8 mt-2 p-0 text-lg font-normal">
+          Welcome to Framer!
+        </Heading>
+      </Section>
+    </Container>
+  );
+}
+```
+</CodeGroup>
+
+<ParamField path="className" type="string">
+  Common heading styling classes:
+  - `text-lg` - Large text size
+  - `text-[32px]` - Explicit pixel size
+  - `font-normal` / `font-semibold` / `font-bold` - Font weights
+  - `mx-0 my-0` - Remove horizontal/vertical margins
+</ParamField>
+
+## Image component
+
+Display images with proper sizing and styling:
+
+<CodeGroup>
+```tsx Example
+import { Container, Img, Link, Section } from "@react-email/components";
+
+export default function Email() {
+  return (
+    <Container className="mx-auto px-4">
+      <Section className="mt-8">
+        <Link href="https://example.com">
+          <Img
+            src="https://example.com/image.jpg"
+            alt="Feature image"
+            className="w-full cursor-pointer rounded-2xl"
+          />
+        </Link>
+      </Section>
+    </Container>
+  );
+}
+```
+</CodeGroup>
+
+<ParamField path="src" type="string" required>
+  Image URL (must be absolute URL, not relative path)
+</ParamField>
+
+<ParamField path="alt" type="string" required>
+  Alt text for accessibility
+</ParamField>
+
+<ParamField path="width" type="number">
+  Explicit width in pixels
+</ParamField>
+
+<ParamField path="height" type="number">
+  Explicit height in pixels
+</ParamField>
+
+<Warning>
+  Always use absolute URLs for images. Relative paths will not work in email clients.
+</Warning>
+
+### Responsive images
+
+For responsive images, use percentage-based widths:
+
+```tsx
+<Img
+  src="https://example.com/banner.jpg"
+  alt="Banner"
+  className="w-full aspect-video rounded-[8px] object-cover"
+/>
+```
+
+## Hr (Horizontal Rule)
+
+Create visual separators between sections:
+
+<CodeGroup>
+```tsx Example
+import { Container, Hr, Section } from "@react-email/components";
+
+export default function Email() {
+  return (
+    <Container className="mx-auto px-4">
+      <Section>Content above</Section>
+      
+      <Hr className="mx-0 my-[26px] w-full border border-solid border-[#eaeaea]" />
+      
+      <Section>Content below</Section>
+    </Container>
+  );
+}
+```
+</CodeGroup>
+
+<ParamField path="className" type="string">
+  Common Hr styling:
+  - `my-[26px]` - Vertical margin
+  - `w-full` - Full width line
+  - `border border-solid border-[#eaeaea]` - Border styling
+  - `mx-0` - Remove horizontal margin
+</ParamField>
+
+## Link component
+
+Create clickable links with proper styling:
+
+<CodeGroup>
+```tsx Example
+import { Container, Link, Section, Text } from "@react-email/components";
+
+export default function Email() {
+  return (
+    <Container className="mx-auto px-4">
+      <Section>
+        <Text className="text-[14px] leading-6 text-primary/75">
+          Learn more in our{" "}
+          <Link
+            href="https://example.com/guide"
+            className="text-primary/75 underline"
+          >
+            comprehensive guide
+          </Link>
+          .
+        </Text>
+      </Section>
+    </Container>
+  );
+}
+```
+</CodeGroup>
+
+<ParamField path="href" type="string" required>
+  The destination URL
+</ParamField>
+
+<ParamField path="className" type="string">
+  Common link styling:
+  - `underline` - Underline the link text
+  - `text-primary/75` - Link color with opacity
+  - `font-semibold` - Bold link text
+</ParamField>
+
+## Best practices
+
+### Spacing and layout
+
+1. **Consistent spacing**: Use multiples of 4px for margins and padding (`my-4`, `my-8`, `px-4`)
+2. **Container usage**: Always wrap content in a Container component
+3. **Section separation**: Use Section components to group related content
+4. **Mobile-first**: Design with mobile devices in mind, as many users read email on phones
+
+### Email client compatibility
+
+<Info>
+  These layout components use table-based layouts, which have the best cross-client compatibility. Avoid using CSS Grid or Flexbox for main layout structure.
+</Info>
+
+### Performance
+
+- Keep images under 1MB for faster loading
+- Use appropriate image formats (JPEG for photos, PNG for graphics)
+- Always specify image dimensions to prevent layout shifts
+
+### Accessibility
+
+- Use semantic HTML elements (headings, paragraphs)
+- Provide descriptive alt text for all images
+- Ensure sufficient color contrast for text
+- Use logical heading hierarchy (h1 → h2 → h3)

@@ -1,0 +1,434 @@
+---
+title: Supabase templates
+description: Open-source backend platform email templates for developer onboarding and verification
+---
+
+Supabase templates are developer-focused emails with a clean, minimalist design. These templates prioritize clarity and functionality, perfect for technical products and developer tools.
+
+## Template overview
+
+The Supabase template collection includes:
+
+- **Welcome email**: Introduction to the platform with resources
+- **Verification email**: Email confirmation with clear CTA
+
+## Welcome email
+
+A straightforward welcome email that introduces Supabase and provides essential resources for developers to get started.
+
+### Key features
+
+- Supabase logo branding
+- Brief product introduction
+- Bulleted resource list with links
+- Personal sign-off from CEO
+- Minimal, developer-friendly design
+- Company address in footer
+
+### Use cases
+
+- Welcome developers to your platform
+- Provide essential documentation and resources
+- Create first touchpoint for technical products
+- Set expectations for self-service onboarding
+
+### Code
+
+```tsx supabase/welcome.tsx
+import {
+  Body,
+  Container,
+  Head,
+  Heading,
+  Html,
+  Img,
+  Link,
+  Preview,
+  Section,
+  Tailwind,
+  Text,
+} from "@react-email/components";
+
+export default function WelcomeEmail() {
+  return (
+    <Html>
+      <Head />
+      <Preview>Welcome to Supabase - Your open source Firebase alternative!</Preview>
+
+      <Tailwind
+        config={{
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                brand: "#34B27B",
+                muted: "#4B5563",
+              },
+            },
+          },
+        }}
+      >
+        <Body className="font-sans">
+          <Container className="mx-auto my-[20px] px-4 py-5">
+            <Section className="mt-2">
+              <Link href="https://supabase.com">
+                <Img
+                  src="https://res.cloudinary.com/sutharjay/image/upload/v1739700369/me/projects/reactui-email/logo/supabase.svg"
+                  width="32"
+                  height="32"
+                  alt="Supabase Logo"
+                />
+              </Link>
+            </Section>
+            
+            <Section className="mt-8">
+              <Text className="text-base">Hey there,</Text>
+              <Text className="text-base">
+                Welcome to Supabase, the open source Firebase alternative.
+              </Text>
+              <Text className="text-base">
+                Supabase gives you all the backend features you need to build a product: Database,
+                Authentication, Storage, Realtime API, Edge Functions, Serverless APIs, and more.
+              </Text>
+            </Section>
+
+            <Section className="mt-2">
+              <Heading className="mb-2 text-xl font-bold">Here are some useful resources:</Heading>
+
+              <ul className="list-disc pl-6">
+                <li className="text-[14px] leading-6 text-primary/80">
+                  <Link href="https://supabase.com/docs" className="text-brand">
+                    Read our docs
+                  </Link>
+                </li>
+                <li className="text-[14px] leading-6 text-primary/80">
+                  <Link
+                    href="https://github.com/supabase/supabase/tree/master/examples"
+                    className="text-brand"
+                  >
+                    Check out some examples
+                  </Link>
+                </li>
+                <li className="text-[14px] leading-6 text-primary/80">
+                  Have a question? Want to meet the community?{" "}
+                  <Link href="https://discord.supabase.com" className="text-brand">
+                    Hop into our Discord
+                  </Link>
+                </li>
+                <li className="text-[14px] leading-6 text-primary/80">
+                  Ready to build?{" "}
+                  <Link href="https://app.supabase.com" className="text-brand">
+                    Start by creating a new organization
+                  </Link>
+                </li>
+              </ul>
+            </Section>
+
+            <Section className="mt-8">
+              <Text className="m-0 p-0 text-base">
+                Feel free to reach out if you have any questions or feedback.
+              </Text>
+
+              <Text className="m-0 p-0 font-bold">Paul, CEO and Co-Founder @ Supabase</Text>
+              <Text className="text-[0.75rem]">
+                Supabase lnc, 3500 S. DuPont Highway, Kent 19901, Dover, Delaware, USA
+              </Text>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+### Developer-friendly design principles
+
+This template demonstrates best practices for developer-focused emails:
+
+<Tabs>
+  <Tab title="Clarity">
+    - No marketing fluff
+    - Straightforward language
+    - Technical accuracy
+    - Quick access to resources
+  </Tab>
+  
+  <Tab title="Resources">
+    - Documentation (first priority)
+    - Code examples (practical learning)
+    - Community (peer support)
+    - Dashboard (activation)
+  </Tab>
+  
+  <Tab title="Trust">
+    - Personal sign-off from CEO
+    - Open invitation for questions
+    - Company transparency (address)
+    - Open source positioning
+  </Tab>
+</Tabs>
+
+### Customization options
+
+<Accordion title="Resource list">
+  Customize the resources based on your product:
+  
+  ```tsx
+  <ul className="list-disc pl-6">
+    <li className="text-[14px] leading-6 text-primary/80">
+      <Link href="/your-docs" className="text-brand">
+        Your resource name
+      </Link>
+    </li>
+  </ul>
+  ```
+  
+  Order resources by importance to your users.
+</Accordion>
+
+<Accordion title="Personal sign-off">
+  Add authenticity with a personal touch:
+  
+  ```tsx
+  <Text className="m-0 p-0 font-bold">
+    {name}, {title} @ {company}
+  </Text>
+  ```
+  
+  Founder/CEO sign-offs work well for welcome emails.
+</Accordion>
+
+## Verification email
+
+A secure email verification template with a clear call-to-action button and security messaging.
+
+### Key features
+
+- Email address display for confirmation
+- Bordered button for visual emphasis
+- Security reassurance message
+- Clean, focused layout
+- No distracting elements
+
+### Use cases
+
+- Verify user email addresses
+- Confirm account creation
+- Security-focused email confirmations
+- Two-factor authentication flows
+
+### Code
+
+```tsx supabase/verification-email.tsx
+import {
+  Body,
+  Button,
+  Container,
+  Head,
+  Html,
+  Img,
+  Link,
+  Preview,
+  Section,
+  Tailwind,
+  Text,
+} from "@react-email/components";
+
+export default function VerificationEmail() {
+  return (
+    <Html>
+      <Head />
+      <Preview>Verify your email to start using Supabase!</Preview>
+
+      <Tailwind
+        config={{
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                brand: "#34B27B",
+                muted: "#4B5563",
+              },
+            },
+          },
+        }}
+      >
+        <Body className="font-sans">
+          <Container className="mx-auto my-[20px] px-4 py-5">
+            <Section className="mt-2">
+              <Link href="https://supabase.com">
+                <Img
+                  src="https://res.cloudinary.com/sutharjay/image/upload/v1739700369/me/projects/reactui-email/logo/supabase.svg"
+                  width="32"
+                  height="32"
+                  alt="Supabase Logo"
+                />
+              </Link>
+            </Section>
+
+            <Section className="mt-8">
+              <Text className="text-2xl font-bold">
+                Confirm your email address to start building with Supabase
+              </Text>
+            </Section>
+
+            <Section className="mt-4">
+              <Text className="text-base">
+                You can start building with Supabase right away once you've confirmed that{" "}
+                <Link href="https://supabase.com" className="text-brand">
+                  sutharjay@proton.me
+                </Link>{" "}
+                is your email. Click the button below to confirm.
+              </Text>
+            </Section>
+
+            <Section className="mt-4 text-center">
+              <table
+                style={{
+                  border: "1px solid rgb(39 39 42 / 0.2)",
+                  borderRadius: "4px",
+                  borderCollapse: "collapse",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "fit-content",
+                }}
+              >
+                <tr>
+                  <td>
+                    <Button
+                      className="bg-brand flex w-fit items-center justify-center rounded-lg px-6 py-3 text-center text-sm font-semibold text-white"
+                      href="https://supabase.com"
+                    >
+                      Confirm Email Address
+                    </Button>
+                  </td>
+                </tr>
+              </table>
+            </Section>
+
+            <Section className="mt-4">
+              <Text className="text-sm text-primary/60">
+                If you didn't request for this, you can safely ignore this email.
+              </Text>
+
+              <Text className="text-[0.75rem]">
+                Supabase Inc, 3500 S. DuPont Highway, Kent 19901, Dover, Delaware, USA
+              </Text>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+### Security best practices
+
+The verification email includes important security elements:
+
+1. **Email display**: Shows the email being verified
+2. **Ignore option**: Explicitly states users can ignore if not requested
+3. **No personal info**: Doesn't expose sensitive data
+4. **Clear action**: Single, obvious CTA
+
+<Info>
+  Always include an "ignore this email" message in verification emails to reduce support tickets.
+</Info>
+
+### Button styling technique
+
+Notice the bordered button implementation:
+
+```tsx
+<table
+  style={{
+    border: "1px solid rgb(39 39 42 / 0.2)",
+    borderRadius: "4px",
+    borderCollapse: "collapse",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "fit-content",
+  }}
+>
+  <tr>
+    <td>
+      <Button className="bg-brand flex w-fit items-center justify-center rounded-lg px-6 py-3">
+        Confirm Email Address
+      </Button>
+    </td>
+  </tr>
+</table>
+```
+
+This creates a subtle border around the button for extra emphasis while maintaining email client compatibility.
+
+## Design system
+
+<Tabs>
+  <Tab title="Colors">
+    ```tsx
+    {
+      brand: "#34B27B",   // Supabase green
+      muted: "#4B5563",   // Muted gray
+    }
+    ```
+  </Tab>
+  
+  <Tab title="Typography">
+    - **Headings**: XL, bold for emphasis
+    - **Body**: Base size (16px)
+    - **Links**: Brand green color
+    - **Footer**: Extra small (12px)
+  </Tab>
+  
+  <Tab title="Layout">
+    - Minimal padding and margins
+    - Left-aligned content (developer preference)
+    - Compact vertical spacing
+    - No decorative elements
+  </Tab>
+</Tabs>
+
+## Developer email principles
+
+Both Supabase templates follow these developer-focused principles:
+
+### 1. Respect time
+
+- No lengthy introductions
+- Resources listed upfront
+- Quick path to documentation
+
+### 2. Provide value
+
+- Links to docs, not generic landing pages
+- Specific examples and code samples
+- Community access for peer support
+
+### 3. Build trust
+
+- Personal sign-off from leadership
+- Transparent company information
+- Open invitation for feedback
+
+### 4. Enable action
+
+- Clear next steps
+- Multiple learning paths
+- Low-friction activation
+
+## Related templates
+
+<CardGroup cols={2}>
+  <Card title="Peerlist templates" icon="briefcase" href="/templates/peerlist">
+    Professional platform emails for developer communities
+  </Card>
+  
+  <Card title="Softgen templates" icon="robot" href="/templates/softgen">
+    AI platform emails with clean, modern design
+  </Card>
+</CardGroup>

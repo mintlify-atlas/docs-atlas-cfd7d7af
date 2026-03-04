@@ -1,0 +1,273 @@
+---
+title: Button
+description: Call-to-action button components with multiple variants for email templates
+---
+
+The Button component provides various styles and layouts for creating effective call-to-action elements in your emails. All variants are built using React Email's `Button` component with Tailwind CSS styling.
+
+## Variants
+
+ReactUI Email includes five button variants:
+
+1. **Single button** - Centered single call-to-action
+2. **Two buttons** - Side-by-side primary and secondary actions
+3. **Full width button** - Spans the full container width
+4. **Button with icon** - Includes an SVG icon alongside text
+5. **Button with border** - Bordered button using table wrapper
+
+## Single button
+
+A centered button with brand color background, perfect for primary actions.
+
+<CodeGroup>
+```tsx Button component
+import { Button } from "@react-email/components";
+
+<Button
+  className="bg-brand rounded-[8px] px-[24px] py-[12px] text-center text-[14px] font-semibold text-zinc-50"
+  href="https://reactui.email/docs/component/button"
+>
+  Get Started
+</Button>
+```
+
+```tsx Complete example
+import { Body, Button, Container, Head, Html, Preview, Tailwind } from "@react-email/components";
+
+export default function ButtonOne() {
+  return (
+    <Html>
+      <Head />
+      <Preview>Get started with our Button Component.</Preview>
+      <Tailwind
+        config={{
+          theme: {
+            extend: {
+              colors: {
+                brand: "#ff6719",
+              },
+            },
+          },
+        }}
+      >
+        <Body className="font-sans">
+          <Container className="mx-auto flex w-full flex-col items-center justify-center px-4 py-5">
+            <Button
+              className="bg-brand rounded-[8px] px-[24px] py-[12px] text-center text-[14px] font-semibold text-zinc-50"
+              href="https://reactui.email/docs/component/button"
+            >
+              Get Started
+            </Button>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+</CodeGroup>
+
+### Props
+
+<ParamField path="className" type="string">
+  Tailwind CSS classes for styling the button
+</ParamField>
+
+<ParamField path="href" type="string" required>
+  The URL the button links to
+</ParamField>
+
+<ParamField path="children" type="React.ReactNode" required>
+  The button text or content
+</ParamField>
+
+## Two buttons
+
+Display primary and secondary actions side-by-side using a Row and Column layout.
+
+```tsx Two button layout
+import { Button, Column, Row } from "@react-email/components";
+
+<Row>
+  <Column align="center">
+    <Row>
+      <td align="center" className="w-1/2" colSpan={1}>
+        <Button
+          className="bg-brand rounded-[8px] px-[24px] py-[12px] text-center text-[14px] font-semibold text-zinc-50"
+          href="#"
+        >
+          Get Started
+        </Button>
+      </td>
+      <td align="center" className="w-1/2" colSpan={1}>
+        <Button
+          className="rounded-[8px] border-[1px] border-zinc-200 bg-white px-[24px] py-[12px] text-center text-[14px] font-semibold text-zinc-950"
+          href="#"
+        >
+          Sign Up
+        </Button>
+      </td>
+    </Row>
+  </Column>
+</Row>
+```
+
+<Info>
+  The two-button layout uses table cells (`<td>`) with `colSpan={1}` to ensure proper spacing in email clients.
+</Info>
+
+## Full width button
+
+A button that spans the full width of its container, ideal for mobile-first designs.
+
+```tsx Full width button
+<Button
+  className="bg-brand mx-auto flex w-full items-center justify-center rounded-[8px] px-[24px] py-[12px] text-center text-[14px] font-semibold text-zinc-50"
+  href="https://reactui.email/docs/component/button"
+>
+  Get Started
+</Button>
+```
+
+Key classes:
+- `w-full` - Makes the button span full width
+- `flex items-center justify-center` - Centers content
+- `mx-auto` - Centers the button in its container
+
+## Button with icon
+
+Combine text and icons using nested Row and Column components.
+
+```tsx Button with icon
+<Button
+  className="bg-brand mx-auto flex w-full items-center justify-center rounded-[8px] px-[24px] py-[12px] text-center text-[14px] font-semibold text-zinc-50"
+  href="https://reactui.email/docs/component/button"
+>
+  <Row>
+    <Column>Button</Column>
+    <Column>
+      <svg
+        className="ml-1"
+        width="20"
+        height="20"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        viewBox="0 0 20 20"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M4.5 12h15m0 0-5.625-6m5.625 6-5.625 6" />
+      </svg>
+    </Column>
+  </Row>
+</Button>
+```
+
+<Info>
+  Use inline SVG icons with `currentColor` for the stroke/fill to inherit the text color automatically.
+</Info>
+
+## Button with border
+
+Create bordered buttons by wrapping the Button component in a table with border styles.
+
+```tsx Button with border
+<Section className="text-center">
+  <table
+    style={{
+      border: "1px solid rgb(39 39 42 / 0.2)",
+      borderRadius: "8px",
+      borderCollapse: "collapse",
+      display: "flex",
+      justifyContent: "center",
+      width: "fit-content",
+      margin: "0 auto",
+      alignItems: "center",
+    }}
+  >
+    <tr>
+      <td>
+        <Button
+          className="mx-auto flex w-fit items-center justify-center rounded-[8px] bg-white px-[24px] py-[12px] text-center text-[14px] font-semibold text-zinc-900"
+          href="https://softgen.ai/dashboard"
+        >
+          Start Building Your App →
+        </Button>
+      </td>
+    </tr>
+  </table>
+</Section>
+```
+
+This variant uses:
+- Inline `style` prop for border properties
+- `borderCollapse: "collapse"` for clean borders
+- `width: "fit-content"` to wrap button tightly
+
+## Customization
+
+### Colors
+
+Customize button colors through the Tailwind config:
+
+```tsx Tailwind config
+config={{
+  theme: {
+    extend: {
+      colors: {
+        brand: "#ff6719",  // Your primary brand color
+      },
+    },
+  },
+}}
+```
+
+### Sizing
+
+Adjust button size by modifying padding and text size classes:
+
+```tsx Size variants
+// Small
+className="px-[16px] py-[8px] text-[12px]"
+
+// Medium (default)
+className="px-[24px] py-[12px] text-[14px]"
+
+// Large
+className="px-[32px] py-[16px] text-[16px]"
+```
+
+### Border radius
+
+Change the border radius for different button shapes:
+
+```tsx Border radius variants
+// Sharp corners
+className="rounded-none"
+
+// Slight rounding (default)
+className="rounded-[8px]"
+
+// Pill shape
+className="rounded-[32px]"
+```
+
+## Best practices
+
+1. **Use semantic URLs** - Always provide a valid `href` that points to the intended destination
+2. **Keep text concise** - Button labels should be short and action-oriented (e.g., "Get Started", "Confirm Email")
+3. **Prioritize actions** - Use the primary brand color for the most important action
+4. **Test across clients** - Button rendering varies across email clients; always test your implementation
+5. **Provide alt text** - If using icon-only buttons, ensure accessibility with proper ARIA labels
+
+## Source code
+
+View the complete source code for all button variants:
+
+- [Single button](https://github.com/your-repo/source/src/email/components/button/single.tsx)
+- [Two buttons](https://github.com/your-repo/source/src/email/components/button/two-button.tsx)
+- [Full width button](https://github.com/your-repo/source/src/email/components/button/single-width-full.tsx)
+- [Button with icon](https://github.com/your-repo/source/src/email/components/button/button-with-icon.tsx)
+- [Button with border](https://github.com/your-repo/source/src/email/components/button/button-with-border.tsx)

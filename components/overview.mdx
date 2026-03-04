@@ -1,0 +1,89 @@
+---
+title: Components overview
+description: Reusable email components for building professional transactional emails with ReactUI Email
+---
+
+ReactUI Email provides a collection of production-ready components that you can use to build beautiful, responsive transactional emails. Each component is built with React Email and styled with Tailwind CSS for maximum flexibility.
+
+## Available components
+
+<CardGroup cols={2}>
+  <Card title="Button" icon="hand-pointer" href="/components/button">
+    Call-to-action buttons with multiple variants and styles
+  </Card>
+  <Card title="Header" icon="heading" href="/components/header">
+    Email headers with logos, navigation, and date displays
+  </Card>
+  <Card title="Grid" icon="table-cells" href="/components/grid">
+    Responsive grid layouts for images and content
+  </Card>
+  <Card title="Confirm account" icon="envelope-circle-check" href="/components/confirm-account">
+    Complete account confirmation email template
+  </Card>
+</CardGroup>
+
+## When to use each component
+
+### Button
+
+Use button components when you need:
+- Primary call-to-action elements
+- Multiple action buttons (primary + secondary)
+- Full-width action buttons for mobile
+- Buttons with icons for enhanced visual communication
+- Bordered buttons for secondary actions
+
+### Header
+
+Use header components when you need:
+- Brand identity with logo placement
+- Date or timestamp displays
+- Navigation links in email headers
+- Centered logo with horizontal rule divider
+
+### Grid
+
+Use grid components when you need:
+- Display multiple images in a structured layout
+- Showcase products or features side-by-side
+- Create visual galleries within emails
+- Responsive multi-column layouts
+
+### Confirm account
+
+Use confirm account components when you need:
+- Complete email verification flows
+- Account activation messages
+- Welcome emails with confirmation CTAs
+- Professional onboarding emails
+
+## Component structure
+
+All ReactUI Email components follow a consistent structure:
+
+1. **React Email components** - Built on `@react-email/components`
+2. **Tailwind CSS** - Configured with custom theme extensions
+3. **Email-safe markup** - Uses table-based layouts for maximum client compatibility
+4. **Customizable props** - Easy to adapt to your brand and use case
+
+## Customization
+
+You can customize any component by:
+
+- Modifying the Tailwind config theme colors
+- Adjusting spacing and sizing classes
+- Replacing placeholder content and URLs
+- Combining components to create complete email templates
+
+<Info>
+  All components use CSS variables and HSL color notation for easy theming. Update the `colors` object in the Tailwind config to match your brand.
+</Info>
+
+## Next steps
+
+Explore individual component documentation to learn about specific props, variants, and usage examples:
+
+- [Button component →](/components/button)
+- [Header component →](/components/header)
+- [Grid component →](/components/grid)
+- [Confirm account component →](/components/confirm-account)

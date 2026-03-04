@@ -1,0 +1,291 @@
+---
+title: Button variants
+description: Comprehensive guide to all button component variants and their usage in email templates
+---
+
+The button component is one of the most essential interactive elements in email templates. ReactUI Email provides several pre-built button variants that work reliably across email clients.
+
+## Single button
+
+The most basic button variant with a solid background color and rounded corners.
+
+<CodeGroup>
+```tsx Example
+import { Button, Container } from "@react-email/components";
+
+export default function Email() {
+  return (
+    <Container className="mx-auto flex w-full flex-col items-center justify-center px-4 py-5">
+      <Button
+        className="bg-brand rounded-[8px] px-[24px] py-[12px] text-center text-[14px] font-semibold text-zinc-50"
+        href="https://example.com"
+      >
+        Get Started
+      </Button>
+    </Container>
+  );
+}
+```
+</CodeGroup>
+
+<ParamField path="className" type="string" required>
+  Tailwind classes for styling. Common patterns:
+  - `bg-brand` - Brand color background
+  - `rounded-[8px]` - 8px border radius
+  - `px-[24px] py-[12px]` - Horizontal and vertical padding
+  - `text-[14px]` - Font size
+  - `font-semibold` - Font weight
+</ParamField>
+
+<ParamField path="href" type="string" required>
+  The URL the button links to
+</ParamField>
+
+<Info>
+  Use explicit pixel values like `rounded-[8px]` instead of Tailwind's semantic values (`rounded-lg`) for better email client compatibility.
+</Info>
+
+## Button with icon
+
+A button with an icon element positioned next to the text, typically used to indicate direction or action type.
+
+<CodeGroup>
+```tsx Example
+import { Button, Column, Container, Row } from "@react-email/components";
+
+export default function Email() {
+  return (
+    <Container className="mx-auto flex w-full flex-col items-center justify-center px-4">
+      <Row>
+        <Column>
+          <Button
+            className="bg-brand mx-auto flex w-full items-center justify-center rounded-[8px] px-[24px] py-[12px] text-center text-[14px] font-semibold text-zinc-50"
+            href="https://example.com"
+          >
+            <Row>
+              <Column>Button</Column>
+              <Column>
+                <svg
+                  className="ml-1"
+                  width="20"
+                  height="20"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  viewBox="0 0 20 20"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M4.5 12h15m0 0-5.625-6m5.625 6-5.625 6" />
+                </svg>
+              </Column>
+            </Row>
+          </Button>
+        </Column>
+      </Row>
+    </Container>
+  );
+}
+```
+</CodeGroup>
+
+<Warning>
+  Icons in email buttons must use inline SVG. External icon fonts and icon libraries are not reliably supported across email clients.
+</Warning>
+
+### Icon positioning
+
+You can position icons before or after text by reordering the `Column` components within the `Row`:
+
+- **Icon after text**: Place icon `Column` after text `Column`
+- **Icon before text**: Place icon `Column` before text `Column`
+
+## Button with border
+
+A bordered button variant that wraps the button in a table with border styling. This creates a distinct outline effect.
+
+<CodeGroup>
+```tsx Example
+import { Button, Container, Section } from "@react-email/components";
+
+export default function Email() {
+  return (
+    <Container className="mx-auto flex w-full flex-col items-center justify-center px-4">
+      <Section className="text-center">
+        <table
+          style={{
+            border: "1px solid rgb(39 39 42 / 0.2)",
+            borderRadius: "8px",
+            borderCollapse: "collapse",
+            display: "flex",
+            justifyContent: "center",
+            width: "fit-content",
+            margin: "0 auto",
+            alignItems: "center",
+          }}
+        >
+          <tr>
+            <td>
+              <Button
+                className="mx-auto flex w-fit items-center justify-center rounded-[8px] bg-white px-[24px] py-[12px] text-center text-[14px] font-semibold text-zinc-900"
+                href="https://example.com"
+              >
+                Start Building Your App →
+              </Button>
+            </td>
+          </tr>
+        </table>
+      </Section>
+    </Container>
+  );
+}
+```
+</CodeGroup>
+
+<Info>
+  The border effect is achieved by wrapping the button in a `table` element with inline styles. This technique ensures consistent rendering across email clients.
+</Info>
+
+### Border customization
+
+You can customize the border appearance through the table's inline styles:
+
+<ParamField path="border" type="string">
+  Border width and color, e.g., `1px solid rgb(39 39 42 / 0.2)`
+</ParamField>
+
+<ParamField path="borderRadius" type="string">
+  Corner rounding, e.g., `8px`
+</ParamField>
+
+## Two button layout
+
+A side-by-side button layout for presenting primary and secondary actions.
+
+<CodeGroup>
+```tsx Example
+import { Button, Column, Container, Row } from "@react-email/components";
+
+export default function Email() {
+  return (
+    <Container className="mx-auto w-full px-4 py-5">
+      <Row>
+        <Column align="center">
+          <Row>
+            <td align="center" className="w-1/2" colSpan={1}>
+              <Button
+                className="bg-brand rounded-[8px] px-[24px] py-[12px] text-center text-[14px] font-semibold text-zinc-50"
+                href="#"
+              >
+                Get Started
+              </Button>
+            </td>
+            <td align="center" className="w-1/2" colSpan={1}>
+              <Button
+                className="rounded-[8px] border-[1px] border-zinc-200 bg-white px-[24px] py-[12px] text-center text-[14px] font-semibold text-zinc-950"
+                href="#"
+              >
+                Sign Up
+              </Button>
+            </td>
+          </Row>
+        </Column>
+      </Row>
+    </Container>
+  );
+}
+```
+</CodeGroup>
+
+<ParamField path="colSpan" type="number">
+  Set to `1` for each button cell to ensure equal width distribution
+</ParamField>
+
+<ParamField path="align" type="string">
+  Use `center` alignment for consistent button positioning
+</ParamField>
+
+### Styling conventions
+
+For two-button layouts, follow these patterns:
+
+- **Primary button**: Solid background with brand color
+- **Secondary button**: White background with border
+
+## Full width button
+
+A button that spans the full width of its container.
+
+<CodeGroup>
+```tsx Example
+import { Button, Container } from "@react-email/components";
+
+export default function Email() {
+  return (
+    <Container className="mx-auto w-full px-4 py-5">
+      <Button
+        className="bg-brand mx-auto flex w-full items-center justify-center rounded-[8px] px-[24px] py-[12px] text-center text-[14px] font-semibold text-zinc-50"
+        href="https://example.com"
+      >
+        Get Started
+      </Button>
+    </Container>
+  );
+}
+```
+</CodeGroup>
+
+<ParamField path="w-full" type="className">
+  Makes the button stretch to fill the container width
+</ParamField>
+
+<ParamField path="mx-auto" type="className">
+  Centers the button horizontally (use with `flex`)
+</ParamField>
+
+## Common props
+
+All button variants support these standard React Email Button props:
+
+<ResponseField name="href" type="string" required>
+  The destination URL when the button is clicked
+</ResponseField>
+
+<ResponseField name="className" type="string">
+  Tailwind CSS classes for styling
+</ResponseField>
+
+<ResponseField name="style" type="object">
+  Inline CSS styles (use sparingly, prefer className)
+</ResponseField>
+
+<ResponseField name="children" type="ReactNode">
+  Button content (text, icons, or nested components)
+</ResponseField>
+
+## Best practices
+
+<Info>
+  **Accessibility**: Always use descriptive button text that clearly indicates the action. Avoid generic labels like "Click here."
+</Info>
+
+<Warning>
+  **Email client compatibility**: Test buttons across major email clients. Some clients strip certain CSS properties, so use inline styles for critical layout properties.
+</Warning>
+
+### Design guidelines
+
+- Use a minimum padding of `px-[20px] py-[10px]` for adequate touch targets
+- Maintain consistent button heights across variants (typically 12px vertical padding)
+- Ensure sufficient color contrast between button background and text (WCAG AA: 4.5:1 minimum)
+- Limit button text to 2-4 words for better scannability
+
+### Color considerations
+
+When choosing button colors:
+
+1. Use your brand color for primary CTAs
+2. Ensure the color works on both light and dark backgrounds
+3. Test colors across different email clients and devices
+4. Provide fallback colors for clients that don't support your Tailwind config

@@ -1,97 +1,262 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: ReactUI Email Documentation
+mode: custom
 ---
 
-## Setting up
+<div className="relative bg-gradient-to-br from-black via-zinc-900 to-black dark:from-[#0f1117] dark:via-[#1a1d27] dark:to-[#0f1117] py-20">
+  <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNiIgc3Ryb2tlPSIjZjRmNGY1IiBzdHJva2Utd2lkdGg9IjAuNSIgb3BhY2l0eT0iMC4xIi8+PC9nPjwvc3ZnPg==')] opacity-20"></div>
+  
+  <div className="relative max-w-6xl mx-auto px-6">
+    <div className="text-center">
+      <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 tracking-tight">
+        Beautiful Email Templates<br />
+        <span className="bg-gradient-to-r from-zinc-200 via-white to-zinc-300 bg-clip-text text-transparent">Built with React & Tailwind CSS</span>
+      </h1>
+      
+      <p className="text-lg md:text-xl text-gray-300 dark:text-gray-400 max-w-2xl mx-auto mb-10">
+        Effortlessly design professional emails with our collection of customizable React components. Fast, responsive, and developer-friendly.
+      </p>
+      
+      <div className="flex flex-wrap gap-4 justify-center items-center">
+        <a 
+          href="/quickstart" 
+          className="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-black bg-white hover:bg-gray-100 dark:text-white dark:bg-white dark:hover:bg-gray-200 rounded-full transition-colors no-underline"
+        >
+          Get Started
+        </a>
+        <a 
+          href="/templates/overview" 
+          className="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-white/10 hover:bg-white/20 dark:text-gray-100 dark:bg-white/10 dark:hover:bg-white/20 border border-white/30 dark:border-white/30 rounded-full transition-colors no-underline"
+        >
+          Browse Templates
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
 
-Get your documentation site up and running in minutes.
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <div className="text-center mb-12">
+    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Quick Start</h2>
+    <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+      Get up and running with ReactUI Email in just a few minutes
+    </p>
+  </div>
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
+  <Steps>
+    <Step title="Install the package">
+      Install ReactUI Email and its peer dependencies using your preferred package manager.
 
-## Make it yours
+      <CodeGroup>
+      ```bash npm
+      npm install @react-email/components react
+      ```
 
-Design a docs site that looks great and empowers your users.
+      ```bash yarn
+      yarn add @react-email/components react
+      ```
 
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
-  </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
-  </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
-  </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
-  </Card>
-</Columns>
+      ```bash pnpm
+      pnpm add @react-email/components react
+      ```
+      </CodeGroup>
+    </Step>
 
-## Create beautiful pages
+    <Step title="Copy a template">
+      Browse our collection of templates and copy the one that fits your needs. All templates are built with React Email components and styled with Tailwind CSS.
 
-Everything you need to create world-class documentation.
+      ```tsx
+      import { Html, Head, Body, Container, Text, Button } from '@react-email/components';
 
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
+      export default function WelcomeEmail() {
+        return (
+          <Html>
+            <Head />
+            <Body className="bg-white font-sans">
+              <Container className="mx-auto py-8">
+                <Text className="text-2xl font-bold">Welcome!</Text>
+                <Button href="https://example.com">Get Started</Button>
+              </Container>
+            </Body>
+          </Html>
+        );
+      }
+      ```
+    </Step>
 
-## Need inspiration?
+    <Step title="Customize with Tailwind CSS">
+      Modify the template to match your brand. All components support Tailwind CSS classes for easy customization.
 
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+      <Info>ReactUI Email uses the Tailwind component from @react-email/components to enable full Tailwind CSS support in email clients.</Info>
+    </Step>
+
+    <Step title="Render and send">
+      Use the `render` function from @react-email/render to convert your React component to HTML, then send it with your preferred email service.
+
+      ```tsx
+      import { render } from '@react-email/render';
+      import WelcomeEmail from './emails/welcome';
+
+      const html = render(<WelcomeEmail />);
+      // Send the HTML with your email service (Resend, SendGrid, etc.)
+      ```
+    </Step>
+  </Steps>
+</div>
+
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <div className="text-center mb-12">
+    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Explore by Topic</h2>
+    <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+      Discover templates, components, and guides to build beautiful emails
+    </p>
+  </div>
+
+  <CardGroup cols={2}>
+    <Card title="Email Templates" icon="envelope" href="/templates/overview">
+      Browse brand-inspired email templates from Peerlist, Framer, Notion, and more
+    </Card>
+    <Card title="Components" icon="cube" href="/components/overview">
+      Reusable React Email components for buttons, headers, grids, and layouts
+    </Card>
+    <Card title="Tailwind Styling" icon="palette" href="/guides/tailwind-styling">
+      Learn how to customize email styles with Tailwind CSS classes
+    </Card>
+    <Card title="Sending Emails" icon="paper-plane" href="/guides/sending-emails">
+      Integrate with Resend, SendGrid, and other email services
+    </Card>
+  </CardGroup>
+</div>
+
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <div className="text-center mb-12">
+    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Featured Templates</h2>
+    <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+      Production-ready email templates inspired by leading brands
+    </p>
+  </div>
+
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <a 
+      href="/templates/myna-ui" 
+      className="group block rounded-2xl border border-gray-200 dark:border-[#27272a] hover:border-[#040404] dark:hover:border-white overflow-hidden transition-colors no-underline bg-white dark:bg-[#1a1d27]"
+    >
+      <div className="h-56 overflow-hidden flex items-center justify-center bg-gray-50 dark:bg-[#0f1117]">
+        <img 
+          src="https://res.cloudinary.com/sutharjay/image/upload/v1741669349/me/projects/reactui-email/myna-ui/rt2fwqotiiphxlzyx6yt.png" 
+          alt="Myna UI email template preview"
+          noZoom
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <div className="p-5">
+        <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-2">Myna UI Templates</h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Welcome, verification, and account management emails</p>
+        <span className="text-sm text-gray-900 dark:text-gray-400 group-hover:text-[#040404] dark:group-hover:text-white flex items-center gap-1 transition-colors">
+          View templates
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </span>
+      </div>
+    </a>
+
+    <a 
+      href="/templates/framer" 
+      className="group block rounded-2xl border border-gray-200 dark:border-[#27272a] hover:border-[#040404] dark:hover:border-white overflow-hidden transition-colors no-underline bg-white dark:bg-[#1a1d27]"
+    >
+      <div className="h-56 overflow-hidden flex items-center justify-center bg-gradient-to-br from-pink-50 to-blue-50 dark:from-pink-950/20 dark:to-blue-950/20">
+        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#040404" className="dark:fill-white" opacity="0.9"/>
+          <path d="M2 17L12 22L22 17" stroke="#040404" className="dark:stroke-white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M2 12L12 17L22 12" stroke="#040404" className="dark:stroke-white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </div>
+      <div className="p-5">
+        <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-2">Framer Templates</h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Design tool-inspired welcome and invitation emails</p>
+        <span className="text-sm text-gray-900 dark:text-gray-400 group-hover:text-[#040404] dark:group-hover:text-white flex items-center gap-1 transition-colors">
+          View templates
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </span>
+      </div>
+    </a>
+
+    <a 
+      href="/templates/peerlist" 
+      className="group block rounded-2xl border border-gray-200 dark:border-[#27272a] hover:border-[#040404] dark:hover:border-white overflow-hidden transition-colors no-underline bg-white dark:bg-[#1a1d27]"
+    >
+      <div className="h-56 overflow-hidden flex items-center justify-center bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20">
+        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="8" r="4" fill="#040404" className="dark:fill-white" opacity="0.9"/>
+          <path d="M4 20C4 16.6863 6.68629 14 10 14H14C17.3137 14 20 16.6863 20 20" stroke="#040404" className="dark:stroke-white" strokeWidth="2" strokeLinecap="round"/>
+        </svg>
+      </div>
+      <div className="p-5">
+        <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-2">Peerlist Templates</h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Professional networking and community emails</p>
+        <span className="text-sm text-gray-900 dark:text-gray-400 group-hover:text-[#040404] dark:group-hover:text-white flex items-center gap-1 transition-colors">
+          View templates
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </span>
+      </div>
+    </a>
+  </div>
+</div>
+
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <div className="text-center mb-12">
+    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Why ReactUI Email?</h2>
+  </div>
+
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div className="text-center">
+      <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gray-100 dark:bg-[#1a1d27] mb-4">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-gray-900 dark:text-white">
+          <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </div>
+      <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Lightning Fast</h3>
+      <p className="text-gray-600 dark:text-gray-400">Copy and paste templates to get started in seconds</p>
+    </div>
+
+    <div className="text-center">
+      <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gray-100 dark:bg-[#1a1d27] mb-4">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-gray-900 dark:text-white">
+          <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Production Ready</h3>
+      <p className="text-gray-600 dark:text-gray-400">Tested across major email clients for consistent rendering</p>
+    </div>
+
+    <div className="text-center">
+      <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gray-100 dark:bg-[#1a1d27] mb-4">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-gray-900 dark:text-white">
+          <path d="M7 8H17M7 12H17M7 16H13M6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </div>
+      <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Fully Customizable</h3>
+      <p className="text-gray-600 dark:text-gray-400">Tailwind CSS makes it easy to match your brand</p>
+    </div>
+  </div>
+</div>
+
+<div className="mt-16 mb-16 max-w-5xl mx-auto px-6">
+  <div className="rounded-2xl border border-gray-200 dark:border-[#27272a] bg-gradient-to-br from-gray-50 to-white dark:from-[#1a1d27] dark:to-[#0f1117] p-10 text-center">
+    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Ready to get started?</h2>
+    <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8">
+      Start building beautiful emails with ReactUI Email templates today
+    </p>
+    <a 
+      href="/quickstart" 
+      className="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-black hover:bg-gray-800 dark:text-black dark:bg-white dark:hover:bg-gray-200 rounded-full transition-colors no-underline"
+    >
+      Get Started
+    </a>
+  </div>
+</div>

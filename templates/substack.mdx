@@ -1,0 +1,363 @@
+---
+title: Substack templates
+description: Newsletter platform email templates for content recommendations and engagement
+---
+
+Substack templates are designed for newsletter platforms and content creators. These emails focus on driving engagement through content discovery and personalized recommendations.
+
+## Template overview
+
+The Substack template collection includes:
+
+- **Unread posts**: Digest email showing multiple unread posts
+- **Newsletter recommendation**: Social proof-driven newsletter suggestions
+
+## Unread posts digest
+
+A digest email that surfaces unread content from subscribed newsletters, encouraging users to catch up on their reading.
+
+### Key features
+
+- Substack logo branding
+- Post count and timeframe in headline
+- Card-based layout for each post
+- Post metadata (likes, comments, author)
+- Individual "Read more" CTAs per post
+- Primary CTA to continue reading in inbox
+
+### Use cases
+
+- Re-engage inactive readers
+- Surface unread newsletter content
+- Create reading digests for content platforms
+- Highlight community engagement (likes, comments)
+
+### Code
+
+```tsx substack/unread-post.tsx
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Body,
+  Button,
+  Column,
+  Container,
+  Head,
+  Html,
+  Img,
+  Link,
+  Preview,
+  Row,
+  Section,
+  Tailwind,
+  Text,
+} from "@react-email/components";
+
+export default function SubstackUnreadPost() {
+  return (
+    <Html>
+      <Head />
+      <Preview>Substack Unread Post</Preview>
+      <Tailwind
+        config={{
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                brand: "#ff6719",
+                muted: "#eeeeee",
+              },
+            },
+          },
+        }}
+      >
+        <Body className="font-sans">
+          <Container className="mx-auto px-4 py-5">
+            <Section className="mt-8">
+              <Link href="https://substack.com">
+                <Img
+                  src="https://res.cloudinary.com/sutharjay/image/upload/v1737300582/me/fyajxy7ya39uymibutjv.svg"
+                  width="32"
+                  height="32"
+                  alt="Substack Logo"
+                />
+              </Link>
+            </Section>
+
+            <Section>
+              <Text className="text-2xl font-bold text-primary/90">
+                You have 2 unread posts from yesterday
+              </Text>
+            </Section>
+
+            <Section className="mt-1">
+              <Card className="rounded-xl ring-1">
+                <CardContent className="p-4">
+                  <div className="flex items-center gap-2">
+                    <Img
+                      src="https://res.cloudinary.com/sutharjay/image/upload/v1737300582/me/fyajxy7ya39uymibutjv.svg"
+                      width="32"
+                      height="32"
+                      alt="Substack Logo"
+                    />
+                    <Text className="text-sm capitalize text-primary/75">ON SUBSTACK</Text>
+                  </div>
+
+                  <Text className="text-xl font-bold text-primary/90">
+                    "Get a dose of sanity": How Dan Harris found success with live videos
+                  </Text>
+
+                  <Text className="text-sm leading-7 text-primary/75">
+                    Dan Harris is a bestselling author, the host of the 10% Happier podcast, and a
+                    former ABC news anchor. He went live with Substack CEO Chris Best yesterday...
+                  </Text>
+
+                  <Text className="text-xs leading-4 text-primary/60">
+                    378 Likes • 53 Comments • Substack Writers
+                  </Text>
+
+                  <Button
+                    className="w-full rounded-lg bg-[#eeeeee] px-6 py-3 text-center text-[14px] font-medium text-zinc-950"
+                    href="https://substack.com"
+                  >
+                    Read more
+                  </Button>
+                </CardContent>
+              </Card>
+            </Section>
+
+            <Section className="mt-4">
+              <Button
+                className="bg-brand w-full rounded-[8px] px-[24px] py-[12px] text-center text-[14px] font-medium text-zinc-50"
+                href="https://substack.com"
+              >
+                Continue reading in inbox
+              </Button>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+### Customization options
+
+<Accordion title="Card layout">
+  Each post is displayed in a card component. Customize the card styling:
+  
+  ```tsx
+  <Card className="rounded-xl ring-1">
+    <CardContent className="p-4">
+      {/* Post content */}
+    </CardContent>
+  </Card>
+  ```
+</Accordion>
+
+<Accordion title="Post metadata">
+  Display engagement metrics to encourage interaction:
+  
+  ```tsx
+  <Text className="text-xs leading-4 text-primary/60">
+    {likes} Likes • {comments} Comments • {author}
+  </Text>
+  ```
+</Accordion>
+
+<Accordion title="Multiple posts">
+  Duplicate the Card section to show more unread posts:
+  
+  ```tsx
+  {posts.map((post) => (
+    <Card key={post.id} className="mt-4 rounded-xl ring-1">
+      {/* Post content */}
+    </Card>
+  ))}
+  ```
+</Accordion>
+
+## Newsletter recommendation
+
+A recommendation email that leverages social proof by showing which newsletter a trusted source recommends.
+
+### Key features
+
+- Recommendation source clearly displayed
+- Quote from recommender
+- Newsletter preview card with description
+- Brand colors of recommended newsletter
+- Secondary CTAs (Get the app, Start writing)
+
+### Use cases
+
+- Recommend newsletters to users
+- Cross-promote content creators
+- Build community through recommendations
+- Leverage social proof for discovery
+
+### Code
+
+```tsx substack/newsletter-recommendation.tsx
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Body,
+  Button,
+  Column,
+  Container,
+  Head,
+  Html,
+  Img,
+  Link,
+  Preview,
+  Row,
+  Section,
+  Tailwind,
+  Text,
+} from "@react-email/components";
+
+export default function SubstackNewsletterRecommendation() {
+  return (
+    <Html>
+      <Head />
+      <Preview>Substack Newsletter Recommendation</Preview>
+      <Tailwind
+        config={{
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                brand: "#ff6719",
+                muted: "#eeeeee",
+                base: "#1a1a1a",
+              },
+            },
+          },
+        }}
+      >
+        <Body className="font-sans">
+          <Container className="mx-auto px-4 py-5">
+            <Section>
+              <Text className="text-2xl font-bold text-primary/90">
+                Javarevisited Newsletter recommended System Design Newsletter
+              </Text>
+            </Section>
+
+            <Section className="mt-1">
+              <Img
+                src="https://substackcdn.com/image/fetch/w_80,h_80,c_fill,f_webp,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ffb9abffb-bd2d-4fe4-a166-4f88de0a3cba_512x512.png"
+                width="32"
+                height="32"
+                className="rounded-lg"
+              />
+
+              <Text className="m-0 mt-4 p-0 text-sm text-primary/90">
+                <span className="font-semibold">javinpaul</span> of{" "}
+                <span className="font-semibold">Javarevisited Newsletter</span> recommended{" "}
+                <span className="font-semibold">System Design Newsletter</span>:
+              </Text>
+              <Text className="m-0 mb-4 p-0 text-sm italic text-primary/90">
+                "One of the best newsletter to learn System Design concepts in depth"
+              </Text>
+            </Section>
+
+            <Section className="mt-1">
+              <Card className="rounded-xl border-none bg-secondary">
+                <CardContent className="p-4">
+                  <Img
+                    src="https://substackcdn.com/image/fetch/w_264,c_limit,f_webp,q_auto:best,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe4642e5a-0027-404b-ae07-0ca0e4960741_432x432.png"
+                    width="48"
+                    height="48"
+                    className="mix-blend-multiply"
+                    alt="Newsletter Logo"
+                  />
+
+                  <Text className="m-0 mt-2 p-0 text-base font-bold text-primary/90">
+                    <span className="font-semibold">System Design Newsletter</span> by{" "}
+                    <span className="font-semibold">Aniket Singh</span>
+                  </Text>
+
+                  <Text className="m-0 p-0 text-sm text-primary/75">
+                    I simplify complex system design concepts, delivering one well-researched
+                    article weekly to help you become a better software engineer.
+                  </Text>
+                </CardContent>
+              </Card>
+            </Section>
+
+            <Section className="mt-4">
+              <Button
+                className="bg-brand w-full rounded-[8px] px-[24px] py-[12px] text-center text-[14px] font-medium text-zinc-50"
+                href="https://substack.com"
+              >
+                Subscribe to System Design Newsletter
+              </Button>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+### Social proof elements
+
+The template effectively uses social proof:
+
+1. **Recommender identity**: Shows who is making the recommendation
+2. **Quote**: Direct testimonial from the recommender
+3. **Newsletter preview**: Visual card with logo and description
+4. **Author attribution**: Clear indication of newsletter creator
+
+<Info>
+  Social proof significantly increases conversion rates. This template makes it the centerpiece of the design.
+</Info>
+
+## Design system
+
+<Tabs>
+  <Tab title="Colors">
+    ```tsx
+    {
+      brand: "#ff6719",     // Substack's signature orange
+      muted: "#eeeeee",     // Light gray for secondary buttons
+      base: "#1a1a1a",      // Dark base color
+    }
+    ```
+  </Tab>
+  
+  <Tab title="Card design">
+    - Rounded corners (xl radius)
+    - Subtle ring border
+    - Secondary background for newsletter cards
+    - Consistent padding (16px)
+  </Tab>
+  
+  <Tab title="CTAs">
+    - Primary: Orange background, full width
+    - Secondary: Light gray background, full width
+    - Icon buttons: Outlined with brand color
+  </Tab>
+</Tabs>
+
+## Content strategy
+
+Both templates focus on content discovery:
+
+- **Unread posts**: Time-based urgency ("from yesterday")
+- **Recommendations**: Peer validation and social proof
+- **Metadata**: Engagement metrics build FOMO
+- **Multiple CTAs**: Options for different user journeys
+
+## Related templates
+
+<CardGroup cols={2}>
+  <Card title="Notion templates" icon="book" href="/templates/notion">
+    Feature update emails with detailed explanations
+  </Card>
+  
+  <Card title="Dub templates" icon="link" href="/templates/dub">
+    Product update emails with feature highlights
+  </Card>
+</CardGroup>

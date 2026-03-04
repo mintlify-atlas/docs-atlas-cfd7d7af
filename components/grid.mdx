@@ -1,0 +1,366 @@
+---
+title: Grid
+description: Responsive grid layout component for displaying images and content in structured layouts
+---
+
+The Grid component provides responsive layouts for displaying multiple images or content items in a structured grid format. Built with React Email's Row and Column components, it ensures compatibility across email clients.
+
+## Overview
+
+The content grid component creates flexible multi-column layouts perfect for:
+- Product showcases
+- Image galleries
+- Feature highlights
+- Visual content organization
+
+## Basic usage
+
+<CodeGroup>
+```tsx Grid component
+import { Column, Img, Row, Section } from "@react-email/components";
+
+<Section className="mx-auto my-4 max-w-2xl">
+  <Row className="mb-4">
+    <Column className="w-1/2 pr-2">
+      <Img
+        src="https://images.unsplash.com/photo-1511485977113-f34c92461ad9"
+        alt="Grid item 1"
+        className="w-full rounded-lg object-cover"
+        height={200}
+      />
+    </Column>
+    <Column className="w-1/2 pl-2">
+      <Img
+        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d"
+        alt="Grid item 2"
+        className="w-full rounded-lg object-cover"
+        height={200}
+      />
+    </Column>
+  </Row>
+</Section>
+```
+
+```tsx Complete example
+import {
+  Body,
+  Column,
+  Container,
+  Head,
+  Html,
+  Img,
+  Preview,
+  Row,
+  Section,
+  Tailwind,
+} from "@react-email/components";
+
+export default function ContentGrid() {
+  return (
+    <Html>
+      <Head />
+      <Preview>Header Preview</Preview>
+      <Tailwind
+        config={{
+          theme: {
+            extend: {
+              colors: {
+                brand: "#0099ff",
+              },
+            },
+          },
+        }}
+      >
+        <Body className="font-sans">
+          <Container className="mx-auto w-full px-4 py-5">
+            <Section className="mx-auto my-4 max-w-2xl">
+              <Row className="mb-4">
+                <Column className="w-1/2 pr-2">
+                  <Img
+                    src="https://images.unsplash.com/photo-1511485977113-f34c92461ad9"
+                    alt="Grid item 1"
+                    className="w-full rounded-lg object-cover"
+                    height={200}
+                  />
+                </Column>
+                <Column className="w-1/2 pl-2">
+                  <Img
+                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d"
+                    alt="Grid item 2"
+                    className="w-full rounded-lg object-cover"
+                    height={200}
+                  />
+                </Column>
+              </Row>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+</CodeGroup>
+
+## Grid layouts
+
+### Two-column grid
+
+A simple two-column layout with equal width columns:
+
+```tsx Two columns
+<Row className="mb-4">
+  <Column className="w-1/2 pr-2">
+    <Img
+      src="/image1.jpg"
+      alt="Grid item 1"
+      className="w-full rounded-lg object-cover"
+      height={200}
+    />
+  </Column>
+  <Column className="w-1/2 pl-2">
+    <Img
+      src="/image2.jpg"
+      alt="Grid item 2"
+      className="w-full rounded-lg object-cover"
+      height={200}
+    />
+  </Column>
+</Row>
+```
+
+Key classes:
+- `w-1/2` - Each column takes 50% width
+- `pr-2` / `pl-2` - Padding for spacing between columns
+- `mb-4` - Margin bottom for row spacing
+
+### Three-column grid
+
+Display three items side-by-side:
+
+```tsx Three columns
+<Row className="mb-4">
+  <Column className="w-1/3 pr-2">
+    <Img
+      src="/image1.jpg"
+      alt="Grid item 1"
+      className="w-full rounded-lg object-cover"
+      height={150}
+    />
+  </Column>
+  <Column className="w-1/3 px-2">
+    <Img
+      src="/image2.jpg"
+      alt="Grid item 2"
+      className="w-full rounded-lg object-cover"
+      height={150}
+    />
+  </Column>
+  <Column className="w-1/3 pl-2">
+    <Img
+      src="/image3.jpg"
+      alt="Grid item 3"
+      className="w-full rounded-lg object-cover"
+      height={150}
+    />
+  </Column>
+</Row>
+```
+
+<Info>
+  The middle column uses `px-2` (horizontal padding) while outer columns use `pr-2` (right) and `pl-2` (left) for consistent spacing.
+</Info>
+
+### Multiple rows
+
+Combine different grid layouts in a single section:
+
+```tsx Mixed grid layout
+<Section className="mx-auto my-4 max-w-2xl">
+  {/* Two-column row */}
+  <Row className="mb-4">
+    <Column className="w-1/2 pr-2">
+      <Img src="/image1.jpg" alt="Item 1" className="w-full rounded-lg" height={200} />
+    </Column>
+    <Column className="w-1/2 pl-2">
+      <Img src="/image2.jpg" alt="Item 2" className="w-full rounded-lg" height={200} />
+    </Column>
+  </Row>
+
+  {/* Three-column row */}
+  <Row className="mb-4">
+    <Column className="w-1/3 pr-2">
+      <Img src="/image3.jpg" alt="Item 3" className="w-full rounded-lg" height={150} />
+    </Column>
+    <Column className="w-1/3 px-2">
+      <Img src="/image4.jpg" alt="Item 4" className="w-full rounded-lg" height={150} />
+    </Column>
+    <Column className="w-1/3 pl-2">
+      <Img src="/image5.jpg" alt="Item 5" className="w-full rounded-lg" height={150} />
+    </Column>
+  </Row>
+</Section>
+```
+
+## Props
+
+### Section props
+
+<ParamField path="className" type="string">
+  Tailwind CSS classes for the grid container. Commonly includes max-width and spacing utilities.
+</ParamField>
+
+### Row props
+
+<ParamField path="className" type="string">
+  Tailwind CSS classes for row styling. Use `mb-*` classes for spacing between rows.
+</ParamField>
+
+### Column props
+
+<ParamField path="className" type="string">
+  Tailwind CSS classes for column sizing and spacing. Use `w-1/2`, `w-1/3`, etc. for width.
+</ParamField>
+
+### Image props
+
+<ParamField path="src" type="string" required>
+  URL to the image file
+</ParamField>
+
+<ParamField path="alt" type="string" required>
+  Alternative text describing the image
+</ParamField>
+
+<ParamField path="height" type="number">
+  Image height in pixels
+</ParamField>
+
+<ParamField path="className" type="string">
+  Tailwind CSS classes for image styling
+</ParamField>
+
+## Customization
+
+### Image sizing
+
+Adjust image heights for different visual effects:
+
+```tsx Image sizes
+// Square images
+<Img height={200} className="w-full object-cover" />
+
+// Tall images
+<Img height={300} className="w-full object-cover" />
+
+// Short images
+<Img height={150} className="w-full object-cover" />
+```
+
+### Border radius
+
+Customize corner rounding:
+
+```tsx Border radius variants
+// Sharp corners
+className="w-full object-cover"
+
+// Rounded (default)
+className="w-full rounded-lg object-cover"
+
+// Very rounded
+className="w-full rounded-xl object-cover"
+
+// Circular (for square images)
+className="w-full rounded-full object-cover"
+```
+
+### Spacing
+
+Adjust spacing between columns and rows:
+
+```tsx Custom spacing
+// Tight spacing
+<Column className="w-1/2 pr-1">
+<Column className="w-1/2 pl-1">
+<Row className="mb-2">
+
+// Default spacing
+<Column className="w-1/2 pr-2">
+<Column className="w-1/2 pl-2">
+<Row className="mb-4">
+
+// Wide spacing
+<Column className="w-1/2 pr-4">
+<Column className="w-1/2 pl-4">
+<Row className="mb-8">
+```
+
+### Maximum width
+
+Control the grid container width:
+
+```tsx Container width
+// Small
+<Section className="mx-auto my-4 max-w-xl">
+
+// Medium (default)
+<Section className="mx-auto my-4 max-w-2xl">
+
+// Large
+<Section className="mx-auto my-4 max-w-4xl">
+
+// Full width
+<Section className="mx-auto my-4 w-full">
+```
+
+## Best practices
+
+1. **Use consistent heights** - Keep images in the same row at the same height for visual alignment
+2. **Optimize images** - Compress images and use appropriate dimensions for email
+3. **Provide alt text** - Always include descriptive alt text for accessibility
+4. **Test responsive behavior** - Grid layouts may stack on mobile; test across devices
+5. **Limit columns** - Stick to 2-3 columns maximum for better mobile compatibility
+6. **Use object-cover** - The `object-cover` class ensures images fill their containers properly
+
+## Accessibility
+
+Make your grids accessible:
+
+```tsx Accessible grid
+<Img
+  src="/product.jpg"
+  alt="Blue wireless headphones with noise cancellation"  // Descriptive alt text
+  className="w-full rounded-lg object-cover"
+  height={200}
+/>
+```
+
+- Provide meaningful, descriptive alt text
+- Avoid decorative-only images in grids
+- Ensure sufficient contrast for any overlay text
+
+## Performance
+
+### Image optimization tips
+
+1. **Use appropriate formats** - JPEG for photos, PNG for graphics with transparency
+2. **Compress images** - Use tools like TinyPNG or ImageOptim
+3. **Size correctly** - Don't send larger images than needed
+4. **Consider CDNs** - Use image CDNs for automatic optimization
+
+```tsx Optimized image example
+<Img
+  src="https://cdn.example.com/image.jpg?w=400&q=80"
+  alt="Product showcase"
+  className="w-full rounded-lg object-cover"
+  height={200}
+  width={400}
+/>
+```
+
+## Source code
+
+View the complete source code for the grid component:
+
+- [Content grid](https://github.com/your-repo/source/src/email/components/grid/content-grid.tsx)

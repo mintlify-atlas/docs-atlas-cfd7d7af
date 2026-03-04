@@ -1,0 +1,317 @@
+---
+title: React Email basics
+description: Learn the fundamentals of creating emails with React Email and understand email client compatibility
+---
+
+React Email is a modern approach to building emails using React components. ReactUI Email builds on top of React Email to provide pre-built templates with full Tailwind CSS support.
+
+## What is React Email?
+
+React Email allows you to write email templates using familiar React components instead of traditional HTML table layouts. This approach offers:
+
+- **Component-based architecture**: Reuse components across different email templates
+- **Type safety**: Leverage TypeScript for better development experience
+- **Modern development**: Use the tools and patterns you already know from web development
+
+## Core components
+
+React Email provides essential components for building emails. Here are the most commonly used ones:
+
+<CodeGroup>
+```tsx Basic structure
+import {
+  Body,
+  Container,
+  Head,
+  Html,
+  Preview,
+  Section,
+  Text,
+  Tailwind,
+} from "@react-email/components";
+
+export default function WelcomeEmail() {
+  return (
+    <Html>
+      <Head />
+      <Preview>Welcome to our platform</Preview>
+      <Tailwind>
+        <Body className="font-sans">
+          <Container className="mx-auto px-4 py-5">
+            <Section>
+              <Text className="text-lg">Welcome!</Text>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+```tsx With button and image
+import {
+  Body,
+  Button,
+  Container,
+  Head,
+  Html,
+  Img,
+  Preview,
+  Section,
+  Tailwind,
+  Text,
+} from "@react-email/components";
+
+export default function EmailTemplate() {
+  return (
+    <Html>
+      <Head />
+      <Preview>Check out this update</Preview>
+      <Tailwind>
+        <Body className="font-sans">
+          <Container className="mx-auto px-4 py-5">
+            <Section>
+              <Img
+                src="https://example.com/logo.png"
+                width="120"
+                height="40"
+                alt="Company Logo"
+              />
+            </Section>
+            <Section className="mt-4">
+              <Text className="text-base">
+                Thank you for signing up!
+              </Text>
+              <Button
+                className="bg-blue-600 text-white px-6 py-3 rounded-lg"
+                href="https://example.com/verify"
+              >
+                Verify Email
+              </Button>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+</CodeGroup>
+
+### Essential components
+
+<AccordionGroup>
+  <Accordion title="Html">
+    The root component that wraps your entire email. Always use this as the outermost component.
+    
+    ```tsx
+    <Html>
+      {/* Email content */}
+    </Html>
+    ```
+  </Accordion>
+
+  <Accordion title="Head">
+    Contains meta information for your email. Include this near the top of your template.
+    
+    ```tsx
+    <Head />
+    ```
+  </Accordion>
+
+  <Accordion title="Preview">
+    The preview text that appears in email clients before opening the email. Keep it concise and compelling.
+    
+    ```tsx
+    <Preview>You've been invited to join the team</Preview>
+    ```
+  </Accordion>
+
+  <Accordion title="Body">
+    The main body of your email. Apply global styles here.
+    
+    ```tsx
+    <Body className="font-sans bg-white">
+      {/* Content */}
+    </Body>
+    ```
+  </Accordion>
+
+  <Accordion title="Container">
+    A centered container for your email content. Recommended max width is 600px for optimal email client support.
+    
+    ```tsx
+    <Container className="mx-auto px-4 py-5">
+      {/* Content */}
+    </Container>
+    ```
+  </Accordion>
+
+  <Accordion title="Section">
+    Groups related content together. Similar to a `<div>` in HTML.
+    
+    ```tsx
+    <Section className="mt-4">
+      <Text>Section content</Text>
+    </Section>
+    ```
+  </Accordion>
+
+  <Accordion title="Text">
+    For paragraphs and text content. Use this instead of `<p>` tags.
+    
+    ```tsx
+    <Text className="text-base text-gray-700">
+      Your message here
+    </Text>
+    ```
+  </Accordion>
+
+  <Accordion title="Button">
+    Creates an email-safe button with a link.
+    
+    ```tsx
+    <Button
+      className="bg-blue-600 text-white px-6 py-3 rounded-lg"
+      href="https://example.com"
+    >
+      Click Here
+    </Button>
+    ```
+  </Accordion>
+
+  <Accordion title="Link">
+    For inline text links.
+    
+    ```tsx
+    <Link href="https://example.com" className="text-blue-600 underline">
+      Visit our website
+    </Link>
+    ```
+  </Accordion>
+
+  <Accordion title="Img">
+    For images. Always include `alt` text and specify dimensions.
+    
+    ```tsx
+    <Img
+      src="https://example.com/image.png"
+      width="400"
+      height="300"
+      alt="Description"
+    />
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Email client compatibility
+
+Email clients have varying levels of support for modern HTML and CSS. Understanding these limitations is crucial for creating emails that work everywhere.
+
+### Support levels
+
+<Steps>
+  <Step title="Modern clients (good support)">
+    - Apple Mail (macOS, iOS)
+    - Gmail (web, mobile apps)
+    - Outlook (web, macOS)
+    - Hey, Superhuman
+    
+    These clients support most modern CSS including flexbox, custom fonts, and media queries.
+  </Step>
+
+  <Step title="Limited support clients">
+    - Outlook 2016-2021 (Windows)
+    - Yahoo Mail
+    - AOL Mail
+    
+    These have partial CSS support. Avoid complex layouts and test thoroughly.
+  </Step>
+
+  <Step title="Legacy clients (minimal support)">
+    - Outlook 2007-2013 (Windows)
+    - Some older email clients
+    
+    Very limited CSS support. Stick to basic styling and table-based layouts if targeting these clients.
+  </Step>
+</Steps>
+
+### Best practices for compatibility
+
+<Tip>
+React Email components are designed to work across all email clients by converting modern React code into email-safe HTML.
+</Tip>
+
+1. **Use React Email components**: These handle cross-client compatibility automatically
+2. **Test in multiple clients**: Use tools like Email on Acid or Litmus
+3. **Avoid complex CSS**: Stick to simple layouts and styles
+4. **Use inline styles**: The `Tailwind` component handles this conversion
+5. **Specify image dimensions**: Always include `width` and `height` attributes
+
+## Common patterns
+
+### Two-column layout
+
+```tsx
+import { Row, Column } from "@react-email/components";
+
+<Section>
+  <Row>
+    <Column className="w-1/2 p-4">
+      <Text>Left column</Text>
+    </Column>
+    <Column className="w-1/2 p-4">
+      <Text>Right column</Text>
+    </Column>
+  </Row>
+</Section>
+```
+
+### Horizontal rule
+
+```tsx
+import { Hr } from "@react-email/components";
+
+<Hr className="my-6 border-gray-200" />
+```
+
+### Conditional rendering
+
+```tsx
+export default function Email({ userName }: { userName?: string }) {
+  return (
+    <Html>
+      <Tailwind>
+        <Body>
+          <Container>
+            {userName ? (
+              <Text>Welcome back, {userName}!</Text>
+            ) : (
+              <Text>Welcome!</Text>
+            )}
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+<Info>
+React Email templates are just React components, so you can use props, conditional rendering, and loops just like regular React components.
+</Info>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Tailwind styling" icon="paintbrush" href="/guides/tailwind-styling">
+    Learn how to style your emails with Tailwind CSS
+  </Card>
+  <Card title="Customization" icon="palette" href="/guides/customization">
+    Customize templates with your brand colors and fonts
+  </Card>
+  <Card title="Sending emails" icon="paper-plane" href="/guides/sending-emails">
+    Render and send your email templates
+  </Card>
+</CardGroup>

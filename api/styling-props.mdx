@@ -1,0 +1,520 @@
+---
+title: Styling props
+description: Common styling props and Tailwind CSS classes that work reliably in email templates
+---
+
+ReactUI Email uses Tailwind CSS for styling, but not all Tailwind features work consistently across email clients. This guide covers the styling props and classes that are safe to use in production email templates.
+
+## Tailwind configuration
+
+Every email template requires a `Tailwind` wrapper component with configuration:
+
+<CodeGroup>
+```tsx Example
+import { Body, Html, Tailwind } from "@react-email/components";
+
+export default function Email() {
+  return (
+    <Html>
+      <Tailwind
+        config={{
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                brand: "#ff6719",
+                primary: {
+                  DEFAULT: "hsl(var(--primary))",
+                  foreground: "hsl(var(--primary-foreground))",
+                },
+              },
+            },
+          },
+        }}
+      >
+        <Body className="font-sans">
+          {/* Email content */}
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+</CodeGroup>
+
+<ParamField path="config" type="object" required>
+  Tailwind configuration object that extends the default theme
+</ParamField>
+
+<ParamField path="darkMode" type="string">
+  Dark mode strategy. Use `"class"` for manual control
+</ParamField>
+
+## Color system
+
+Define your brand colors in the Tailwind config for consistent theming:
+
+### Brand colors
+
+<CodeGroup>
+```tsx Configuration
+config={{
+  theme: {
+    extend: {
+      colors: {
+        brand: "#ff6719",
+        muted: "#738A94",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+      },
+    },
+  },
+}}
+```
+</CodeGroup>
+
+<ResponseField name="brand" type="string">
+  Primary brand color (hex format recommended)
+</ResponseField>
+
+<ResponseField name="muted" type="string">
+  Muted or secondary color for less prominent elements
+</ResponseField>
+
+<ResponseField name="background" type="string">
+  Background color (supports HSL with CSS variables)
+</ResponseField>
+
+<ResponseField name="foreground" type="string">
+  Text color for content on background
+</ResponseField>
+
+### Color usage in classes
+
+Once defined, use colors with standard Tailwind syntax:
+
+```tsx
+<Button className="bg-brand text-white">
+  Get Started
+</Button>
+
+<Text className="text-primary/80">
+  Welcome message
+</Text>
+```
+
+<Info>
+  Use opacity modifiers (`/80`, `/75`, `/60`) for lighter color variants: `text-primary/80` creates 80% opacity.
+</Info>
+
+## Spacing utilities
+
+Spacing in email templates uses Tailwind's spacing scale, but explicit pixel values often work more reliably:
+
+### Margin classes
+
+<ParamField path="m-{size}" type="className">
+  Margin on all sides
+  - `m-0` - 0px
+  - `m-4` - 16px
+  - `m-8` - 32px
+</ParamField>
+
+<ParamField path="mx-{size}" type="className">
+  Horizontal margin (left and right)
+  - `mx-auto` - Auto margins (centers element)
+  - `mx-0` - 0px horizontal margin
+</ParamField>
+
+<ParamField path="my-{size}" type="className">
+  Vertical margin (top and bottom)
+  - `my-4` - 16px vertical margin
+  - `my-8` - 32px vertical margin
+</ParamField>
+
+<ParamField path="mt-{size}, mb-{size}, ml-{size}, mr-{size}" type="className">
+  Individual side margins
+  - `mt-4` - 16px top margin
+  - `mb-8` - 32px bottom margin
+</ParamField>
+
+### Padding classes
+
+<ParamField path="p-{size}" type="className">
+  Padding on all sides
+  - `p-0` - 0px
+  - `p-4` - 16px
+</ParamField>
+
+<ParamField path="px-{size}" type="className">
+  Horizontal padding
+  - `px-4` - 16px horizontal padding
+  - `px-[24px]` - Explicit 24px padding
+</ParamField>
+
+<ParamField path="py-{size}" type="className">
+  Vertical padding
+  - `py-5` - 20px vertical padding
+  - `py-[12px]` - Explicit 12px padding
+</ParamField>
+
+<Warning>
+  For precise control, use explicit pixel values in square brackets: `px-[24px]` instead of `px-6`.
+</Warning>
+
+## Typography
+
+Text styling classes for fonts, sizes, weights, and line heights:
+
+### Font family
+
+<CodeGroup>
+```tsx Configuration
+config={{
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ["var(--font-sans)"],
+      },
+    },
+  },
+}}
+```
+</CodeGroup>
+
+Apply font family:
+
+```tsx
+<Body className="font-sans">
+  {/* Content uses sans-serif font */}
+</Body>
+```
+
+<Info>
+  Stick to web-safe fonts (Arial, Helvetica, Georgia, Times New Roman) or use font stacks with fallbacks for maximum compatibility.
+</Info>
+
+### Font size
+
+<ParamField path="text-{size}" type="className">
+  Predefined sizes:
+  - `text-xs` - 12px
+  - `text-sm` - 14px
+  - `text-base` - 16px
+  - `text-lg` - 18px
+  - `text-xl` - 20px
+  - `text-[14px]` - Explicit pixel value
+  - `text-[32px]` - Large explicit size
+</ParamField>
+
+### Font weight
+
+<ParamField path="font-{weight}" type="className">
+  Weight options:
+  - `font-normal` - 400 (regular)
+  - `font-medium` - 500
+  - `font-semibold` - 600
+  - `font-bold` - 700
+</ParamField>
+
+### Line height
+
+<ParamField path="leading-{size}" type="className">
+  Line height values:
+  - `leading-tight` - 1.25
+  - `leading-6` - 24px (1.5rem)
+  - `leading-[4rem]` - Explicit 4rem value
+</ParamField>
+
+### Text alignment
+
+<ParamField path="text-{align}" type="className">
+  Alignment options:
+  - `text-left` - Left align
+  - `text-center` - Center align
+  - `text-right` - Right align
+</ParamField>
+
+### Text decoration
+
+<ParamField path="underline" type="className">
+  Adds underline to text (commonly used for links)
+</ParamField>
+
+<ParamField path="underline-offset-{size}" type="className">
+  Controls underline distance:
+  - `underline-offset-2` - 2px offset
+</ParamField>
+
+## Border and radius
+
+Border utilities for creating outlines and rounded corners:
+
+### Border width
+
+<ParamField path="border-{width}" type="className">
+  Border width:
+  - `border` - 1px border
+  - `border-[1px]` - Explicit 1px
+  - `border-2` - 2px border
+</ParamField>
+
+### Border style
+
+<ParamField path="border-solid" type="className">
+  Solid border style (default)
+</ParamField>
+
+### Border color
+
+<ParamField path="border-{color}" type="className">
+  Border color:
+  - `border-zinc-200` - Light gray
+  - `border-[#eaeaea]` - Explicit hex color
+</ParamField>
+
+### Border radius
+
+<CodeGroup>
+```tsx Configuration
+config={{
+  theme: {
+    extend: {
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 3.5px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+    },
+  },
+}}
+```
+</CodeGroup>
+
+<ParamField path="rounded-{size}" type="className">
+  Corner rounding:
+  - `rounded-lg` - Large radius (from config)
+  - `rounded-[8px]` - Explicit 8px radius (recommended)
+  - `rounded-[12px]` - Explicit 12px radius
+  - `rounded-2xl` - Very large radius
+</ParamField>
+
+<Warning>
+  Use explicit pixel values like `rounded-[8px]` for consistent rendering. Semantic values (`rounded-lg`) may vary across email clients.
+</Warning>
+
+## Background colors
+
+<ParamField path="bg-{color}" type="className">
+  Background color:
+  - `bg-white` - White background
+  - `bg-brand` - Brand color background
+  - `bg-[hsl(240,4.8%,95.9%)]` - HSL color
+  - `bg-[hsl(240,4.8%,95.9%)]/50` - With 50% opacity
+</ParamField>
+
+## Layout utilities
+
+### Display
+
+<ParamField path="flex" type="className">
+  Flexbox display (limited email client support - use with caution)
+</ParamField>
+
+<ParamField path="w-{size}" type="className">
+  Width:
+  - `w-full` - 100% width
+  - `w-fit` - Fit content
+  - `w-1/2` - 50% width
+  - `w-1/3` - 33.33% width
+  - `w-[50px]` - Explicit 50px width
+</ParamField>
+
+<ParamField path="h-{size}" type="className">
+  Height:
+  - `h-auto` - Auto height
+  - `h-[200px]` - Explicit height
+</ParamField>
+
+### Alignment
+
+<ParamField path="items-{align}" type="className">
+  Vertical alignment (use with flex):
+  - `items-center` - Center vertically
+  - `items-start` - Align to top
+</ParamField>
+
+<ParamField path="justify-{align}" type="className">
+  Horizontal alignment (use with flex):
+  - `justify-center` - Center horizontally
+  - `justify-between` - Space between items
+</ParamField>
+
+### Flex direction
+
+<ParamField path="flex-{direction}" type="className">
+  Flex direction:
+  - `flex-col` - Vertical stacking
+  - `flex-row` - Horizontal layout
+</ParamField>
+
+<Warning>
+  Flexbox support is inconsistent in email clients. Use table-based layouts (Row/Column components) for critical layout structure.
+</Warning>
+
+## Object fit
+
+For images:
+
+<ParamField path="object-{fit}" type="className">
+  Image object fit:
+  - `object-cover` - Covers area, may crop
+  - `object-contain` - Contains within area
+</ParamField>
+
+<ParamField path="aspect-{ratio}" type="className">
+  Aspect ratio:
+  - `aspect-video` - 16:9 ratio
+  - `aspect-square` - 1:1 ratio
+</ParamField>
+
+## Opacity
+
+Control element transparency:
+
+<ParamField path="opacity-{value}" type="className">
+  Opacity level:
+  - `opacity-50` - 50% opacity
+  - `opacity-75` - 75% opacity
+</ParamField>
+
+Or use color opacity modifiers:
+
+```tsx
+<Text className="text-primary/80">
+  80% opacity text
+</Text>
+```
+
+## Cursor
+
+<ParamField path="cursor-{style}" type="className">
+  Cursor style:
+  - `cursor-pointer` - Pointer on hover (for clickable elements)
+</ParamField>
+
+## Inline styles
+
+For properties not supported by Tailwind or that need precise control, use inline styles:
+
+<CodeGroup>
+```tsx Example
+<table
+  style={{
+    border: "1px solid rgb(39 39 42 / 0.2)",
+    borderRadius: "8px",
+    borderCollapse: "collapse",
+    display: "flex",
+    justifyContent: "center",
+    width: "fit-content",
+    margin: "0 auto",
+    alignItems: "center",
+  }}
+>
+  {/* Table content */}
+</table>
+```
+</CodeGroup>
+
+<Info>
+  Use inline styles for:
+  - Border properties on table elements
+  - Precise positioning
+  - Properties not available in Tailwind
+  - Client-specific workarounds
+</Info>
+
+## Common style patterns
+
+Reusable style combinations for common email elements:
+
+### Card/panel styling
+
+```tsx
+className="rounded-[12px] bg-[hsl(240,4.8%,95.9%)]/50 border border-solid border-zinc-200 p-[24px]"
+```
+
+### Primary button
+
+```tsx
+className="bg-brand rounded-[8px] px-[24px] py-[12px] text-center text-[14px] font-semibold text-zinc-50"
+```
+
+### Secondary button
+
+```tsx
+className="rounded-[8px] border-[1px] border-zinc-200 bg-white px-[24px] py-[12px] text-center text-[14px] font-semibold text-zinc-950"
+```
+
+### Body text
+
+```tsx
+className="text-[16px] leading-6 text-primary/80"
+```
+
+### Heading text
+
+```tsx
+className="text-[32px] font-bold leading-tight text-primary"
+```
+
+### Link text
+
+```tsx
+className="text-primary/75 underline underline-offset-2"
+```
+
+## Email client compatibility
+
+Not all CSS properties work in all email clients. Here's what to avoid:
+
+### Avoid these CSS features
+
+<Warning>
+  These features have poor email client support:
+  - CSS Grid (`grid`, `grid-template-columns`)
+  - CSS Flexbox (use sparingly, prefer table layouts)
+  - Position absolute/fixed
+  - Transform and transition animations
+  - Box-shadow (works in some clients, but unreliable)
+  - Custom fonts via @font-face (use web-safe fonts)
+</Warning>
+
+### Safe alternatives
+
+- **Instead of Grid**: Use table-based layouts with Row/Column
+- **Instead of Flexbox**: Use table cells with alignment
+- **Instead of position**: Use table structure and spacing
+- **Instead of box-shadow**: Use borders or background gradients
+
+## Testing recommendations
+
+<Info>
+  Always test your styled emails in these clients:
+  - Gmail (web, iOS, Android)
+  - Outlook (Windows, Mac, web)
+  - Apple Mail (iOS, macOS)
+  - Yahoo Mail
+  - Thunderbird
+</Info>
+
+Use tools like Litmus or Email on Acid for comprehensive cross-client testing.
+
+## Best practices
+
+1. **Use explicit values**: Prefer `px-[24px]` over `px-6` for consistency
+2. **Test across clients**: Always test in major email clients before sending
+3. **Progressive enhancement**: Start with basic styling, add enhancements carefully
+4. **Inline critical styles**: Use inline styles for essential layout properties
+5. **Keep it simple**: Simpler designs have better cross-client compatibility
+6. **Use color opacity**: Leverage `/80`, `/75` modifiers instead of separate color definitions

@@ -1,0 +1,555 @@
+---
+title: Myna UI templates
+description: Comprehensive email template suite for complete user lifecycle management
+---
+
+Myna UI templates provide a complete email suite covering the entire user lifecycle. These templates feature a modern, polished design with excellent use of icons, colors, and layout to create engaging user experiences.
+
+## Template overview
+
+The Myna UI template collection includes:
+
+- **Welcome email**: Onboarding with email verification prompt
+- **Verify email**: Focused verification request
+- **Account verified**: Confirmation of successful verification
+- **Login alert**: Security notification for new sign-ins
+- **Account locked**: Security alert for suspicious activity
+- **Password updated**: Confirmation of password changes
+- **Product updates**: Beta testing invitation and announcements
+
+## Design system
+
+All Myna UI templates share a consistent design system:
+
+<Tabs>
+  <Tab title="Colors">
+    ```tsx
+    {
+      brand: "#155dfc",       // Vibrant blue for CTAs
+      primary: "#314158",     // Dark blue-gray for text
+      text: {
+        light: "#314158",     // Light mode text
+        dark: "#f1f5f9",      // Dark mode text
+      },
+    }
+    ```
+  </Tab>
+  
+  <Tab title="Layout">
+    - Content wrapped in bordered, rounded cards
+    - Background: Light gray (`hsl(240,4.8%,95.9%)/50`)
+    - Padding: 24px in content cards
+    - Border radius: 8px for cards, 12px for icons
+  </Tab>
+  
+  <Tab title="Icons">
+    - SVG icons in rounded, colored backgrounds
+    - Icon sizes: 24x24 or 32x32 pixels
+    - Background colors match icon purpose:
+      - Blue for verification/info
+      - Green for success
+      - Red for warnings
+  </Tab>
+  
+  <Tab title="Typography">
+    - Headings: 18-24px, bold or semibold
+    - Body: 16px (base)
+    - Responsive line heights
+    - Dark mode support via custom text colors
+  </Tab>
+</Tabs>
+
+## Welcome email
+
+A warm welcome email that introduces Myna UI and prompts email verification.
+
+### Key features
+
+- Inline SVG logo in header
+- Hero image showing product
+- Personal greeting with user's name
+- Card-based content layout
+- Icon button with arrow
+- Social media links in footer
+- Made with love attribution
+
+### Use cases
+
+- Welcome new users to bookmarking platforms
+- Onboard users to UI component libraries
+- Introduce product capabilities
+- Prompt email verification
+- Build brand affinity
+
+### Code snippet
+
+```tsx myna-ui/1-welcome-email.tsx
+import {
+  Body,
+  Button,
+  Column,
+  Container,
+  Head,
+  Html,
+  Img,
+  Link,
+  Preview,
+  Row,
+  Section,
+  Tailwind,
+  Text,
+} from "@react-email/components";
+
+export default function MynaUIWelcomeEmail() {
+  return (
+    <Html>
+      <Head />
+      <Preview>Myna UI - Welcome</Preview>
+      <Tailwind config={{...}}>
+        <Body className="font-sans">
+          <Container className="mx-auto mb-5 px-4 py-5">
+            <Section className="my-8">
+              <Link href="https://mynaui.com">
+                {/* Inline SVG logo */}
+                <svg width="120" height="25" viewBox="0 0 86 18" fill="none">
+                  <path d="M5.7671 0.577545C3.68318..." fill="#020618" />
+                </svg>
+              </Link>
+            </Section>
+
+            <Section className="mb-6 flex flex-col items-center justify-center rounded-[12px] bg-[hsl(240,4.8%,95.9%)]/50">
+              <table style={{
+                border: "1px solid rgb(39 39 42 / 0.1)",
+                borderRadius: "8px",
+                padding: "24px",
+              }}>
+                <tr>
+                  <td>
+                    <Section>
+                      <Link href="https://mynaui.com">
+                        <Img
+                          src="product-screenshot.png"
+                          alt="Product"
+                          className="aspect-video w-full cursor-pointer rounded-[8px] object-cover"
+                        />
+                      </Link>
+                    </Section>
+
+                    <Section className="mt-4">
+                      <Text className="text-text-light dark:text-text-dark m-0 p-0 text-lg font-semibold leading-tight">
+                        Hey Adam!
+                      </Text>
+                    </Section>
+
+                    <Section>
+                      <Text className="text-text-light dark:text-text-dark text-base">
+                        We're thrilled to have you on board at MynaUI. Before you dive into
+                        organizing and accessing your favorite web content, there's just one small
+                        step left - verifying your email.
+                      </Text>
+                    </Section>
+
+                    <Section className="mt-4 text-center">
+                      <Button
+                        className="bg-brand mx-auto flex w-fit items-center justify-center rounded-[8px] px-[20px] py-[10px] text-center text-[14px] font-semibold text-muted"
+                        href="https://mynaui.com"
+                      >
+                        <Row className="m-0 p-0">
+                          <Column className="text-white">Verify Your Email</Column>
+                          <Column>
+                            <svg width="24" height="24" className="ml-[8px] text-white">
+                              <path d="M4.5 12h15m0 0-5.625-6m5.625 6-5.625 6" />
+                            </svg>
+                          </Column>
+                        </Row>
+                      </Button>
+                    </Section>
+                  </td>
+                </tr>
+              </table>
+            </Section>
+
+            <Section className="text-text-light dark:text-text-dark mb-4 text-left text-sm">
+              <Text className="m-0 p-0 text-base">
+                Made with ❤️‍🔥 on 32, Park Street, Chennai by MynaUI
+              </Text>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+### Inline SVG logo
+
+Myna UI includes the logo as inline SVG for guaranteed rendering:
+
+```tsx
+<svg width="120" height="25" viewBox="0 0 86 18" fill="none">
+  <path d="..." fill="#020618" />
+  {/* Additional paths */}
+</svg>
+```
+
+This ensures the logo displays even when images are blocked.
+
+<Info>
+  Inline SVG logos are more reliable than image-based logos in email clients that block external images by default.
+</Info>
+
+## Verify email
+
+A focused email verification template with icon-based design.
+
+### Key features
+
+- Icon with colored background showing verification badge
+- "Let's Verify!" heading with icon
+- Clear explanation of verification purpose
+- Expiration notice (24 hours)
+- Security reassurance
+- Minimal distractions
+
+### Code snippet
+
+```tsx myna-ui/2-verify-email.tsx
+export default function MynaUIVerifyEmail() {
+  return (
+    <Html>
+      <Head />
+      <Preview>Myna UI - Verify Email</Preview>
+      <Tailwind config={{...}}>
+        <Body className="font-sans">
+          <Container className="mx-auto mb-5 px-4 py-5">
+            <Section className="mb-6 flex flex-col items-center justify-center rounded-[12px] bg-[hsl(240,4.8%,95.9%)]/50">
+              <table style={{ padding: "24px" }}>
+                <tr>
+                  <td>
+                    <Section>
+                      <table>
+                        <tr className="align-start flex items-center justify-start gap-[16px]">
+                          <td className="h-[40px] w-[40px] rounded-[8px]">
+                            <Section
+                              className="flex h-[40px] w-[40px] items-center justify-center rounded-[8px]"
+                              style={{
+                                backgroundColor: "hsl(213.8 100% 96.9%)",
+                                border: "1px solid hsl(214.3 94.6% 92.7%)",
+                              }}
+                            >
+                              <svg
+                                width="24"
+                                height="24"
+                                stroke="hsl(221.2 83.2% 53.3%)"
+                                strokeWidth="2"
+                              >
+                                <path d="M20.5 15.8V8.2a1.91 1.91 0 0 0-.944-1.645l-6.612-3.8..." />
+                                <path d="m8.667 12.633 1.505 1.721a1 1 0 0 0 1.564-.073L15.333 9.3" />
+                              </svg>
+                            </Section>
+                          </td>
+
+                          <td className="text-left">
+                            <Text className="text-text-light dark:text-text-dark m-0 p-0 text-lg font-bold leading-tight">
+                              Let's Verify!
+                            </Text>
+                          </td>
+                        </tr>
+                      </table>
+                    </Section>
+
+                    <Section>
+                      <Text className="text-text-light dark:text-text-dark m-0 mt-6 p-0 text-base">
+                        Your journey to effective and enjoyable bookmarking begins with a single
+                        click. To ensure the security and privacy of your account, please verify
+                        your email address.
+                      </Text>
+                    </Section>
+
+                    <Section className="mt-4 text-center">
+                      <Button
+                        className="bg-brand mx-auto flex w-fit items-center justify-center rounded-[8px] px-[20px] py-[10px] text-white"
+                        href="https://mynaui.com"
+                      >
+                        Click Here to Verify
+                      </Button>
+                    </Section>
+
+                    <Section>
+                      <Text className="text-text-light dark:text-text-dark m-0 mt-4 p-0 text-base">
+                        This link will expire in 24 hours for your protection.
+                      </Text>
+                    </Section>
+                  </td>
+                </tr>
+              </table>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+### Icon design pattern
+
+Myna UI uses a consistent icon pattern:
+
+```tsx
+<Section
+  className="flex h-[40px] w-[40px] items-center justify-center rounded-[8px]"
+  style={{
+    backgroundColor: "hsl(213.8 100% 96.9%)",  // Light blue background
+    border: "1px solid hsl(214.3 94.6% 92.7%)",  // Slightly darker border
+  }}
+>
+  <svg stroke="hsl(221.2 83.2% 53.3%)" strokeWidth="2">
+    {/* Icon path */}
+  </svg>
+</Section>
+```
+
+This creates professional-looking icon badges throughout the template suite.
+
+## Product updates email
+
+An engaging email inviting users to beta testing with visual feature highlights.
+
+### Key features
+
+- Icon-based heading ("Join Beta Testing Today!")
+- "Why join?" section with three icon cards
+- Horizontal layout of benefit cards
+- Color-coded icons for different benefits
+- Clear CTA to join beta
+- Professional footer with social links
+
+### Use cases
+
+- Announce beta programs
+- Invite users to test new features
+- Build excitement for upcoming releases
+- Collect early user feedback
+- Create sense of exclusivity
+
+### Code snippet
+
+```tsx myna-ui/7-product-updates.tsx
+export default function MynaUIProductUpdatesEmail() {
+  return (
+    <Html>
+      <Head />
+      <Preview>Myna UI - Product Updates</Preview>
+      <Tailwind config={{...}}>
+        <Body className="font-sans">
+          <Container className="mx-auto mb-5 px-4 py-5">
+            <Section className="mb-6">
+              <table style={{ padding: "24px" }}>
+                <tr>
+                  <td>
+                    <Section>
+                      <Text className="text-text-light dark:text-text-dark m-0 mt-6 p-0 text-base">
+                        Hello Adam,
+                      </Text>
+                      <Text className="text-text-light dark:text-text-dark m-0 mt-4 p-0 text-base">
+                        As a valued member of MynaUI, we're excited to offer you exclusive
+                        access to our beta features!
+                      </Text>
+                    </Section>
+
+                    <Section>
+                      <Text className="text-text-light dark:text-text-dark m-0 mt-4 p-0 text-base">
+                        <strong>Why join?</strong>
+                      </Text>
+
+                      <Section className="my-8">
+                        <table style={{
+                          width: "100%",
+                          display: "flex",
+                          justifyContent: "center",
+                          gap: "24px",
+                        }}>
+                          <tr>
+                            <td style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "center",
+                            }}>
+                              <Section
+                                className="mb-2 flex h-[50px] w-[50px] items-center justify-center rounded-[12px]"
+                                style={{
+                                  backgroundColor: "hsl(213.8 100% 96.9%)",
+                                  border: "1px solid hsl(214.3 94.6% 92.7%)",
+                                }}
+                              >
+                                <svg width="32" height="32" stroke="hsl(221.2 83.2% 53.3%)">
+                                  {/* Sparkles icon */}
+                                </svg>
+                              </Section>
+                              <Text className="text-text-light dark:text-text-dark m-0 p-0 text-center text-base">
+                                Be the first to try upcoming features and tools.
+                              </Text>
+                            </td>
+
+                            <td style={{ /* Green icon */ }}>
+                              {/* Benefit 2 */}
+                            </td>
+
+                            <td style={{ /* Red icon */ }}>
+                              {/* Benefit 3 */}
+                            </td>
+                          </tr>
+                        </table>
+                      </Section>
+                    </Section>
+
+                    <Section className="mt-4 text-center">
+                      <Button
+                        className="bg-brand mx-auto flex w-fit items-center justify-center rounded-[8px] px-[20px] py-[10px] text-white"
+                        href="https://mynaui.com"
+                      >
+                        Join Beta Testing
+                      </Button>
+                    </Section>
+                  </td>
+                </tr>
+              </table>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+### Multi-column benefit cards
+
+The template uses a horizontal table layout for benefit cards:
+
+```tsx
+<table style={{
+  display: "flex",
+  justifyContent: "center",
+  gap: "24px",
+}}>
+  <tr>
+    <td style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      {/* Icon */}
+      {/* Text */}
+    </td>
+    <td>{/* Benefit 2 */}</td>
+    <td>{/* Benefit 3 */}</td>
+  </tr>
+</table>
+```
+
+This creates a visually appealing three-column layout that works in most email clients.
+
+## Complete lifecycle coverage
+
+Myna UI templates cover every stage of the user journey:
+
+<Tabs>
+  <Tab title="Onboarding">
+    1. **Welcome email**: First touchpoint
+    2. **Verify email**: Security step
+    3. **Account verified**: Success confirmation
+  </Tab>
+  
+  <Tab title="Security">
+    4. **Login alert**: New device notifications
+    5. **Account locked**: Suspicious activity warnings
+    6. **Password updated**: Change confirmations
+  </Tab>
+  
+  <Tab title="Engagement">
+    7. **Product updates**: Feature announcements
+    8. Beta invitations and community building
+  </Tab>
+</Tabs>
+
+## Customization tips
+
+<Accordion title="Color-coded icons">
+  Use different background colors for different message types:
+  
+  ```tsx
+  // Info/Verification (Blue)
+  backgroundColor: "hsl(213.8 100% 96.9%)"
+  
+  // Success (Green)
+  backgroundColor: "hsl(151.8 81% 95.9%)"
+  
+  // Warning/Error (Red)
+  backgroundColor: "hsl(0 85.7% 97.3%)"
+  ```
+</Accordion>
+
+<Accordion title="Social footer">
+  Add social media links with icons:
+  
+  ```tsx
+  <table>
+    <tr>
+      <td style={{ paddingRight: "16px" }}>
+        <Link href="https://x.com/yourhandle">
+          <svg>{/* X/Twitter icon */}</svg>
+        </Link>
+      </td>
+      <td style={{ paddingRight: "16px" }}>
+        <Link href="https://instagram.com/yourhandle">
+          <svg>{/* Instagram icon */}</svg>
+        </Link>
+      </td>
+    </tr>
+  </table>
+  ```
+</Accordion>
+
+<Accordion title="Card wrapper">
+  The signature card wrapper pattern:
+  
+  ```tsx
+  <Section className="mb-6 flex flex-col items-center justify-center rounded-[12px] bg-[hsl(240,4.8%,95.9%)]/50">
+    <table style={{
+      border: "1px solid rgb(39 39 42 / 0.1)",
+      borderRadius: "8px",
+      padding: "24px",
+    }}>
+      {/* Content */}
+    </table>
+  </Section>
+  ```
+</Accordion>
+
+## When to use Myna UI templates
+
+Choose Myna UI templates when you need:
+
+- Complete lifecycle email coverage
+- Modern, icon-driven design
+- Dark mode support
+- Security-focused messaging
+- Community-building elements
+- Polished, professional appearance
+
+**Avoid when:**
+
+- You need minimal, text-only emails
+- Your brand is very different aesthetically
+- You don't need the full lifecycle suite
+
+## Related templates
+
+<CardGroup cols={2}>
+  <Card title="Peerlist templates" icon="briefcase" href="/templates/peerlist">
+    Community-focused emails with feature showcases
+  </Card>
+  
+  <Card title="Supabase templates" icon="database" href="/templates/supabase">
+    Developer-focused verification and welcome emails
+  </Card>
+</CardGroup>

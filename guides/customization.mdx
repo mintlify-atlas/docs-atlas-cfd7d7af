@@ -1,0 +1,475 @@
+---
+title: Customization
+description: Learn how to customize ReactUI Email templates with your brand colors, fonts, layouts, and styling
+---
+
+ReactUI Email templates are designed to be easily customizable. You can modify colors, fonts, layouts, and content to match your brand identity.
+
+## Customizing colors
+
+The easiest way to customize template colors is by modifying the Tailwind configuration.
+
+### Brand colors
+
+Define your brand color palette in the `Tailwind` component config:
+
+<Steps>
+  <Step title="Identify your brand colors">
+    Gather your brand's primary colors, typically:
+    - Primary/brand color
+    - Secondary/accent color
+    - Text colors (light and dark)
+    - Background colors
+  </Step>
+
+  <Step title="Update the Tailwind config">
+    ```tsx
+    <Tailwind
+      config={{
+        theme: {
+          extend: {
+            colors: {
+              brand: "#0099ff",        // Your primary brand color
+              accent: "#ff6719",       // Secondary accent color
+              muted: "#6b7280",        // Muted text color
+              primary: {
+                DEFAULT: "#1a1a1a",    // Primary text color
+                foreground: "#ffffff", // Text on primary background
+              },
+            },
+          },
+        },
+      }}
+    >
+    ```
+  </Step>
+
+  <Step title="Apply colors throughout your template">
+    ```tsx
+    <Button className="bg-brand text-white px-6 py-3 rounded-lg">
+      Get Started
+    </Button>
+    
+    <Text className="text-primary">
+      Main content text
+    </Text>
+    
+    <Text className="text-muted">
+      Secondary text
+    </Text>
+    ```
+  </Step>
+</Steps>
+
+### Example: Customizing the Myna UI template
+
+Here's how to change the brand color from blue to purple:
+
+<CodeGroup>
+```tsx Original (blue)
+<Tailwind
+  config={{
+    theme: {
+      extend: {
+        colors: {
+          brand: "#155dfc",
+        },
+      },
+    },
+  }}
+>
+```
+
+```tsx Customized (purple)
+<Tailwind
+  config={{
+    theme: {
+      extend: {
+        colors: {
+          brand: "#9333ea",
+        },
+      },
+    },
+  }}
+>
+```
+</CodeGroup>
+
+The brand color is used throughout the template for buttons, links, and accents.
+
+## Customizing fonts
+
+Change the typography to match your brand's font family.
+
+### Using system fonts
+
+```tsx
+<Tailwind
+  config={{
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Arial', 'sans-serif'],
+          serif: ['Georgia', 'Cambria', 'serif'],
+          mono: ['"Courier New"', 'monospace'],
+        },
+      },
+    },
+  }}
+>
+  <Body className="font-sans">
+    {/* Content */}
+  </Body>
+</Tailwind>
+```
+
+<Warning>
+Web fonts (like Google Fonts) have limited support in email clients. Outlook and some other clients will fall back to system fonts. Always include fallback fonts in your font stack.
+</Warning>
+
+### Font best practices
+
+- **Use web-safe fonts**: Arial, Helvetica, Georgia, Times New Roman, Courier
+- **Provide fallbacks**: Always include generic font families (`sans-serif`, `serif`, `monospace`)
+- **Test in Outlook**: Windows Outlook only supports a limited set of fonts
+
+## Customizing layouts
+
+### Changing spacing
+
+Adjust padding and margins to control whitespace:
+
+```tsx
+// Tight spacing
+<Container className="mx-auto px-3 py-3">
+  <Section className="mt-2 mb-4">
+    {/* Content */}
+  </Section>
+</Container>
+
+// Generous spacing
+<Container className="mx-auto px-6 py-8">
+  <Section className="mt-6 mb-8">
+    {/* Content */}
+  </Section>
+</Container>
+```
+
+### Adjusting width
+
+<Info>
+The recommended maximum width for email templates is 600px to ensure compatibility with most email clients.
+</Info>
+
+```tsx
+// Default width (600px)
+<Container className="mx-auto px-4">
+
+// Narrow width (480px)
+<Container className="mx-auto max-w-[480px] px-4">
+
+// Full width
+<Container className="w-full px-4">
+```
+
+### Header customization
+
+Customize the header section with your logo and brand elements:
+
+```tsx src/email/myna-ui/1-welcome-email.tsx
+<Section className="my-8">
+  <Link href="https://mynaui.com">
+    <svg
+      width="120"
+      height="25"
+      className="w-50 h-auto scale-150"
+      viewBox="0 0 86 18"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* SVG logo path */}
+    </svg>
+  </Link>
+</Section>
+```
+
+You can replace the SVG with your own logo image:
+
+```tsx
+<Section className="my-8">
+  <Link href="https://yoursite.com">
+    <Img
+      src="https://yoursite.com/logo.png"
+      width="120"
+      height="40"
+      alt="Your Company"
+    />
+  </Link>
+</Section>
+```
+
+## Customizing buttons
+
+Buttons are crucial for email CTAs. Here's how to style them:
+
+### Button styles
+
+<CodeGroup>
+```tsx Primary button
+<Button
+  className="bg-brand rounded-lg px-6 py-3 text-center text-base font-semibold text-white"
+  href="https://example.com"
+>
+  Get Started
+</Button>
+```
+
+```tsx Secondary button
+<Button
+  className="border-2 border-brand rounded-lg px-6 py-3 text-center text-base font-semibold text-brand bg-white"
+  href="https://example.com"
+>
+  Learn More
+</Button>
+```
+
+```tsx Button with icon
+import { Row, Column } from "@react-email/components";
+
+<Button
+  className="bg-brand rounded-lg px-6 py-3 text-center text-base font-semibold text-white"
+  href="https://example.com"
+>
+  <Row className="m-0 p-0">
+    <Column className="text-white">Continue</Column>
+    <Column>
+      <svg
+        width="24"
+        height="24"
+        fill="none"
+        stroke="currentColor"
+        className="ml-2 text-white"
+        strokeWidth="1.5"
+        viewBox="0 0 24 24"
+      >
+        <path d="M4.5 12h15m0 0-5.625-6m5.625 6-5.625 6" />
+      </svg>
+    </Column>
+  </Row>
+</Button>
+```
+</CodeGroup>
+
+### Button sizing
+
+```tsx
+// Small button
+<Button className="bg-brand rounded px-4 py-2 text-sm font-medium text-white">
+  Small
+</Button>
+
+// Medium button (default)
+<Button className="bg-brand rounded-lg px-6 py-3 text-base font-semibold text-white">
+  Medium
+</Button>
+
+// Large button
+<Button className="bg-brand rounded-lg px-8 py-4 text-lg font-bold text-white">
+  Large
+</Button>
+```
+
+## Customizing images
+
+### Hero images
+
+Replace placeholder images with your own:
+
+```tsx
+<Section className="mt-4">
+  <Link href="https://yoursite.com">
+    <Img
+      src="https://yoursite.com/hero-image.png"
+      alt="Product showcase"
+      className="aspect-video w-full rounded-lg object-cover"
+    />
+  </Link>
+</Section>
+```
+
+<Tip>
+Use a CDN like Cloudinary or Imgix for hosting email images. This ensures fast loading and reliable delivery.
+</Tip>
+
+### Image best practices
+
+1. **Always specify dimensions**: Include `width` and `height` attributes
+2. **Use alt text**: Describe the image for accessibility and when images are blocked
+3. **Optimize file size**: Keep images under 200KB when possible
+4. **Use HTTPS**: Ensure image URLs use secure HTTPS protocol
+
+## Customizing content
+
+### Personalizing text
+
+Use props to make templates dynamic:
+
+```tsx
+interface WelcomeEmailProps {
+  userName: string;
+  companyName: string;
+}
+
+export default function WelcomeEmail({ userName, companyName }: WelcomeEmailProps) {
+  return (
+    <Html>
+      <Tailwind>
+        <Body className="font-sans">
+          <Container className="mx-auto px-4 py-5">
+            <Text className="text-lg font-semibold">
+              Hey {userName}!
+            </Text>
+            <Text className="text-base">
+              Welcome to {companyName}. We're excited to have you on board.
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+### Footer customization
+
+Update the footer with your company information:
+
+```tsx
+<Section className="mt-8 text-sm text-gray-600">
+  <Text className="m-0 p-0 text-base">
+    Made with ❤️ by{" "}
+    <Link
+      href="https://yourcompany.com"
+      className="text-gray-600 underline"
+    >
+      Your Company
+    </Link>
+  </Text>
+  <Text className="m-0 mt-2 p-0 text-base">
+    123 Main Street, City, State 12345
+  </Text>
+  <Text className="m-0 mt-2 p-0 text-base">
+    <Link href="https://yourcompany.com/unsubscribe" className="text-gray-600 underline">
+      Unsubscribe
+    </Link>
+  </Text>
+</Section>
+```
+
+## Border radius
+
+Customize border radius for a softer or sharper look:
+
+```tsx
+<Tailwind
+  config={{
+    theme: {
+      extend: {
+        borderRadius: {
+          lg: "12px",   // Rounded
+          md: "8px",    // Medium
+          sm: "4px",    // Subtle
+        },
+      },
+    },
+  }}
+>
+```
+
+Then use these values:
+
+```tsx
+<Button className="rounded-lg">{/* Uses 12px */}</Button>
+<Section className="rounded-md">{/* Uses 8px */}</Section>
+<Img className="rounded-sm" />{/* Uses 4px */}
+```
+
+## Dark mode support
+
+Some email clients support dark mode. Add dark mode styles:
+
+```tsx
+<Tailwind
+  config={{
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          text: {
+            light: "#1a1a1a",
+            dark: "#f1f5f9",
+          },
+        },
+      },
+    },
+  }}
+>
+  <Text className="text-text-light dark:text-text-dark">
+    This text adapts to dark mode
+  </Text>
+</Tailwind>
+```
+
+<Warning>
+Dark mode support varies by email client. Apple Mail and Outlook (macOS) support it well, but many clients don't. Always test your dark mode styles.
+</Warning>
+
+## Creating template variants
+
+Create multiple versions of a template for different use cases:
+
+```tsx
+interface EmailProps {
+  variant?: 'welcome' | 'notification' | 'marketing';
+  userName: string;
+}
+
+export default function Email({ variant = 'welcome', userName }: EmailProps) {
+  const brandColor = {
+    welcome: '#0099ff',
+    notification: '#10b981',
+    marketing: '#f59e0b',
+  }[variant];
+
+  return (
+    <Html>
+      <Tailwind
+        config={{
+          theme: {
+            extend: {
+              colors: {
+                brand: brandColor,
+              },
+            },
+          },
+        }}
+      >
+        <Body className="font-sans">
+          {/* Template content */}
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Tailwind styling" icon="paintbrush" href="/guides/tailwind-styling">
+    Learn more about Tailwind CSS in emails
+  </Card>
+  <Card title="Sending emails" icon="paper-plane" href="/guides/sending-emails">
+    Learn how to send your customized templates
+  </Card>
+</CardGroup>

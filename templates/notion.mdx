@@ -1,0 +1,386 @@
+---
+title: Notion templates
+description: Productivity platform feature announcement email templates with comprehensive product education
+---
+
+Notion templates showcase how to create detailed feature announcement emails that educate users about complex product updates. These emails excel at explaining new features with clear benefits and step-by-step guidance.
+
+## Template overview
+
+The Notion template collection includes:
+
+- **Teamspaces newsletter**: Comprehensive feature announcement email
+
+## Teamspaces feature announcement
+
+A detailed newsletter announcing Notion's Teamspaces feature, with multiple sections explaining benefits, how it works, and getting started.
+
+### Key features
+
+- Notion logo branding with custom color palette
+- Personal greeting with user's name
+- Problem statement before solution
+- Multiple feature explanation images
+- Three-part structure: Benefits, How it works, Getting started
+- Bulleted lists for easy scanning
+- YouTube video CTA for visual learners
+- Footer with company information
+
+### Use cases
+
+- Announce major new features
+- Educate users about complex functionality
+- Guide users through feature adoption
+- Provide comprehensive product updates
+- Re-engage existing users with new capabilities
+
+### Code
+
+```tsx notion/notion-newsletter.tsx
+import {
+  Body,
+  Button,
+  Container,
+  Head,
+  Heading,
+  Hr,
+  Html,
+  Img,
+  Link,
+  Preview,
+  Section,
+  Tailwind,
+  Text,
+} from "@react-email/components";
+
+export default function NotionTeamspacesEmail() {
+  return (
+    <Html>
+      <Head />
+      <Preview>Introducing Notion Teamspaces - Organize your workspace better</Preview>
+      <Tailwind
+        config={{
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                brand: "#000000",
+                muted: "#ffffff",
+                base: "#5a96c3",
+              },
+            },
+          },
+        }}
+      >
+        <Body className="font-sans">
+          <Container className="mx-auto px-4 py-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://res.cloudinary.com/sutharjay/image/upload/v1738771211/me/notion-light.svg"
+                width="45"
+                height="45"
+                alt="Notion Logo"
+                className="mb-2"
+              />
+            </Section>
+
+            <Section className="mb-[20px]">
+              <Text className="text-base text-primary/80">Hi Kevin,</Text>
+              <Text className="text-base text-primary/80">
+                Cluttered sidebar with pages that don't apply to everyone?
+              </Text>
+              <Text className="text-base text-primary/80">
+                Now folks can join the teamspaces that interest them, and skip the ones that
+                don't. In other words, your colleagues can tailor Notion to only show the teams
+                and projects that reflect their priorities.
+              </Text>
+              <Section className="mx-auto my-[2px] flex w-full items-center justify-center">
+                <Button
+                  className="bg-base rounded-[4px] px-[18px] py-[8px] text-center text-[14px] font-semibold text-zinc-50"
+                  href="https://notion.so/teamspaces"
+                >
+                  Learn about teamspaces
+                </Button>
+              </Section>
+            </Section>
+
+            <Img
+              src="https://res.cloudinary.com/sutharjay/image/upload/v1738772914/me/notion/cj0s7gerhzt8yy45x3cc.png"
+              alt="Teamspaces"
+              className="w-full cursor-pointer rounded-[8px] shadow-xl"
+            />
+
+            <Hr className="mb-[20px] mt-[32px] border-gray-200" />
+
+            <Section className="mb-[32px]">
+              <Heading className="mb-4 text-xl font-bold text-primary">How does it work?</Heading>
+              <ul className="list-disc pl-6 text-base text-primary/80">
+                <li className="mb-3">
+                  Customize the level of view or edit access to teamspace content for owners,
+                  members, and everyone else in your workspace.
+                </li>
+                <li className="mb-3">
+                  Choose between Open or Closed privacy settings to determine whether people can
+                  add themselves to teamspaces, or if access should be more controlled.
+                </li>
+                <li className="mb-3">
+                  Enterprise Plan workspaces gain even more security and permission controls, and
+                  Private teamspaces that only specific members can see.
+                </li>
+              </ul>
+            </Section>
+
+            <Img
+              src="https://res.cloudinary.com/sutharjay/image/upload/v1738773066/me/notion/qyteyymlartgjwblfjva.png"
+              alt="Teamspaces"
+              className="w-full cursor-pointer rounded-[8px] shadow-xl"
+            />
+
+            <Hr className="mb-[20px] mt-[32px] border-gray-200" />
+
+            <Section className="mb-[20px]">
+              <Heading className="mb-4 text-xl font-bold text-primary">
+                How do I get started?
+              </Heading>
+              <ul className="list-disc pl-6 text-base text-primary/80">
+                <li className="mb-3">
+                  All the content from your Workspace section is in a new teamspace called General.
+                  This is your company-wide teamspace.
+                </li>
+                <li className="mb-3">
+                  See the All teamspaces button at the top of your sidebar? Click the + button to
+                  the right to create a new teamspace from scratch.
+                </li>
+                <li className="mb-3">
+                  Have an existing page that you'd like to turn into a teamspace? Click the ••• to
+                  the right of its name in the sidebar, then Turn into teamspace.
+                </li>
+              </ul>
+            </Section>
+
+            <Section>
+              <Text className="mb-4 text-base text-primary/80">
+                Warmest regards,
+                <br />
+                The Notion team
+              </Text>
+              <Text className="text-sm text-primary/80">
+                P.S. More of a visual learner?{" "}
+                <Link href="https://www.youtube.com" className="text-base">
+                  Watch the YouTube video here
+                </Link>
+                .
+              </Text>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+### Email structure breakdown
+
+The template follows a proven educational email structure:
+
+<Tabs>
+  <Tab title="1. Problem">
+    **Identify the pain point**
+    
+    ```tsx
+    <Text className="text-base text-primary/80">
+      Cluttered sidebar with pages that don't apply to everyone?
+    </Text>
+    ```
+    
+    Immediately resonates with users experiencing this issue.
+  </Tab>
+  
+  <Tab title="2. Solution">
+    **Introduce the feature**
+    
+    ```tsx
+    <Text className="text-base text-primary/80">
+      Now folks can join the teamspaces that interest them, and skip the ones that don't.
+    </Text>
+    ```
+    
+    Clear explanation of how the feature solves the problem.
+  </Tab>
+  
+  <Tab title="3. Education">
+    **Three-part explanation**
+    
+    - How does it work? (functionality)
+    - How do I get started? (activation)
+    - Visual learners? (alternative format)
+    
+    Covers different learning preferences.
+  </Tab>
+</Tabs>
+
+### Customization options
+
+<Accordion title="Brand colors">
+  Update Notion's color palette to match your brand:
+  
+  ```tsx
+  colors: {
+    brand: "#000000",   // Primary brand color
+    muted: "#ffffff",   // Light/white for contrast
+    base: "#5a96c3",    // Accent color for CTAs
+  }
+  ```
+</Accordion>
+
+<Accordion title="Multiple sections">
+  The template uses multiple sections separated by horizontal rules. Add more as needed:
+  
+  ```tsx
+  <Hr className="mb-[20px] mt-[32px] border-gray-200" />
+  
+  <Section className="mb-[32px]">
+    <Heading className="mb-4 text-xl font-bold text-primary">
+      Your Section Title
+    </Heading>
+    <ul className="list-disc pl-6 text-base text-primary/80">
+      <li className="mb-3">Benefit or step 1</li>
+      <li className="mb-3">Benefit or step 2</li>
+    </ul>
+  </Section>
+  ```
+</Accordion>
+
+<Accordion title="Feature images">
+  Include screenshots or illustrations after each explanation:
+  
+  ```tsx
+  <Img
+    src="your-feature-screenshot.png"
+    alt="Feature name"
+    className="w-full cursor-pointer rounded-[8px] shadow-xl"
+  />
+  ```
+  
+  The `shadow-xl` class adds depth and makes images stand out.
+</Accordion>
+
+<Accordion title="P.S. alternative formats">
+  Offer content in multiple formats for different learning styles:
+  
+  ```tsx
+  <Text className="text-sm text-primary/80">
+    P.S. More of a visual learner?{" "}
+    <Link href="your-video-url" className="text-base">
+      Watch the YouTube video here
+    </Link>
+    .
+  </Text>
+  ```
+</Accordion>
+
+## Content writing tips
+
+Notion's email demonstrates excellent product communication:
+
+### 1. Conversational tone
+
+```tsx
+<Text className="text-base text-primary/80">
+  Hi Kevin,
+</Text>
+<Text className="text-base text-primary/80">
+  Cluttered sidebar with pages that don't apply to everyone?
+</Text>
+```
+
+Personal and relatable, not corporate.
+
+### 2. Benefits over features
+
+**Instead of**: "Teamspaces have privacy settings"
+
+**They say**: "Your colleagues can tailor Notion to only show the teams and projects that reflect their priorities"
+
+### 3. Step-by-step guidance
+
+Each getting started step is actionable:
+
+- Uses specific UI element names ("All teamspaces button")
+- Includes exact click paths ("••• to the right of its name")
+- Provides context for each action
+
+### 4. Multiple entry points
+
+Three CTAs for different user needs:
+
+1. **Learn about teamspaces** - General information
+2. **View in browser** - Web version
+3. **Watch the YouTube video** - Visual learners
+
+<Info>
+  Multiple CTAs don't dilute effectiveness when each serves a different user preference or stage of adoption.
+</Info>
+
+## Design system
+
+<Tabs>
+  <Tab title="Colors">
+    ```tsx
+    {
+      brand: "#000000",   // Black for primary text
+      muted: "#ffffff",   // White for backgrounds
+      base: "#5a96c3",    // Notion blue for accents
+    }
+    ```
+  </Tab>
+  
+  <Tab title="Typography">
+    - **Headings**: XL, bold for section titles
+    - **Body**: Base size with 80% opacity for readability
+    - **Lists**: Disc bullets with 12px bottom margin per item
+  </Tab>
+  
+  <Tab title="Spacing">
+    - Section margins: 32px between major sections
+    - List items: 12px bottom margin
+    - Container padding: 20px vertical
+    - HR margins: 20px bottom, 32px top
+  </Tab>
+  
+  <Tab title="Images">
+    - Full width (`w-full`)
+    - Rounded corners (8px)
+    - Shadow for depth (`shadow-xl`)
+    - Cursor pointer for interactivity
+  </Tab>
+</Tabs>
+
+## When to use this template
+
+Use the Notion feature announcement template when:
+
+- Launching complex features that need explanation
+- Educating users about workflow improvements
+- Announcing features with multiple benefits
+- Targeting both new and existing users
+- Providing step-by-step activation guidance
+
+**Avoid this template when:**
+
+- Announcing simple features (use shorter format)
+- Sending time-sensitive alerts (too long)
+- Targeting mobile-only users (heavy on images)
+
+## Related templates
+
+<CardGroup cols={2}>
+  <Card title="Dub templates" icon="link" href="/templates/dub">
+    Multi-feature product update emails with similar structure
+  </Card>
+  
+  <Card title="Framer templates" icon="palette" href="/templates/framer">
+    Educational onboarding emails with clear benefits
+  </Card>
+</CardGroup>

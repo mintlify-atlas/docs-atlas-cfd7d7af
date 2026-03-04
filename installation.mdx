@@ -1,0 +1,397 @@
+---
+title: Installation
+description: Complete installation guide for ReactUI Email with detailed setup instructions and configuration options
+---
+
+This guide covers everything you need to know to install and configure ReactUI Email in your project.
+
+## System requirements
+
+Before you begin, ensure your development environment meets these requirements:
+
+- **Node.js**: Version 20 or later
+- **React**: Version 19 or later (ReactUI Email uses React 19)
+- **Package manager**: npm, pnpm, yarn, or bun
+
+<Info>
+  ReactUI Email is built with Next.js 15.2+ but works with any React framework including Remix, Vite, or Create React App.
+</Info>
+
+## Installation methods
+
+### Using a package manager
+
+Install the required dependencies using your preferred package manager:
+
+<CodeGroup>
+  ```bash npm
+  npm install @react-email/components @react-email/render
+  ```
+
+  ```bash pnpm
+  pnpm add @react-email/components @react-email/render
+  ```
+
+  ```bash yarn
+  yarn add @react-email/components @react-email/render
+  ```
+
+  ```bash bun
+  bun add @react-email/components @react-email/render
+  ```
+</CodeGroup>
+
+### Core dependencies
+
+ReactUI Email relies on these essential packages:
+
+| Package | Version | Purpose |
+|---------|---------|----------|
+| `@react-email/components` | ^0.0.32 | React Email component library |
+| `@react-email/render` | 1.0.4 | Renders React components to HTML |
+| `react` | ^19.0.0 | React library |
+| `react-dom` | ^19.0.0 | React DOM library |
+
+<Tip>
+  The `@react-email/components` package includes all the building blocks you need: Body, Button, Container, Head, Html, Link, Section, Text, and more.
+</Tip>
+
+## Setting up your project structure
+
+Organize your email templates in a dedicated directory:
+
+```bash
+your-project/
+├── src/
+│   ├── emails/              # Email template components
+│   │   ├── welcome.tsx
+│   │   ├── verification.tsx
+│   │   └── password-reset.tsx
+│   ├── lib/
+│   │   └── email.ts         # Email rendering utilities
+│   └── ...
+├── package.json
+└── tsconfig.json
+```
+
+### TypeScript configuration
+
+If you're using TypeScript, update your `tsconfig.json` to include path aliases for easier imports:
+
+```json tsconfig.json
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "jsx": "preserve",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@email/*": ["./src/emails/*"]
+    }
+  }
+}
+```
+
+## Creating a render utility
+
+Create a utility function to render your email templates to HTML:
+
+```tsx src/lib/email.ts
+import { render as emailRender } from "@react-email/render";
+import { JSXElementConstructor, ReactElement } from "react";
+
+export const render = async (
+  template: ReactElement<unknown, string | JSXElementConstructor<unknown>>,
+) => {
+  const html = await emailRender(template, {
+    pretty: true,
+  });
+
+  return html;
+};
+```
+
+This utility can be used to render any email template:
+
+```tsx
+import { render } from "@/lib/email";
+import WelcomeEmail from "@/emails/welcome";
+
+const html = await render(<WelcomeEmail />);
+```
+
+## Installing email templates
+
+ReactUI Email templates are available in the [GitHub repository](https://github.com/sutharjay1/reactui-email). You can copy individual templates directly into your project:
+
+<Steps>
+  <Step title="Browse available templates">
+    Visit the [Templates](/templates/overview) section to see all available email templates organized by category:
+    
+    - Supabase-style templates
+    - Notion-style templates
+    - Framer-style templates
+    - MynaUI-style templates
+    - And more
+  </Step>
+
+  <Step title="Copy template code">
+    Navigate to the template you want in the source repository at:
+    ```
+    src/email/[template-name]/[email-name].tsx
+    ```
+    
+    Copy the entire component code.
+  </Step>
+
+  <Step title="Paste into your project">
+    Create a new file in your `src/emails/` directory and paste the template code:
+    
+    ```tsx src/emails/welcome.tsx
+    // Paste template code here
+    ```
+  </Step>
+
+  <Step title="Customize the template">
+    Modify the template to match your brand:
+    - Update colors in the Tailwind config
+    - Change text content
+    - Add your logo and images
+    - Adjust spacing and layout
+  </Step>
+</Steps>
+
+<Warning>
+  Make sure to update all placeholder content (URLs, images, company names) before using templates in production.
+</Warning>
+
+## Configuring Tailwind CSS
+
+ReactUI Email uses Tailwind CSS for styling. Each template includes its own Tailwind configuration:
+
+```tsx
+import { Tailwind } from "@react-email/components";
+
+export default function MyEmail() {
+  return (
+    <Tailwind
+      config={{
+        theme: {
+          extend: {
+            colors: {
+              brand: "#155dfc",
+              // Add your custom colors
+            },
+          },
+        },
+      }}
+    >
+      {/* Email content */}
+    </Tailwind>
+  );
+}
+```
+
+You can customize the Tailwind configuration for each template independently.
+
+## Setting up email sending
+
+To send emails, you'll need to integrate an email service provider. Here are setup examples for popular services:
+
+### Using Resend
+
+<CodeGroup>
+  ```bash Installation
+  npm install resend
+  ```
+
+  ```tsx Usage
+  import { Resend } from "resend";
+  import { render } from "@/lib/email";
+  import WelcomeEmail from "@/emails/welcome";
+
+  const resend = new Resend(process.env.RESEND_API_KEY);
+
+  export async function sendWelcomeEmail(to: string) {
+    const html = await render(<WelcomeEmail />);
+    
+    await resend.emails.send({
+      from: "noreply@yourdomain.com",
+      to,
+      subject: "Welcome!",
+      html,
+    });
+  }
+  ```
+</CodeGroup>
+
+### Using Plunk
+
+<CodeGroup>
+  ```bash Installation
+  npm install @plunk/node
+  ```
+
+  ```tsx Usage
+  import Plunk from "@plunk/node";
+  import { render } from "@/lib/email";
+  import WelcomeEmail from "@/emails/welcome";
+
+  const plunk = new Plunk(process.env.PLUNK_API_KEY);
+
+  export async function sendWelcomeEmail(to: string) {
+    const html = await render(<WelcomeEmail />);
+    
+    await plunk.emails.send({
+      to,
+      subject: "Welcome!",
+      body: html,
+    });
+  }
+  ```
+</CodeGroup>
+
+### Using Nodemailer
+
+<CodeGroup>
+  ```bash Installation
+  npm install nodemailer
+  npm install -D @types/nodemailer
+  ```
+
+  ```tsx Usage
+  import nodemailer from "nodemailer";
+  import { render } from "@/lib/email";
+  import WelcomeEmail from "@/emails/welcome";
+
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: parseInt(process.env.SMTP_PORT || "587"),
+    secure: false,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASSWORD,
+    },
+  });
+
+  export async function sendWelcomeEmail(to: string) {
+    const html = await render(<WelcomeEmail />);
+    
+    await transporter.sendMail({
+      from: "noreply@yourdomain.com",
+      to,
+      subject: "Welcome!",
+      html,
+    });
+  }
+  ```
+</CodeGroup>
+
+## Environment variables
+
+Store sensitive configuration in environment variables:
+
+```bash .env.local
+# For Resend
+RESEND_API_KEY=re_your_api_key_here
+
+# For Plunk
+PLUNK_API_KEY=your_plunk_api_key_here
+
+# For SMTP (Nodemailer)
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your_email@gmail.com
+SMTP_PASSWORD=your_app_password
+```
+
+<Note>
+  Never commit your `.env` files to version control. Add them to `.gitignore`.
+</Note>
+
+## Previewing emails during development
+
+For local development, you can preview emails in the browser:
+
+1. Create a preview route in your Next.js app:
+
+```tsx app/preview/email/route.tsx
+import { render } from "@/lib/email";
+import WelcomeEmail from "@/emails/welcome";
+import { NextResponse } from "next/server";
+
+export async function GET() {
+  const html = await render(<WelcomeEmail />);
+  return new NextResponse(html, {
+    headers: { "Content-Type": "text/html" },
+  });
+}
+```
+
+2. Visit `http://localhost:3000/preview/email` to see the rendered email
+
+<Tip>
+  For a better preview experience, consider using [React Email Dev](https://react.email/docs/introduction) which provides a UI for previewing and testing emails.
+</Tip>
+
+## Troubleshooting
+
+### Common issues and solutions
+
+<AccordionGroup>
+  <Accordion title="TypeScript errors with React Email components">
+    Make sure you have the correct React types installed:
+    ```bash
+    npm install -D @types/react @types/react-dom
+    ```
+    
+    Ensure your TypeScript version is 5.0 or later.
+  </Accordion>
+
+  <Accordion title="Tailwind styles not applying">
+    Each email template needs its own Tailwind configuration wrapped in the `<Tailwind>` component. Make sure you're importing it from `@react-email/components`.
+  </Accordion>
+
+  <Accordion title="Images not loading in emails">
+    Use absolute URLs for all images. Email clients don't support relative paths. Host images on a CDN or public server:
+    ```tsx
+    // Good
+    <Img src="https://yourdomain.com/logo.png" />
+    
+    // Bad
+    <Img src="/logo.png" />
+    ```
+  </Accordion>
+
+  <Accordion title="Emails look different in various clients">
+    This is normal. Email clients have different rendering engines. Always test in multiple clients:
+    - Gmail (web and mobile)
+    - Outlook (desktop and web)
+    - Apple Mail
+    - iOS Mail
+    
+    Use services like [Litmus](https://litmus.com) or [Email on Acid](https://www.emailonacid.com) for comprehensive testing.
+  </Accordion>
+</AccordionGroup>
+
+## Next steps
+
+Now that you have ReactUI Email installed, you can:
+
+<CardGroup cols={2}>
+  <Card title="Browse templates" icon="grid" href="/templates/overview">
+    Explore all available email templates
+  </Card>
+  
+  <Card title="Learn customization" icon="palette" href="/guides/customization">
+    Customize templates to match your brand
+  </Card>
+  
+  <Card title="Tailwind styling guide" icon="css3" href="/guides/tailwind-styling">
+    Master Tailwind CSS in email templates
+  </Card>
+  
+  <Card title="Sending emails guide" icon="paper-plane" href="/guides/sending-emails">
+    Learn best practices for sending emails
+  </Card>
+</CardGroup>

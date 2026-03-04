@@ -1,0 +1,167 @@
+---
+title: Templates overview
+description: Production-ready email templates inspired by leading tech companies
+---
+
+ReactUI Email includes a collection of professionally designed email templates inspired by popular tech companies. Each template is built with React Email and Tailwind CSS, ready to be customized for your application.
+
+## Available templates
+
+Our template library includes email designs from:
+
+<CardGroup cols={3}>
+  <Card title="Peerlist" icon="briefcase" href="/templates/peerlist">
+    Professional networking platform emails including welcome messages, job applications, and inbox notifications
+  </Card>
+  
+  <Card title="Framer" icon="palette" href="/templates/framer">
+    Design tool onboarding sequence with welcome emails, feature highlights, and team invitations
+  </Card>
+  
+  <Card title="Substack" icon="newspaper" href="/templates/substack">
+    Newsletter platform emails for unread posts and newsletter recommendations
+  </Card>
+  
+  <Card title="Notion" icon="book" href="/templates/notion">
+    Productivity tool feature announcements and teamspace updates
+  </Card>
+  
+  <Card title="Supabase" icon="database" href="/templates/supabase">
+    Open-source backend platform with welcome and verification emails
+  </Card>
+  
+  <Card title="Dub" icon="link" href="/templates/dub">
+    Link management platform with welcome and product update emails
+  </Card>
+  
+  <Card title="Softgen" icon="robot" href="/templates/softgen">
+    AI web app developer with welcome and payment confirmation emails
+  </Card>
+  
+  <Card title="Myna UI" icon="sparkles" href="/templates/myna-ui">
+    Component library with comprehensive email suite for user lifecycle
+  </Card>
+</CardGroup>
+
+## Template categories
+
+### Onboarding and welcome
+
+Get users started with your product:
+
+- **Welcome emails**: First impression emails that introduce your product
+- **Verification emails**: Secure email verification with clear CTAs
+- **Account setup**: Guide users through initial configuration
+
+<Info>
+  Use welcome templates from Peerlist, Framer, Supabase, Softgen, or Myna UI to create a strong first impression.
+</Info>
+
+### Transactional
+
+Confirm user actions and transactions:
+
+- **Job applications**: Confirmation emails for submitted applications
+- **Payment confirmations**: Receipt and payment success notifications
+- **Team invitations**: Invite colleagues to collaborate
+
+### Engagement and updates
+
+Keep users informed and engaged:
+
+- **Product updates**: Announce new features and improvements
+- **Newsletter recommendations**: Suggest relevant content
+- **Activity notifications**: Alert users about important events
+
+### Security and account
+
+Protect user accounts:
+
+- **Login alerts**: Notify users of new sign-ins
+- **Account locked**: Security notifications for suspicious activity
+- **Password updated**: Confirm password changes
+
+## Customization approach
+
+All templates follow a consistent structure for easy customization:
+
+```tsx
+export default function TemplateName() {
+  return (
+    <Html>
+      <Head />
+      <Preview>Email preview text</Preview>
+      <Tailwind config={{...}}>
+        <Body className="font-sans">
+          <Container className="mx-auto px-4 py-5">
+            {/* Email content */}
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+### Key customization points
+
+1. **Brand colors**: Update the `colors` object in Tailwind config
+2. **Typography**: Modify font families and text styles
+3. **Logo and images**: Replace image URLs with your assets
+4. **Content**: Update copy to match your brand voice
+5. **Layout**: Adjust spacing and component arrangement
+
+## Using templates in your project
+
+To use any template:
+
+1. Browse the template pages to find one that matches your needs
+2. Copy the complete code from the template page
+3. Create a new file in your project (e.g., `emails/welcome.tsx`)
+4. Paste the code and customize as needed
+5. Import and render in your application
+
+<CodeGroup>
+```tsx Example usage
+import WelcomeEmail from '@/emails/welcome';
+import { render } from '@react-email/render';
+
+const html = render(<WelcomeEmail username="John" />);
+```
+
+```tsx With props
+interface WelcomeEmailProps {
+  username?: string;
+  companyName?: string;
+}
+
+export default function WelcomeEmail({ 
+  username = "there",
+  companyName = "our company"
+}: WelcomeEmailProps) {
+  // Template code
+}
+```
+</CodeGroup>
+
+## Design principles
+
+Our templates follow email design best practices:
+
+- **Mobile-first**: Responsive layouts that work on all devices
+- **Accessibility**: Semantic HTML with proper alt text
+- **Dark mode support**: Custom Tailwind configurations for theme switching
+- **Email client compatibility**: Tested across major email clients
+- **Performance**: Optimized images and minimal inline styles
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Browse templates" icon="grid" href="/templates/peerlist">
+    Explore all available templates and find the perfect starting point
+  </Card>
+  
+  <Card title="Components" icon="puzzle-piece" href="/components/overview">
+    Learn about React Email components used in templates
+  </Card>
+</CardGroup>

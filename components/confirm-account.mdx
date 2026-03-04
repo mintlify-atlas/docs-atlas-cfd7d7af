@@ -1,0 +1,418 @@
+---
+title: Confirm account
+description: Complete email verification template with account confirmation call-to-action
+---
+
+The Confirm Account component provides a complete email template for user account verification and onboarding flows. It includes an icon, heading, body text, bordered CTA button, and footer.
+
+## Overview
+
+This component is designed for:
+- Email verification flows
+- Account activation
+- User onboarding
+- Confirmation requests
+
+## Basic usage
+
+<CodeGroup>
+```tsx Confirm account template
+import {
+  Body,
+  Button,
+  Container,
+  Head,
+  Hr,
+  Html,
+  Preview,
+  Section,
+  Tailwind,
+  Text,
+} from "@react-email/components";
+
+export default function ConfirmAccountOne() {
+  return (
+    <Html>
+      <Head />
+      <Preview>Confirm your account one</Preview>
+      <Tailwind
+        config={{
+          theme: {
+            extend: {
+              colors: {
+                brand: "#0a0a0a",
+              },
+            },
+          },
+        }}
+      >
+        <Body className="font-sans">
+          <Container className="mx-auto px-4 py-5">
+            <Section className="mt-8">
+              {/* Icon */}
+              <svg width="48" height="48" /* ... */>
+                <path d="M16 11.996V7.998m0 3.998c0-5.157-8-5.157-8 0..." />
+              </svg>
+            </Section>
+
+            <Section className="mt-8">
+              <Text className="text-xl font-bold leading-tight">
+                Confirm your account
+              </Text>
+            </Section>
+
+            <Section className="mt-2">
+              <Text className="text-base">
+                Please click the button below to confirm your email address and finish setting up
+                your account. This link is valid for 48 hours.
+              </Text>
+            </Section>
+
+            <Section className="mt-4 text-center">
+              <table
+                style={{
+                  border: "1px solid rgb(39 39 42 / 0.2)",
+                  borderRadius: "32px",
+                  borderCollapse: "collapse",
+                  display: "flex",
+                  justifyContent: "center",
+                  width: "fit-content",
+                  alignItems: "center",
+                }}
+              >
+                <tr>
+                  <td>
+                    <Button className="mx-auto flex w-fit items-center justify-center rounded-[32px] bg-foreground px-[24px] py-[12px] text-center text-[14px] font-semibold text-background">
+                      Confirm
+                    </Button>
+                  </td>
+                </tr>
+              </table>
+            </Section>
+
+            <Hr className="mb-6 mt-8 border-gray-200" />
+
+            <Section className="mb-4 text-left text-sm text-primary/80">
+              <Text className="m-0 p-0 font-medium">ReactUI Email</Text>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+</CodeGroup>
+
+## Component structure
+
+The confirm account template consists of five main sections:
+
+### 1. Icon section
+
+An SVG icon that visually represents the email purpose:
+
+```tsx Icon
+<Section className="mt-8">
+  <svg
+    width="48"
+    height="48"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M16 11.996V7.998m0 3.998c0-5.157-8-5.157-8 0 0 5.167 8 5.11 8 0m0 0c0 5 5 5 5 0C21 7.027 16.97 3 12 3s-9 4.027-9 8.996c0 4.968 4.03 8.995 9 8.995 1.675.084 3.938-.421 5.776-1.831" />
+  </svg>
+</Section>
+```
+
+<Info>
+  The SVG uses `stroke="currentColor"` to inherit the text color from the theme.
+</Info>
+
+### 2. Heading section
+
+The main email heading:
+
+```tsx Heading
+<Section className="mt-8">
+  <Text className="text-xl font-bold leading-tight">
+    Confirm your account
+  </Text>
+</Section>
+```
+
+### 3. Body text section
+
+Detailed explanation and instructions:
+
+```tsx Body text
+<Section className="mt-2">
+  <Text className="text-base">
+    Please click the button below to confirm your email address and finish setting up
+    your account. This link is valid for 48 hours.
+  </Text>
+</Section>
+```
+
+### 4. CTA button section
+
+Bordered button with pill-shaped styling:
+
+```tsx CTA button
+<Section className="mt-4 text-center">
+  <table
+    style={{
+      border: "1px solid rgb(39 39 42 / 0.2)",
+      borderRadius: "32px",
+      borderCollapse: "collapse",
+      display: "flex",
+      justifyContent: "center",
+      width: "fit-content",
+      alignItems: "center",
+    }}
+  >
+    <tr>
+      <td>
+        <Button className="mx-auto flex w-fit items-center justify-center rounded-[32px] bg-foreground px-[24px] py-[12px] text-center text-[14px] font-semibold text-background">
+          Confirm
+        </Button>
+      </td>
+    </tr>
+  </table>
+</Section>
+```
+
+The button uses:
+- `borderRadius: "32px"` for pill shape
+- Table wrapper for border styling
+- `bg-foreground` and `text-background` for inverted colors
+
+### 5. Footer section
+
+Simple text footer with company name:
+
+```tsx Footer
+<Hr className="mb-6 mt-8 border-gray-200" />
+
+<Section className="mb-4 text-left text-sm text-primary/80">
+  <Text className="m-0 p-0 font-medium">ReactUI Email</Text>
+</Section>
+```
+
+## Customization
+
+### Change the icon
+
+Replace the SVG with your own icon or emoji:
+
+```tsx Custom icon
+// Using emoji
+<Section className="mt-8 text-4xl">
+  ✉️
+</Section>
+
+// Using a different SVG
+<Section className="mt-8">
+  <svg width="48" height="48" viewBox="0 0 24 24">
+    {/* Your custom SVG path */}
+  </svg>
+</Section>
+
+// Using an image
+<Section className="mt-8">
+  <Img src="/icon.png" width="48" height="48" alt="Icon" />
+</Section>
+```
+
+### Customize the text
+
+Update heading and body text for your use case:
+
+```tsx Custom text
+// Welcome email
+<Section className="mt-8">
+  <Text className="text-xl font-bold leading-tight">
+    Welcome to ReactUI Email
+  </Text>
+</Section>
+<Section className="mt-2">
+  <Text className="text-base">
+    We're excited to have you on board. Click below to complete your registration
+    and start building beautiful emails.
+  </Text>
+</Section>
+
+// Password reset
+<Section className="mt-8">
+  <Text className="text-xl font-bold leading-tight">
+    Reset your password
+  </Text>
+</Section>
+<Section className="mt-2">
+  <Text className="text-base">
+    We received a request to reset your password. Click the button below to create
+    a new password. This link expires in 1 hour.
+  </Text>
+</Section>
+```
+
+### Button styling
+
+Customize button appearance:
+
+```tsx Button variants
+// Sharp corners
+<Button className="mx-auto flex w-fit rounded-[8px] bg-foreground px-[24px] py-[12px]...">
+  Confirm
+</Button>
+
+// Larger button
+<Button className="mx-auto flex w-fit rounded-[32px] bg-foreground px-[32px] py-[16px] text-[16px]...">
+  Confirm
+</Button>
+
+// Brand color
+<Button className="mx-auto flex w-fit rounded-[32px] bg-brand px-[24px] py-[12px] text-white...">
+  Confirm
+</Button>
+```
+
+### Footer customization
+
+Add more information to the footer:
+
+```tsx Enhanced footer
+<Hr className="mb-6 mt-8 border-gray-200" />
+
+<Section className="mb-4 text-left text-sm text-primary/80">
+  <Text className="m-0 p-0 font-medium">ReactUI Email</Text>
+  <Text className="m-0 mt-1 p-0">123 Main Street, San Francisco, CA 94102</Text>
+  <Text className="m-0 mt-1 p-0">
+    <Link href="/unsubscribe" className="text-primary/60 underline">
+      Unsubscribe
+    </Link>
+  </Text>
+</Section>
+```
+
+## Props
+
+While this is a complete template, you can extract reusable sections with props:
+
+<ParamField path="heading" type="string">
+  The main heading text
+</ParamField>
+
+<ParamField path="bodyText" type="string">
+  The description/instruction text
+</ParamField>
+
+<ParamField path="buttonText" type="string">
+  The CTA button label
+</ParamField>
+
+<ParamField path="buttonHref" type="string">
+  The URL the button links to
+</ParamField>
+
+<ParamField path="companyName" type="string">
+  Footer company name
+</ParamField>
+
+## Best practices
+
+1. **Clear messaging** - Be explicit about what action the user needs to take
+2. **Urgency indication** - Mention expiration time for confirmation links
+3. **Single CTA** - Keep focus on one primary action
+4. **Security notes** - Include information about not sharing the link
+5. **Brand consistency** - Use your brand colors and logo
+
+### Security considerations
+
+Add security messaging:
+
+```tsx Security note
+<Section className="mt-4">
+  <Text className="text-sm text-muted">
+    If you didn't request this email, you can safely ignore it.
+    Your account security is not at risk.
+  </Text>
+</Section>
+```
+
+## Accessibility
+
+Ensure the template is accessible:
+
+```tsx Accessible template
+// Add semantic HTML
+<Section role="main">
+  {/* Main content */}
+</Section>
+
+// Meaningful link text
+<Button 
+  aria-label="Confirm your email address"
+  className="..."
+>
+  Confirm
+</Button>
+
+// Sufficient color contrast
+<Text className="text-base text-foreground">  {/* Ensure contrast ratio >= 4.5:1 */}
+  Your message here
+</Text>
+```
+
+## Complete example variations
+
+### Welcome email
+
+```tsx Welcome variant
+<Section className="mt-8">
+  <Text className="text-xl font-bold">Welcome aboard!</Text>
+</Section>
+<Section className="mt-2">
+  <Text className="text-base">
+    Thanks for signing up. Verify your email to unlock all features.
+  </Text>
+</Section>
+```
+
+### Password reset
+
+```tsx Password reset variant
+<Section className="mt-8">
+  <Text className="text-xl font-bold">Reset your password</Text>
+</Section>
+<Section className="mt-2">
+  <Text className="text-base">
+    Click below to choose a new password. Link expires in 1 hour.
+  </Text>
+</Section>
+```
+
+### Team invitation
+
+```tsx Team invite variant
+<Section className="mt-8">
+  <Text className="text-xl font-bold">You've been invited</Text>
+</Section>
+<Section className="mt-2">
+  <Text className="text-base">
+    John Doe has invited you to join their team on ReactUI Email.
+    Click below to accept the invitation.
+  </Text>
+</Section>
+```
+
+## Source code
+
+View the complete source code for the confirm account component:
+
+- [Confirm account](https://github.com/your-repo/source/src/email/components/confirm-account/one.tsx)
