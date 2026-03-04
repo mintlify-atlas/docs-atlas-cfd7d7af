@@ -1,0 +1,104 @@
+{
+  "projectType": "frontend",
+  "projectName": "ReactUI Email",
+  "projectDescription": "Beautiful email templates built with React Email and Tailwind CSS",
+  "theme": "almond",
+  "primaryColor": "#f4f4f5",
+  "lightColor": "#040404",
+  "darkColor": null,
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "installation"
+            ]
+          },
+          {
+            "group": "Templates",
+            "pages": [
+              "templates/overview",
+              "templates/peerlist",
+              "templates/framer",
+              "templates/substack",
+              "templates/notion",
+              "templates/supabase",
+              "templates/dub",
+              "templates/softgen",
+              "templates/myna-ui"
+            ]
+          },
+          {
+            "group": "Components",
+            "pages": [
+              "components/overview",
+              "components/button",
+              "components/header",
+              "components/grid",
+              "components/confirm-account"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/customization",
+              "guides/tailwind-styling",
+              "guides/sending-emails",
+              "guides/react-email-basics"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Email Components",
+            "pages": [
+              "api/button-variants",
+              "api/layout-components",
+              "api/styling-props"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Brand-inspired email templates (Peerlist, Framer, Notion, etc.)",
+    "Reusable React Email components with Tailwind CSS",
+    "Responsive and mobile-optimized email layouts",
+    "Full Tailwind CSS integration for easy customization",
+    "Production-ready templates for common use cases"
+  ],
+  "publicApiSurface": [
+    "ButtonOne - Single button component",
+    "ButtonWithIcon - Button with icon component",
+    "ButtonWithBorder - Bordered button component",
+    "TwoButton - Dual button layout",
+    "EmailHeader - Header component for emails",
+    "EmailGrid - Grid layout component",
+    "ConfirmAccount - Account confirmation component",
+    "MynaUIWelcomeEmail - Welcome email template",
+    "MynaUIVerifyEmail - Email verification template",
+    "MynaUIAccountVerified - Account verified template",
+    "MynaUILoginAlert - Login alert template",
+    "MynaUIAccountLocked - Account locked template",
+    "MynaUIPasswordUpdated - Password updated template",
+    "MynaUIProductUpdates - Product updates template",
+    "FramerWelcomeEmail - Framer welcome email template",
+    "FramerEnhanceExperience - Framer enhance experience template",
+    "FramerInvitation - Framer invitation email template",
+    "PeerlistWelcomeEmail - Peerlist welcome email template",
+    "SubstackWelcomeEmail - Substack welcome email template",
+    "NotionWelcomeEmail - Notion welcome email template",
+    "SupabaseWelcomeEmail - Supabase welcome email template",
+    "DubWelcomeEmail - Dub welcome email template",
+    "SoftgenWelcomeEmail - Softgen welcome email template"
+  ]
+}
