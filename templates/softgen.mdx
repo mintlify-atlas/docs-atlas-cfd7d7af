@@ -11,6 +11,9 @@ The Softgen template collection includes:
 
 - **Welcome email**: Simple activation email for new users
 - **Payment confirmation**: Professional receipt with plan details
+- **Payment package email**: Confirm add-on package purchases with credited resources
+- **Token purchase email**: Credit confirmation for token/credit purchases
+- **Team invitation email**: Invite collaborators to join projects
 
 ## Welcome email
 
@@ -386,6 +389,426 @@ The email addresses key post-purchase moments:
   The celebration emoji in the subject line and heading creates positive emotional association with the purchase.
 </Info>
 
+## Payment package email
+
+A specialized email confirming the purchase of additional resource packages, providing users with clear details about their credited requests.
+
+### Key features
+
+- Package activation confirmation with emoji
+- Detailed package information table
+- Total free requests credited display
+- Dashboard CTA for immediate access
+- Professional layout with bordered sections
+
+### Use cases
+
+- Confirm add-on package purchases
+- Credit account with additional resources
+- Provide clear purchase details
+- Drive users to utilize new capacity
+
+### Code
+
+```tsx softgen/3-payment-package-email.tsx
+import {
+  Body,
+  Button,
+  Container,
+  Head,
+  Hr,
+  Html,
+  Img,
+  Link,
+  Preview,
+  Section,
+  Tailwind,
+  Text,
+} from "@react-email/components";
+
+interface SoftgenPaymentPackageEmailProps {
+  packageName?: string;
+  totalFreeRequests?: number;
+}
+
+export default function SoftgenPaymentPackageEmail({
+  packageName = "Pro Package",
+  totalFreeRequests = 1000,
+}: SoftgenPaymentPackageEmailProps) {
+  return (
+    <Html>
+      <Head />
+      <Preview>Payment Confirmed - Softgen Package Activated</Preview>
+      <Tailwind>
+        <Body className="font-sans">
+          <Container className="mx-auto px-4 py-5">
+            <Section className="mt-8">
+              <Link href="https://softgen.ai">
+                <Img
+                  src="https://res.cloudinary.com/sutharjay/image/upload/v1740686249/me/projects/reactui-email/logo/softgen-light.svg"
+                  width="50"
+                  height="50"
+                  alt="Softgen Logo"
+                />
+              </Link>
+            </Section>
+
+            <Section className="mt-8">
+              <Text className="text-xl font-bold">Package Activated! 🎉</Text>
+            </Section>
+
+            <Section className="mt-2">
+              <Text className="text-base">Hello,</Text>
+              <Text className="text-base">
+                Your payment for the <span className="font-bold">{packageName}</span> package has
+                been successfully processed. Your account has been updated with additional resources
+                to support your project development with Softgen.
+              </Text>
+            </Section>
+
+            <Section className="mt-4">
+              <div style={{ border: "1px solid rgb(39 39 42 / 0.25)", borderRadius: "12px" }}>
+                <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                  <tbody>
+                    <tr>
+                      <td style={{ padding: "16px", borderBottom: "1px solid rgb(39 39 42 / 0.25)" }}>
+                        <Text className="m-0 text-lg font-semibold">Package Details</Text>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: "16px" }}>
+                        <table style={{ width: "100%" }}>
+                          <tbody>
+                            <tr>
+                              <td style={{ width: "40%", paddingBottom: "8px" }}>
+                                <Text className="m-0 text-sm font-medium text-zinc-500">Package</Text>
+                              </td>
+                              <td style={{ paddingBottom: "8px" }}>
+                                <Text className="m-0 text-sm font-bold">{packageName}</Text>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style={{ width: "40%" }}>
+                                <Text className="m-0 text-sm font-medium text-zinc-500">Total Free Requests</Text>
+                              </td>
+                              <td>
+                                <Text className="m-0 text-sm font-bold">{totalFreeRequests}</Text>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </Section>
+
+            <Section className="mt-4 text-center">
+              <Button
+                className="rounded-[8px] bg-white px-[24px] py-[12px] text-[14px] font-semibold text-zinc-900"
+                href="https://softgen.ai/dashboard"
+              >
+                Go to Dashboard →
+              </Button>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+### Customization
+
+<Accordion title="Modify package details">
+```tsx
+<SoftgenPaymentPackageEmail
+  packageName="Enterprise Package"
+  totalFreeRequests={10000}
+/>
+```
+</Accordion>
+
+<Accordion title="Add expiration date">
+```tsx
+<Text className="text-sm text-zinc-500">
+  Package valid until: December 31, 2024
+</Text>
+```
+</Accordion>
+
+## Token purchase email
+
+Confirms token purchases and provides users with details about tokens added to their account for continued development.
+
+### Key features
+
+- Token purchase confirmation
+- Package size and tokens added display
+- Immediate availability notification
+- Dashboard access CTA
+- Formatted number display for large token counts
+
+### Use cases
+
+- Confirm token/credit purchases
+- Display purchase details clearly
+- Encourage continued platform usage
+- Provide immediate access to resources
+
+### Code
+
+```tsx softgen/4-purchase-token-email.tsx
+import {
+  Body,
+  Button,
+  Container,
+  Head,
+  Hr,
+  Html,
+  Img,
+  Link,
+  Preview,
+  Section,
+  Tailwind,
+  Text,
+} from "@react-email/components";
+
+interface SoftgenPurchaseTokenEmailProps {
+  packageSize?: string;
+  tokensAdded?: number;
+}
+
+export default function SoftgenPurchaseTokenEmail({
+  packageSize = "Standard Package",
+  tokensAdded = 5000,
+}: SoftgenPurchaseTokenEmailProps) {
+  return (
+    <Html>
+      <Head />
+      <Preview>Token Purchase Confirmed - Your Softgen account has been credited</Preview>
+      <Tailwind>
+        <Body className="font-sans">
+          <Container className="mx-auto px-4 py-5">
+            <Section className="mt-8">
+              <Link href="https://softgen.ai">
+                <Img
+                  src="https://res.cloudinary.com/sutharjay/image/upload/v1740686249/me/projects/reactui-email/logo/softgen-light.svg"
+                  width="50"
+                  height="50"
+                  alt="Softgen Logo"
+                />
+              </Link>
+            </Section>
+
+            <Section className="mt-8">
+              <Text className="text-xl font-bold">Token Purchase Confirmed! 🎉</Text>
+            </Section>
+
+            <Section className="mt-2">
+              <Text className="text-base">Hello,</Text>
+              <Text className="text-base">
+                Your token purchase has been successfully processed. Your account has been credited
+                with additional tokens to support your development needs with Softgen.
+              </Text>
+            </Section>
+
+            <Section className="mt-4">
+              <div style={{ border: "1px solid rgb(39 39 42 / 0.25)", borderRadius: "12px" }}>
+                <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                  <tbody>
+                    <tr>
+                      <td style={{ padding: "16px", borderBottom: "1px solid rgb(39 39 42 / 0.25)" }}>
+                        <Text className="m-0 text-lg font-semibold">Purchase Details</Text>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{ padding: "16px" }}>
+                        <table style={{ width: "100%" }}>
+                          <tbody>
+                            <tr>
+                              <td style={{ width: "40%", paddingBottom: "8px" }}>
+                                <Text className="m-0 text-sm font-medium text-zinc-500">Package Size</Text>
+                              </td>
+                              <td style={{ paddingBottom: "8px" }}>
+                                <Text className="m-0 text-sm font-bold">{packageSize}</Text>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style={{ width: "40%" }}>
+                                <Text className="m-0 text-sm font-medium text-zinc-500">Tokens Added</Text>
+                              </td>
+                              <td>
+                                <Text className="m-0 text-sm font-bold">
+                                  {tokensAdded.toLocaleString()}
+                                </Text>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </Section>
+
+            <Section className="mt-4 text-center">
+              <Button
+                className="rounded-[8px] bg-white px-[24px] py-[12px] text-[14px] font-semibold text-zinc-900"
+                href="https://softgen.ai/dashboard"
+              >
+                Go to Dashboard →
+              </Button>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+### Customization
+
+<Accordion title="Modify token amounts">
+```tsx
+<SoftgenPurchaseTokenEmail
+  packageSize="Premium Package"
+  tokensAdded={25000}
+/>
+```
+</Accordion>
+
+## Team invitation email
+
+Invites users to collaborate on projects, providing a clear path for new and existing users to join team workspaces.
+
+### Key features
+
+- Clear invitation message with inviter details
+- Project name prominently displayed
+- Primary CTA for existing users
+- Secondary registration link for new users
+- Onboarding instructions for new users
+- Minimal, focused design
+
+### Use cases
+
+- Invite team members to projects
+- Onboard collaborators
+- Share workspace access
+- Convert invitations to registrations
+
+### Code
+
+```tsx softgen/5-team-invitation-email.tsx
+import {
+  Body,
+  Button,
+  Container,
+  Head,
+  Hr,
+  Html,
+  Img,
+  Link,
+  Preview,
+  Section,
+  Tailwind,
+  Text,
+} from "@react-email/components";
+
+interface SoftgenTeamInvitationEmailProps {
+  inviterEmail?: string;
+  projectName?: string;
+}
+
+export default function SoftgenTeamInvitationEmail({
+  inviterEmail = "inviter@example.com",
+  projectName = "My Awesome Project",
+}: SoftgenTeamInvitationEmailProps) {
+  return (
+    <Html>
+      <Head />
+      <Preview>Invitation to Collaborate on Softgen Project</Preview>
+      <Tailwind>
+        <Body className="font-sans">
+          <Container className="mx-auto px-4 py-5">
+            <Section className="mt-8">
+              <Link href="https://softgen.ai">
+                <Img
+                  src="https://res.cloudinary.com/sutharjay/image/upload/v1740686249/me/projects/reactui-email/logo/softgen-light.svg"
+                  width="50"
+                  height="50"
+                  alt="Softgen Logo"
+                />
+              </Link>
+            </Section>
+
+            <Section className="mt-8">
+              <Text className="text-xl font-bold">Project Invitation</Text>
+            </Section>
+
+            <Section className="mt-2">
+              <Text className="text-base">Hello,</Text>
+              <Text className="text-base">
+                <span className="font-bold">{inviterEmail}</span> has invited you to collaborate on
+                the project <span className="font-bold">{projectName}</span> on Softgen.
+              </Text>
+            </Section>
+
+            <Section className="mt-4 text-center">
+              <Button
+                className="rounded-[8px] bg-white px-[24px] py-[12px] text-[14px] font-semibold text-zinc-900"
+                href="https://softgen.ai/dashboard"
+              >
+                Access Project →
+              </Button>
+            </Section>
+
+            <Section className="mt-4">
+              <Text className="text-base">
+                New to Softgen?{" "}
+                <Link href="https://softgen.ai" className="text-primary underline">
+                  Register here
+                </Link>{" "}
+                to get started.
+              </Text>
+              <Text className="mt-2 text-base">
+                Once signed up, come back to this email and click on the{" "}
+                <span className="font-semibold">Access Project</span> button to join the
+                collaboration.
+              </Text>
+            </Section>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+}
+```
+
+### Customization
+
+<Accordion title="Customize invitation details">
+```tsx
+<SoftgenTeamInvitationEmail
+  inviterEmail="john@company.com"
+  projectName="E-commerce Platform"
+/>
+```
+</Accordion>
+
+<Accordion title="Add role information">
+```tsx
+<Text className="text-base">
+  You've been invited as a <span className="font-bold">Developer</span>
+</Text>
+```
+</Accordion>
+
 ## Design system
 
 <Tabs>
@@ -417,11 +840,13 @@ The email addresses key post-purchase moments:
 
 ## Email sequence
 
-Softgen demonstrates a minimal, focused email strategy:
+Softgen demonstrates a comprehensive transactional email strategy:
 
 1. **Welcome**: Immediate after signup
-2. **Payment confirmation**: After successful payment
-3. **Activation**: Drive to dashboard setup
+2. **Payment confirmation**: After successful subscription payment
+3. **Payment package**: When users purchase add-on resource packages
+4. **Token purchase**: When users buy additional tokens/credits
+5. **Team invitation**: When users invite collaborators to projects
 
 ### Minimalist approach benefits
 
